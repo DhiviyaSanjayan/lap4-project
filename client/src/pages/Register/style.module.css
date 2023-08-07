@@ -1,0 +1,32 @@
+.container {
+  place-self: center;
+  display: grid;
+  width: 220px;
+  text-align: center;
+}
+
+.container form {
+  display: grid;
+  row-gap: 0.8rem;
+}
+
+.container button {
+  place-self: stretch;
+  font-size: 1.125rem;
+  background-color: lightgrey;
+  border: 2px solid;
+  padding: 7px 20px;
+  border-radius: 100vmax;
+  cursor: pointer;
+}
+
+.container p {
+  padding: 7px 20px;
+  border-radius: 100vmax;
+  background-color: lightgrey;
+  font-weight: 500;
+}
+
+.container a {
+  font-weight: 500;
+}
