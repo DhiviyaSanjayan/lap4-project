@@ -1,0 +1,29 @@
+.password-container {
+  display: grid;
+  place-self: stretch;
+  position: relative;
+}
+
+.password-container > input {
+  padding: 7px 20px;
+  border-radius: 100vmax;
+  font-size: 1.125rem;
+  border: 2px solid;
+}
+
+.password-container > input::placeholder {
+  position: relative;
+}
+
+.password-toggler {
+  position: absolute;
+  bottom: 50%;
+  right: 0;
+  font-size: 0;
+  transform: translate(-100%, 50%);
+  cursor: pointer;
+}
+
+.password-toggler:hover {
+  opacity: 0.4;
+}
