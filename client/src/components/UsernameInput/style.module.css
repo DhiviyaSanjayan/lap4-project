@@ -1,0 +1,13 @@
+.input {
+  padding: 0.5em;
+  border-radius: 100vmax;
+  font-size: 1.125rem;
+  background-color: #ffffff29;
+  border: 2px solid;
+  padding: 7px 20px;
+  border-radius: 100vmax;
+}
+
+.input::placeholder {
+  position: relative;
+}

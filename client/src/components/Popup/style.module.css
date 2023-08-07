@@ -1,0 +1,22 @@
+
+.container {
+  position: absolute;
+  left: 50%;
+  top: 30px;
+  transform: translateX(-50%);
+
+  text-align: center;
+  opacity: 0;
+  z-index: 1000000000000;
+  font-size: 1.125rem;
+  border-radius: 20px;
+  background-color: #1c253c;
+  color: #4deeea;
+  border: 2px solid #4deeea;
+  padding: 1.5rem;
+  transition: opacity ease-in-out 1s;
+}
+
+:global(.popup-fade-in) {
+  opacity: 1;
+}
