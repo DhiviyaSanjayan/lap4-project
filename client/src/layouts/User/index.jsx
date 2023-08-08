@@ -13,6 +13,7 @@ export default function User() {
         <header className={style["nav-bar"]}>
           <nav className={style["nav"]}>
             <NavLink to="/dashboard">Dashboard</NavLink>
+            <NavLink to="/plant-identifier">Plant Identifier</NavLink>
             <NavLink to="/profile">Profile</NavLink>
           </nav>
         </header>
