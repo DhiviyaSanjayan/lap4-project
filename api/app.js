@@ -3,7 +3,6 @@ const cors = require("cors");
 
 const logRoutes = require("./middleware/logger");
 const userRouter = require("./routers/user");
-// const plantRouter = require("./routers/plant");
 
 const app = express();
 
@@ -19,6 +18,5 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", userRouter);
-// app.use("/plants", plantRouter);
 
 module.exports = app;

@@ -24,12 +24,4 @@ INSERT INTO users (first_name, last_name, email, password)
 VALUES ('Nastasia', 'Smith', 'nsm@mail.com', '123'),
        ('Tom', 'Jerry', 'tom@mail.com', '789');
 
--- CREATE TABLE plants (
---     plant_id INT GENERATED ALWAYS AS IDENTITY,
---     plant_name VARCHAR(200) UNIQUE NOT NULL,
---     image VARCHAR(200) NULL,
---     user_id INT NOT NULL,
---     PRIMARY KEY (plant_id),
---     FOREIGN KEY (user_id) REFERENCES users(user_id)
 
--- );

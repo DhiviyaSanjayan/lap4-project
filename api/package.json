@@ -4,19 +4,39 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -L ./index.js",
     "setup-db": "node ./database/setup.js",
-    "dev": "nodemon -L ./index.js"
+    "setup-test-db": "node ./database/setup-test-db.js",
+    "test": "jest --setupFiles ./__tests__/integration/config.js --watchAll --verbose --detectOpenHandles",
+    "unitTests": "jest --testPathPattern=/unit/ --watchAll --verbose",
+    "coverage": "jest --testPathPattern=/unit/ --coverage",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "pg": "^8.11.2",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.6.2",
+    "jsdom": "^22.1.0",
+    "live-server": "^1.2.2",
+    "nodemon": "^3.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testPathIgnorePatterns": [
+      "/__tests__/integration/config.js"
+    ]
   }
 }
