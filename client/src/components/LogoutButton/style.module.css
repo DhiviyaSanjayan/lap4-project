@@ -2,9 +2,9 @@
     padding: 0.5em;
     border-radius: 5px;
     font-size: 1.125rem;
-    background-color: #ffffff29;
-    color: #3dfffc;
-    border: 2px solid #4deeea;
+    background-color: lightgray;
+    color: black;
+    border: 2px solid;
     padding: 7px 20px;
     cursor: pointer;
 }

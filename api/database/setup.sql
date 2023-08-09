@@ -1,14 +1,15 @@
 DROP TABLE IF EXISTS token;
+
 DROP TABLE IF EXISTS plants;
+
 DROP TABLE IF EXISTS users;
 
+DROP TABLE IF EXISTS user_account;
 
-CREATE TABLE users (
+CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password CHAR(60) UNIQUE NOT NULL,
+    username VARCHAR(30) UNIQUE NOT NULL,
+    password CHAR(60) NOT NULL,
     PRIMARY KEY (user_id)
 );
 
@@ -17,12 +18,17 @@ CREATE TABLE token (
     user_id INT NOT NULL,
     token CHAR(36) UNIQUE NOT NULL,
     PRIMARY KEY (token_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
-INSERT INTO users (first_name, last_name, email, password)
-VALUES ('Nastasia', 'Smith', 'nsm@mail.com', '123'),
-       ('Tom', 'Jerry', 'tom@mail.com', '789');
+-- the password is 1
+INSERT INTO
+    user_account (username, password)
+VALUES
+    (
+        'cors',
+        '$2b$10$.pj1LTt4HxpVVg6fZDhdFOMBfiywBTikuDqx3KjDy85aJNyZ4IoJC'
+    );
 
 -- CREATE TABLE plants (
 --     plant_id INT GENERATED ALWAYS AS IDENTITY,
@@ -31,5 +37,4 @@ VALUES ('Nastasia', 'Smith', 'nsm@mail.com', '123'),
 --     user_id INT NOT NULL,
 --     PRIMARY KEY (plant_id),
 --     FOREIGN KEY (user_id) REFERENCES users(user_id)
-
 -- );

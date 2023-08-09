@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
 
 import {
   Login,
@@ -9,10 +8,11 @@ import {
   NotFound,
   GetStarted,
   AddPlant
+  PlantIdentifier,
 } from "./pages";
 
 import { AuthProvider } from "./contexts";
-import { Welcome, User } from "./layouts";
+import { Guest, User } from "./layouts";
 
 import { Popup } from "./components";
 
@@ -23,7 +23,7 @@ function App() {
     <>
       <AuthProvider>
         <Routes>
-          <Route element={<Welcome />}>
+          <Route element={<Guest />}>
             <Route path="/" element={<GetStarted />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -31,6 +31,7 @@ function App() {
           </Route>
           <Route element={<User />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/plant-identifier" element={<PlantIdentifier />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
           </Route>
