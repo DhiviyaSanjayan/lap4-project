@@ -6,6 +6,7 @@
 
 .container {
   display: grid;
+  place-items: center;
   margin: 2.5rem;
   max-width: 1300px;
 }
