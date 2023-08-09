@@ -1,6 +1,6 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-const User = require("../models/user");
+const User = require("../models/User");
 const Token = require("../models/token");
 
 class UserController {
@@ -41,13 +41,11 @@ class UserController {
         throw new Error("Wrong username or password");
       } else {
         const token = await Token.create(user["id"]);
-        res
-          .status(201)
-          .json({
-            authenticated: true,
-            token: token.token,
-            user: user.username,
-          });
+        res.status(201).json({
+          authenticated: true,
+          token: token.token,
+          user: user.username,
+        });
       }
     } catch (error) {
       res.status(403).json({ error: error.message });
@@ -69,7 +67,11 @@ class UserController {
     const tokenObj = req.tokenObj;
     try {
       await tokenObj.deleteToken();
-      res.status(202).json({ message: "Your token has been deleted and you've been logged out" });
+      res
+        .status(202)
+        .json({
+          message: "Your token has been deleted and you've been logged out",
+        });
     } catch (error) {
       res.status(403).json({ error: error.message });
     }
