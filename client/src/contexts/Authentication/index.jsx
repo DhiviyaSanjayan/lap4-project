@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
           },
         };
         const { status, data } = await axios.get(
-          `${import.meta.env.VITE_SERVER}/users`,
+          `${import.meta.env.VITE_SERVER}/users/details`,
           config
         );
         
