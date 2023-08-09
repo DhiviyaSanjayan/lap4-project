@@ -9,6 +9,7 @@ export default function Profile() {
       <div className={style["outer-container"]}>
         <main id="profile" className={style["container"]}>
           Profile Page
+          <LogoutButton />
         </main>
       </div>
     </>
