@@ -8,6 +8,7 @@ const PlantPage = () => {
   const [lastPage, setLastPage] = useState(1);
   const [indoorFilter, setIndoorFilter] = useState(false);
   const [poisonousFilter, setPoisonousFilter] = useState(false);
+  const [wateringFilter, setWateringFilter] = useState("");
 
   useEffect(() => {
     async function loadPlants() {
@@ -19,6 +20,9 @@ const PlantPage = () => {
       if (poisonousFilter) {
         url += "&poisonous=NULL";
       }
+      if (wateringFilter) {
+        url += `&watering=${wateringFilter}`;
+      }
       if (searchQuery) {
         url += `&q=${searchQuery}`; 
       }
@@ -29,7 +33,7 @@ const PlantPage = () => {
     }
 
     loadPlants();
-  }, [page, indoorFilter, poisonousFilter, searchQuery]); 
+  }, [page, indoorFilter, poisonousFilter, wateringFilter, searchQuery]); 
 
   function displayPlants() {
     return plants.map((p) => (
@@ -74,6 +78,17 @@ const PlantPage = () => {
           checked={poisonousFilter}
           onChange={() => setPoisonousFilter(!poisonousFilter)}
         />
+      </label>
+      <label>
+        Watering Frequency
+        <select
+          value={wateringFilter}
+          onChange={(e) => setWateringFilter(e.target.value)}>
+          <option value="">Select</option>
+          <option value="frequent">Frequent</option>
+          <option value="average">Average</option>
+          <option value="minimum">Minimum</option>
+        </select>
       </label>
       <div className="plant-main">{displayPlants()}</div>
       <div className="pagination">
