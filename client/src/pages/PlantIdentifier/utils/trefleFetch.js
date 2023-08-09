@@ -9,9 +9,8 @@ import axios from "axios";
 export default async function trefleFetch(path) {
   try {
     const { data } = await axios.get(
-      `${import.meta.env.VITE_SERVER}/trefle-api/${path}`
+      `${import.meta.env.VITE_SERVER}/trefle-api${path}`
     );
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

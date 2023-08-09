@@ -5,8 +5,8 @@ import axios from "axios";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // const [user, setUser] = useState(null);
-  const [user, setUser] = useState("One With The CORS");
+  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState("One With The CORS");
   const goTo = useNavigate();
 
   useEffect(() => {
@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
           `${import.meta.env.VITE_SERVER}/users`,
           config
         );
+        
         if (status === 200) {
           setUser(data);
         } else {
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
-    // getUserDataByToken();
+    getUserDataByToken();
   }, [localStorage.getItem("token")]);
 
   return (
