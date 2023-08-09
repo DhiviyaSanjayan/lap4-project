@@ -1,16 +1,21 @@
 import { useState } from "react";
-import trefleFetch from "./trefleFetch";
 
-import axios from "axios";
+import { FlowerColorFilter, FetchResultButton, FilterResults } from "./components";
+import { PlantFilterProvider } from "./contexts";
+import styles from "./style.module.css";
 
 export default function PlantIdentifier() {
-  const [plantInfo, setPlantInfo] = useState();
-
-  const fetchPlantData = async () => {
-    const data = await trefleFetch('plants')
-    
-  };
-
-  fetchPlantData();
-  return plantInfo && <div>{plantInfo}</div>;
+  
+  return (
+    <PlantFilterProvider>
+      <main className={styles["container"]}>
+        <div>
+        <FlowerColorFilter />
+        <FetchResultButton />
+        </div>
+        
+        <FilterResults />
+      </main>
+    </PlantFilterProvider>
+  );
 }
