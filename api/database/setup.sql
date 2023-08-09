@@ -6,6 +6,8 @@ DROP TABLE IF EXISTS users;
 
 DROP TABLE IF EXISTS user_account;
 
+DROP TABLE IF EXISTS garden;
+
 CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(30) UNIQUE NOT NULL,
@@ -38,3 +40,16 @@ VALUES
 --     PRIMARY KEY (plant_id),
 --     FOREIGN KEY (user_id) REFERENCES users(user_id)
 -- );
+
+
+CREATE TABLE garden(
+    garden_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    weather INT,
+    soil_quality INT,
+    pest_level INT CHECK (pest_level BETWEEN 1 AND 100),
+    water_level INT,
+    PRIMARY KEY (garden_id),
+    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
+);
