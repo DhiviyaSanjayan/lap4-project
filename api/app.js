@@ -1,14 +1,16 @@
 const express = require("express");
 const cors = require("cors");
+const logger = require("morgan");
 
-const logRoutes = require("./middleware/logger");
 const userRouter = require("./routers/user");
+const trefleRouter = require("./routers/trefle");
+// const plantRouter = require("./routers/plant");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(logRoutes);
+app.use(logger('tiny'));
 
 app.get("/", (req, res) => {
   res.json({
@@ -18,5 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", userRouter);
+app.use("/trefle-api", trefleRouter)
+// app.use("/plants", plantRouter);
 
 module.exports = app;
