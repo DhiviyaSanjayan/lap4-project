@@ -8,6 +8,7 @@ import {
   Profile,
   NotFound,
   GetStarted,
+  PlantPage,
 } from "./pages";
 
 import { AuthProvider } from "./contexts";
@@ -30,6 +31,7 @@ function App() {
           <Route element={<User />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/plants" element={<PlantPage />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="*" element={<Navigate to="/login" />} />
