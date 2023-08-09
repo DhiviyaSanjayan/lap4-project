@@ -7,6 +7,7 @@ const PlantPage = () => {
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [indoorFilter, setIndoorFilter] = useState(false);
+  const [poisonousFilter, setPoisonousFilter] = useState(false);
 
   useEffect(() => {
     async function loadPlants() {
@@ -14,6 +15,9 @@ const PlantPage = () => {
       let url = `https://perenual.com/api/species-list?page=${page}&key=${key}`;
       if (indoorFilter) {
         url += "&indoor=1";
+      }
+      if (poisonousFilter) {
+        url += "&poisonous=NULL";
       }
       if (searchQuery) {
         url += `&q=${searchQuery}`; 
@@ -25,7 +29,7 @@ const PlantPage = () => {
     }
 
     loadPlants();
-  }, [page, indoorFilter, searchQuery]); 
+  }, [page, indoorFilter, poisonousFilter, searchQuery]); 
 
   function displayPlants() {
     return plants.map((p) => (
@@ -61,6 +65,14 @@ const PlantPage = () => {
           type="checkbox"
           checked={indoorFilter}
           onChange={() => setIndoorFilter(!indoorFilter)}
+        />
+      </label>
+      <label>
+      Non-Poisonous Plants Only
+        <input
+          type="checkbox"
+          checked={poisonousFilter}
+          onChange={() => setPoisonousFilter(!poisonousFilter)}
         />
       </label>
       <div className="plant-main">{displayPlants()}</div>
