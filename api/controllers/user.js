@@ -1,79 +1,79 @@
-const User = require("../models/User");
+require("dotenv").config();
 const bcrypt = require("bcrypt");
+const User = require("../models/user");
 const Token = require("../models/token");
 
-async function index(req, res) {
-  try {
-    const users = await User.getAll();
-    res.status(200).json(users);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-}
+class UserController {
+  static async register(req, res) {
+    try {
+      const data = req.body;
+      const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
 
-async function register(req, res) {
-  try {
-    const data = req.body;
-    const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
+      const salt = await bcrypt.genSalt(rounds);
+      data["password"] = await bcrypt.hash(data["password"], salt);
 
-    data.password = await bcrypt.hash(data.password, salt);
+      const result = await User.createUser(data);
 
-    const result = await User.create(data);
-
-    res.status(201).send(result);
-  } catch (err) {
-    res.status(400).send({ error: "Could not register" });
-  }
-}
-
-async function login(req, res) {
-  try {
-    const data = req.body;
-    const user = await User.getOneByEmail(data.email);
-    const authenticated = await bcrypt.compare(data.password, user.password);
-
-    if (!authenticated) {
-      throw new Error("Password does not match");
-    } else {
-      const token = await Token.create(user.id);
-      res.status(200).send({ authenticated: true, token: token });
+      res.status(201).send(result);
+    } catch (error) {
+      switch (+error.code) {
+        case 23505:
+          res
+            .status(500)
+            .json({ Error: "A user with username already exists" });
+          break;
+        default:
+          res.status(500).json({ error: error.message });
+          break;
+      }
     }
-  } catch (err) {
-    res.status(401).send({ error: "Could not log in" });
   }
-}
 
-async function destroy(req, res) {
-  try {
-    const userId = req.params.id;
-    const user = await User.getOneById(userId);
-    const result = await user.destroy();
-    res.status(204).end();
-  } catch (err) {
-    res.status(404).send({ error: err.message });
-  }
-}
-
-async function update(req, res) {
-  try {
-    const id = parseInt(req.params.id);
+  static async login(req, res) {
     const data = req.body;
-    const user = await User.getOneById(id);
-    const result = await user.update(data);
-    res.status(200).json(result);
-  } catch (err) {
-    res.status(404).send({ error: err.message });
+    try {
+      const user = await User.getOneByUsername(data.username);
+      const authenticated = await bcrypt.compare(
+        data.password,
+        user["password"]
+      );
+      if (!authenticated) {
+        throw new Error("Wrong username or password");
+      } else {
+        const token = await Token.create(user["id"]);
+        res
+          .status(201)
+          .json({
+            authenticated: true,
+            token: token.token,
+            user: user.username,
+          });
+      }
+    } catch (error) {
+      res.status(403).json({ error: error.message });
+    }
+  }
+
+  static async getProfileDetails(req, res) {
+    const user_id = req.tokenObj.user_id;
+    try {
+      const result = await User.getOneById(user_id);
+      delete result.password;
+      res.status(200).send(result);
+    } catch (error) {
+      res.status(404).json({ error: error.message });
+    }
+  }
+
+  static async logout(req, res) {
+    const tokenObj = req.tokenObj;
+    try {
+      await tokenObj.deleteToken();
+      res.status(202).json({ message: "Your token has been deleted and you've been logged out" });
+    } catch (error) {
+      res.status(403).json({ error: error.message });
+    }
   }
 }
 
-async function show(req, res) {
-  try {
-    const id = parseInt(req.params.id);
-    const user = await User.getOneById(id);
-    res.json(user);
-  } catch (err) {
-    res.status(404).send({ error: err.message });
-  }
-}
-
-module.exports = { index, register, login, destroy, update, show };
+module.exports = UserController;

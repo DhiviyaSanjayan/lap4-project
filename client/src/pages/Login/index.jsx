@@ -18,21 +18,20 @@ export default function Login() {
 
   const loginUser = async (e) => {
     e.preventDefault();
-
     const userDetails = new FormData(e.target);
-
+    
     try {
       const config = {
         username: userDetails.get("username"),
         password: userDetails.get("password"),
       };
-
+      
       const { status, data } = await axios.post(
         `${import.meta.env.VITE_SERVER}/users/login`,
         config
       );
-
-      if (status === 200) {
+      
+      if (status === 201) {
         localStorage.setItem("token", data.token);
         setUser(data.user);
         goTo("/dashboard");

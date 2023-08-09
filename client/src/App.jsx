@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
 
 import {
   Login,
@@ -12,7 +11,7 @@ import {
 } from "./pages";
 
 import { AuthProvider } from "./contexts";
-import { Welcome, User } from "./layouts";
+import { Guest, User } from "./layouts";
 
 import { Popup } from "./components";
 
@@ -23,7 +22,7 @@ function App() {
     <>
       <AuthProvider>
         <Routes>
-          <Route element={<Welcome />}>
+          <Route element={<Guest />}>
             <Route path="/" element={<GetStarted />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
