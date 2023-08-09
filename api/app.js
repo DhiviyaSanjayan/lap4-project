@@ -4,6 +4,7 @@ const cors = require("cors");
 const logRoutes = require("./middleware/logger");
 const userRouter = require("./routers/user");
 // const plantRouter = require("./routers/plant");
+const visionaiRouter = require("#./routers/visionai")
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.get("/", (req, res) => {
 
 app.use("/users", userRouter);
 // app.use("/plants", plantRouter);
+app.use("/visionai", visionaiRouter);
 
 module.exports = app;

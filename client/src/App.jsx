@@ -8,6 +8,7 @@ import {
   Profile,
   NotFound,
   GetStarted,
+  AddPlant
 } from "./pages";
 
 import { AuthProvider } from "./contexts";
@@ -26,6 +27,7 @@ function App() {
             <Route path="/" element={<GetStarted />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/addplant" element={<AddPlant />} />
           </Route>
           <Route element={<User />}>
             <Route path="/dashboard" element={<Dashboard />} />
