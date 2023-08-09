@@ -29,7 +29,8 @@
     "jest": "^29.6.2",
     "jsdom": "^22.1.0",
     "live-server": "^1.2.2",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
   },
   "jest": {
     "testEnvironment": "node",
@@ -39,6 +40,5 @@
     "testPathIgnorePatterns": [
       "/__tests__/integration/config.js"
     ]
-    "nodemon": "^3.0.1"
   }
 }
