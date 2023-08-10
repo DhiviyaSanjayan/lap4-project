@@ -4,6 +4,10 @@ const PlantFilterContext = createContext();
 
 export const PlantFilterProvider = ({ children }) => {
   const [flowerColors, setFlowerColors] = useState(["yellow"]);
+  const [foliageColors, setFoliageColors] = useState(["green"]);
+  const [foliageTextures, setFoliageTextures] = useState(["fine"]);
+  const [isFlowerEasilyVisible, setIsFlowerEasilyVisible] = useState(true);
+
   const [filterResults, setFilterResults] = useState([]);
 
   return (
@@ -11,8 +15,14 @@ export const PlantFilterProvider = ({ children }) => {
       value={{
         flowerColors,
         setFlowerColors,
+        foliageColors,
+        setFoliageColors,
         filterResults,
         setFilterResults,
+        foliageTextures,
+        setFoliageTextures,
+        isFlowerEasilyVisible,
+        setIsFlowerEasilyVisible
       }}
     >
       {children}
