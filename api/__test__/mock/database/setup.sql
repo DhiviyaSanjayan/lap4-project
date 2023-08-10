@@ -26,22 +26,6 @@ CREATE TABLE token (
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
-CREATE TABLE animal (
-    animal_id INT GENERATED ALWAYS AS IDENTITY,
-    user_id INT NOT NULL,
-    name VARCHAR(100),
-    wellbeing INT CHECK (
-        wellbeing >= 1
-        AND wellbeing <= 100
-    ),
-    influence INT CHECK (
-        influence >= 1
-        AND influence <= 10
-    ),
-    PRIMARY KEY (animal_id),
-    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
-);
-
 CREATE TABLE plant (
     plant_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
@@ -100,5 +84,21 @@ CREATE TABLE garden (
         AND 100
     ),
     PRIMARY KEY (garden_id),
+    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
+);
+
+CREATE TABLE animal (
+    animal_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    name VARCHAR(100),
+    wellbeing FLOAT NOT NULL DEFAULT 50 CHECK (
+        wellbeing BETWEEN 0
+        AND 100
+    ),
+    influence FLOAT NOT NULL DEFAULT 50 CHECK (
+        influence BETWEEN 0
+        AND 100
+    ),
+    PRIMARY KEY (animal_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
