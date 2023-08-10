@@ -10,6 +10,8 @@ DROP TABLE IF EXISTS garden;
 
 DROP TABLE IF EXISTS user_account;
 
+DROP TABLE IF EXISTS animal;
+
 CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(30) UNIQUE NOT NULL,
@@ -27,6 +29,15 @@ CREATE TABLE token (
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
+<<<<<<< HEAD
+CREATE TABLE animal (
+    animal_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    name VARCHAR(100),
+    wellbeing INT CHECK (wellbeing >= 1 AND wellbeing <= 100),
+    influence INT CHECK (influence >= 1 AND influence <= 10),
+    PRIMARY KEY (animal_id),
+=======
 CREATE TABLE plant (
     plant_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
@@ -60,6 +71,7 @@ CREATE TABLE plant (
     creation_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     last_update_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (plant_id),
+>>>>>>> 96a62fe2ecd9d4bbe25523ee0aec197d9adfa04a
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
