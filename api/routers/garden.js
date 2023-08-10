@@ -6,10 +6,9 @@ const gardenRouter = Router();
 
 gardenRouter.use(authenticator);
 
-gardenRouter.get("/", gardenController.index);
-gardenRouter.post("/", gardenController.create);
-gardenRouter.delete("/:id", gardenController.destroy);
-gardenRouter.patch("/:id", gardenController.update);
-gardenRouter.get("/:id", gardenController.show);
+gardenRouter.get("/", gardenController.getMyGarden);
+gardenRouter.post("/", gardenController.createMyGarden);
+gardenRouter.patch("/", gardenController.updateThisGarden);
+gardenRouter.delete("/", gardenController.deleteThisGarden);
 
 module.exports = gardenRouter;
