@@ -16,7 +16,7 @@ describe("User MVC", () => {
 
   let token;
   const registerDetails = {
-    username: "Joanna",
+    username: "user",
     password: "password",
   };
 
@@ -28,7 +28,7 @@ describe("User MVC", () => {
       .expect(201);
 
     const userObj = response.body;
-    expect(userObj).toHaveProperty("username", "Joanna");
+    expect(userObj).toHaveProperty("username", "user");
   });
 
   //POST - ERROR
@@ -71,7 +71,7 @@ describe("User MVC", () => {
     await request(app)
       .post("/users/login")
       .send({
-        username: "Joanna",
+        username: "user",
         password: "pass",
       })
       .expect(403);
@@ -88,7 +88,7 @@ describe("User MVC", () => {
     let { error } = response1.body;
     expect(error).toBeDefined();
 
-    //   const response2 = await request(app).get("/users/details").expect(403);
+    const response2 = await request(app).get("/users/details").expect(403);
 
     ({ error } = response2.body);
     expect(error).toBeDefined();
@@ -101,52 +101,51 @@ describe("User MVC", () => {
       .set({ authorization: token })
       .expect(200);
 
-    //   const userObj = response.body;
-    //   expect(userObj).toHaveProperty("username", "user");
-    // });
+    const userObj = response.body;
+    expect(userObj).toHaveProperty("username", "user");
+  });
 
-    //PATCH - SUCCESS
-    it("Should update user details", async () => {
-      const accountDetails = {
-        exp: 6030,
-        coins: 9000,
-      };
-      const response = await request(app)
-        .patch("/users/update")
-        .set({ authorization: token })
-        .send(accountDetails)
-        .expect(202);
+  //PATCH - SUCCESS
+  it("Should update user details", async () => {
+    const accountDetails = {
+      exp: 6030,
+      coins: 9000,
+    };
+    const response = await request(app)
+      .patch("/users/update")
+      .set({ authorization: token })
+      .send(accountDetails)
+      .expect(202);
 
-      const userObj = response.body;
-      expect(userObj).toHaveProperty("username", registerDetails.username);
-      expect(userObj.exp).toBe(6030);
-      expect(userObj.coins).toBe(9000);
-    });
+    const userObj = response.body;
+    expect(userObj).toHaveProperty("username", registerDetails.username);
+    expect(userObj.exp).toBe(6030);
+    expect(userObj.coins).toBe(9000);
+  });
 
-    //DELETE - SUCCESS
-    it("Should logout", async () => {
-      await request(app)
-        .delete("/users/logout")
-        .set({ authorization: token })
-        .expect(202);
-    });
+  //DELETE - SUCCESS
+  it("Should logout", async () => {
+    await request(app)
+      .delete("/users/logout")
+      .set({ authorization: token })
+      .expect(202);
+  });
 
-    //DELETE - SUCCESS
-    it("Should delete an account", async () => {
-      token = await getValidToken("user5", "1");
-      await request(app)
-        .get(`/users/details`)
-        .set({ authorization: token })
-        .expect(200);
-      await request(app)
-        .delete("/users")
-        .set({ authorization: token })
-        .expect(204);
-      //because delete users endpoint removes all tokens you get a "not authenticated" 403 forbidden error
-      await request(app)
-        .get(`/users/details`)
-        .set({ authorization: token })
-        .expect(403);
-    });
+  //DELETE - SUCCESS
+  it("Should delete an account", async () => {
+    token = await getValidToken("user5", "1");
+    await request(app)
+      .get(`/users/details`)
+      .set({ authorization: token })
+      .expect(200);
+    await request(app)
+      .delete("/users")
+      .set({ authorization: token })
+      .expect(204);
+    //because delete users endpoint removes all tokens you get a "not authenticated" 403 forbidden error
+    await request(app)
+      .get(`/users/details`)
+      .set({ authorization: token })
+      .expect(403);
   });
 });
