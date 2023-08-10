@@ -15,6 +15,7 @@ export default function User() {
             <NavLink to="/dashboard">Dashboard</NavLink>
             <NavLink to="/plant-identifier">Plant Identifier</NavLink>
             <NavLink to="/plants">Plants</NavLink>
+            <NavLink to="/garden">Garden</NavLink>
             <NavLink to="/profile">Profile</NavLink>
           </nav>
         </header>
