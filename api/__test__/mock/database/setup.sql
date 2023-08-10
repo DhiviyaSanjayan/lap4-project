@@ -6,6 +6,8 @@ DROP TABLE IF EXISTS plant;
 
 DROP TABLE IF EXISTS users;
 
+DROP TABLE IF EXISTS garden;
+
 DROP TABLE IF EXISTS user_account;
 
 DROP TABLE IF EXISTS animal;
@@ -72,3 +74,15 @@ CREATE TABLE plant (
 >>>>>>> 96a62fe2ecd9d4bbe25523ee0aec197d9adfa04a
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
+
+CREATE TABLE garden(
+    garden_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    weather INT,
+    soil_quality INT,
+    pest_level INT CHECK (pest_level BETWEEN 0 AND 100),
+    water_level INT,
+    PRIMARY KEY (garden_id),
+    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
+);    
