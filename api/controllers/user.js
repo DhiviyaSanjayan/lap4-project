@@ -1,6 +1,6 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-const User = require("../models/user");
+const User = require("../models/User");
 const Token = require("../models/token");
 
 class UserController {
