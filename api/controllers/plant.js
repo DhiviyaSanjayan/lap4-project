@@ -1,4 +1,4 @@
-const Plant = require("../models/plant");
+const Plant = require("../models/Plant");
 
 class PlantController {
   //READ ALL
