@@ -1,17 +1,18 @@
 const Animal = require("../models/Animal");
+const authenticator = require("../middleware/authenticator");
 
 class AnimalController {
   static async getAllAnimals(req, res) {
+    console.log("Handling getAllAnimals request...");
     const user_id = req.tokenObj.user_id;
     try {
-      const allAnimals = await Animal.getAllAnimals();
+      const allAnimals = await Animal.getAllAnimals(user_id);
       res.status(200).json(allAnimals);
     } catch (error) {
       console.error("Error fetching all animals:", error);
       res.status(500).json({ error: error.message });
     }
   }
-
   static async createAnimal(req, res) {
     const user_id = req.tokenObj.user_id;
     try {
