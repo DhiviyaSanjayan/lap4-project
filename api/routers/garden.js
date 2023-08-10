@@ -1,7 +1,10 @@
 const { Router } = require("express");
 const gardenController = require("../controllers/garden.js");
+const authenticator = require("../middleware/authenticator");
 
 const gardenRouter = Router();
+
+gardenRouter.use(authenticator);
 
 gardenRouter.get("/", gardenController.index);
 gardenRouter.post("/", gardenController.create);

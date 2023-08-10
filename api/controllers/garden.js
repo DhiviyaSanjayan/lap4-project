@@ -1,6 +1,8 @@
 const Garden = require("../models/Garden.js");
 
+
 async function index(req, res) {
+  const user_id = req.tokenObj.user_id;
   try {
     const gardens = await Garden.getAll();
     res.status(200).json(gardens);
@@ -10,6 +12,7 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
+  const user_id = req.tokenObj.user_id;
   try {
     const id = parseInt(req.params.id);
     const garden = await Garden.getOneById(id);
@@ -20,6 +23,7 @@ async function show(req, res) {
 }
 
 async function create(req, res) {
+  const user_id = req.tokenObj.user_id;
   try {
     const garden = await Garden.create(req.body);
     res.status(201).json(garden);
@@ -29,6 +33,7 @@ async function create(req, res) {
 }
 
 async function update(req, res) {
+  const user_id = req.tokenObj.user_id;
   try {
     const id = parseInt(req.params.id);
     const data = req.body;
@@ -41,6 +46,7 @@ async function update(req, res) {
 }
 
 async function destroy(req, res) {
+  const user_id = req.tokenObj.user_id;
     try {
       const id = parseInt(req.params.id);
       const garden = await Garden.getOneById(id);

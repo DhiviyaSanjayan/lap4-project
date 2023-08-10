@@ -48,7 +48,7 @@ CREATE TABLE garden(
     name VARCHAR(100) NOT NULL,
     weather INT,
     soil_quality INT,
-    pest_level INT CHECK (pest_level BETWEEN 1 AND 100),
+    pest_level INT CHECK (pest_level BETWEEN 0 AND 100),
     water_level INT,
     PRIMARY KEY (garden_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)

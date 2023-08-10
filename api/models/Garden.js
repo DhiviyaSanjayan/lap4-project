@@ -11,8 +11,10 @@ class Garden {
       this.water_level =  water_level;
     }
 
-    static async getAll() {
-        const response = await db.query("SELECT * FROM garden ORDER BY garden_id;");
+    static async getAll(user_id) {
+        const response = await db.query("SELECT * FROM garden WHERE user_id = $1 ORDER BY garden_id;", [
+          user_id,
+      ]);
         return response.rows.map((g) => new Garden(g));
       }
     
