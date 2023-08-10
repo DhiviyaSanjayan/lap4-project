@@ -5,7 +5,7 @@ const logger = require("morgan");
 const userRouter = require("./routers/user");
 const trefleRouter = require("./routers/trefle");
 // const plantRouter = require("./routers/plant");
-const visionaiRouter = require("#./routers/visionai")
+const visionaiRouter = require("./routers/visionai")
 
 const app = express();
 
