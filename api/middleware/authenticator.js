@@ -11,7 +11,7 @@ async function authenticator(req, res, next) {
       next();
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(403).json({ error: "User not authenticated" });
   }
 }

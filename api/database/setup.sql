@@ -6,9 +6,9 @@ DROP TABLE IF EXISTS plant;
 
 DROP TABLE IF EXISTS users;
 
-DROP TABLE IF EXISTS user_account;
-
 DROP TABLE IF EXISTS garden;
+
+DROP TABLE IF EXISTS user_account;
 
 CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
