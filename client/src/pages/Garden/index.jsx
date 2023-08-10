@@ -35,7 +35,7 @@ export default function Garden() {
   }
 
   async function fetchAnimals() {
-    const apiURL = `${import.meta.env.VITE_SERVER}/animal`;
+    const apiURL = `${import.meta.env.VITE_SERVER}/animals`;
     const headers = {
       Authorization: token,
     };
@@ -49,12 +49,10 @@ export default function Garden() {
   async function waterPlant(plantObj) {
     try {
       //Update the state of the React App
-      const water_satisfaction_increase = 20;
-      const newWaterSatisfaction =
-        plantObj.water_satisfaction + water_satisfaction_increase;
+      const new_water_satisfaction = 100;
       const updatedPlantObj = {
         ...plantObj,
-        water_satisfaction: newWaterSatisfaction,
+        water_satisfaction: new_water_satisfaction,
       };
       const updatedPlants = plant.map((p) =>
         p.plant_id === updatedPlantObj.plant_id ? updatedPlantObj : p
@@ -70,7 +68,7 @@ export default function Garden() {
         "Content-Type": "application/json",
       };
       const body = JSON.stringify({
-        water_satisfaction: newWaterSatisfaction,
+        water_satisfaction: new_water_satisfaction,
       });
 
       const response = await fetch(apiURL, {
@@ -92,12 +90,10 @@ export default function Garden() {
   async function fertilisePlant(plantObj) {
     try {
       //Update the state of the React App
-      const nutrient_satisfaction_increase = 20;
-      const newNutrientSatisfaction =
-        plantObj.nutrient_satisfaction + nutrient_satisfaction_increase;
+      const new_nutrient_satisfaction = 100
       const updatedPlantObj = {
         ...plantObj,
-        nutrient_satisfaction: newNutrientSatisfaction,
+        nutrient_satisfaction: new_nutrient_satisfaction,
       };
       const updatedPlants = plant.map((p) =>
         p.plant_id === updatedPlantObj.plant_id ? updatedPlantObj : p
@@ -113,7 +109,7 @@ export default function Garden() {
         "Content-Type": "application/json",
       };
       const body = JSON.stringify({
-        nutrient_satisfaction: newNutrientSatisfaction,
+        nutrient_satisfaction: new_nutrient_satisfaction,
       });
 
       const response = await fetch(apiURL, {
