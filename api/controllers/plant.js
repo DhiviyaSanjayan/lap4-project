@@ -50,7 +50,7 @@ class PlantController {
       const data = await plant.updateMyPlant(plantInfo);
       res.status(202).json(data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       res.status(304).json({ error: error.message });
     }
   }
