@@ -84,10 +84,17 @@ class Plant {
     light_satisfaction = this.light_satisfaction,
     space_satisfaction = this.space_satisfaction,
   }) {
-    this.calcWellbeingRating()
+    const wellBeingRating = Plant.calcWellbeingRating(
+      water_satisfaction,
+      air_satisfaction,
+      nutrient_satisfaction,
+      light_satisfaction,
+      space_satisfaction
+    );
+
     const values = [
       nickname,
-      this.wellbeing_rating,
+      wellBeingRating,
       water_satisfaction,
       air_satisfaction,
       nutrient_satisfaction,
@@ -95,6 +102,7 @@ class Plant {
       space_satisfaction,
       this.user_id,
     ];
+
     const response = await db.query(
       "UPDATE plant SET nickname = $1, wellbeing_rating = $2, water_satisfaction = $3, air_satisfaction = $4, nutrient_satisfaction = $5, light_satisfaction = $6, space_satisfaction = $7, last_update_date = CURRENT_TIMESTAMP WHERE user_id = $8 RETURNING *; ",
       values
@@ -114,13 +122,13 @@ class Plant {
   }
 
   //calculate new wellbeing rating based on condition satisfaction ratings
-  calcWellbeingRating() {
-    const waterWeight = 0.3 * this.water_satisfaction;
-    const airWeight = 0.1 * this.air_satisfaction;
-    const nutrientWeight = 0.3 * this.nutrient_satisfaction;
-    const lightWeight = 0.2 * this.light_satisfaction;
-    const spaceWeight = 0.1 * this.space_satisfaction;
-    this.wellbeing_rating = waterWeight + airWeight + nutrientWeight + lightWeight + spaceWeight;
+  static calcWellbeingRating(...args) {
+    const waterWeight = 0.3 * args[0];
+    const airWeight = 0.1 * args[1];
+    const nutrientWeight = 0.3 * args[2];
+    const lightWeight = 0.2 * args[3];
+    const spaceWeight = 0.1 * args[4];
+    return waterWeight + airWeight + nutrientWeight + lightWeight + spaceWeight;
   }
 }
 

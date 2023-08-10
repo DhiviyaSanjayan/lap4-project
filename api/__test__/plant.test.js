@@ -117,32 +117,31 @@ describe("Plant MVC", () => {
     expect(error).toMatch(/hold on/i);
   });
 
-  // //PATCH - SUCCESS
-  // it("Should update user's plant information with valid details", async () => {
-  //   const updatedPlantInfo = {
-  //     nickname: "Barbara",
-  //     water_satisfaction: 44,
-  //   };
+  //PATCH - SUCCESS
+  it("Should update user's plant information with valid details", async () => {
+    const updatedPlantInfo = {
+      nickname: "Barbara",
+      water_satisfaction: 44,
+    };
 
-  //   const response = await request(app)
-  //     .patch(`/plants/${plantId}`)
-  //     .set({ authorization: token })
-  //     .send(updatedPlantInfo)
-  //     .expect(202);
+    const response = await request(app)
+      .patch(`/plants/${plantId}`)
+      .set({ authorization: token })
+      .send(updatedPlantInfo)
+      .expect(202);
 
-  //   console.log(response.body)
-  //   const {
-  //     nickname,
-  //     wellbeing_rating,
-  //     water_satisfaction,
-  //     light_satisfaction,
-  //   } = response.body;
+    const {
+      nickname,
+      wellbeing_rating,
+      water_satisfaction,
+      light_satisfaction,
+    } = response.body;
 
-  //   expect(nickname).toBe("Barbara");
-  //   expect(water_satisfaction).toBe(44);
-  //   expect(wellbeing_rating).toBeLessThan(100);
-  //   expect(light_satisfaction).toBe(100);
-  // });
+    expect(nickname).toBe("Barbara");
+    expect(water_satisfaction).toBe(44);
+    expect(wellbeing_rating).toBeLessThan(100);
+    expect(light_satisfaction).toBe(100);
+  });
 
   //PATCH - ERROR
   it("Should respond with an error message if user updates plant information with invalid details", async () => {

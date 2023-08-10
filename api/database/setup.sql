@@ -33,7 +33,7 @@ CREATE TABLE plant (
     nickname VARCHAR(200) NOT NULL,
     name VARCHAR(200) NOT NULL,
     trefle_id INT,
-    wellbeing_rating INT DEFAULT 100 CHECK (
+    wellbeing_rating FLOAT DEFAULT 100 CHECK (
         wellbeing_rating BETWEEN 0
         AND 100
     ),
