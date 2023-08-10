@@ -43,7 +43,7 @@ class Plant {
   }
 
   //READ ONE
-  static async getOneOfMyPlantsByPlantId(user_id, plant_id) {
+  static async getOneOfMyPlants(user_id, plant_id) {
     const plant = await Plant.getOneByPlantId(plant_id);
 
     if (plant["user_id"] !== user_id) {
@@ -70,13 +70,11 @@ class Plant {
       "INSERT INTO plant (user_id, nickname, name, trefle_id) VALUES ($1, $2, $3, $4) RETURNING *;",
       values
     );
-    const plantId = response.rows[0].plant_id;
-    const newPlant = await Plant.getOneByPlantId(plantId);
-    return newPlant;
+    return new Plant(response.rows[0]);
   }
 
   //UPDATE ONE
-  async updateMyPlant({
+  async updateThisPlant({
     nickname = this.nickname,
     wellbeing_rating,
     water_satisfaction = this.water_satisfaction,
@@ -101,20 +99,18 @@ class Plant {
       nutrient_satisfaction,
       light_satisfaction,
       space_satisfaction,
-      this.user_id,
+      this.plant_id,
     ];
 
     const response = await db.query(
-      "UPDATE plant SET nickname = $1, wellbeing_rating = $2, water_satisfaction = $3, air_satisfaction = $4, nutrient_satisfaction = $5, light_satisfaction = $6, space_satisfaction = $7, last_update_date = CURRENT_TIMESTAMP WHERE user_id = $8 RETURNING *; ",
+      "UPDATE plant SET nickname = $1, wellbeing_rating = $2, water_satisfaction = $3, air_satisfaction = $4, nutrient_satisfaction = $5, light_satisfaction = $6, space_satisfaction = $7, last_update_date = CURRENT_TIMESTAMP WHERE plant_id = $8 RETURNING *;",
       values
     );
-    const plantId = response.rows[0].plant_id;
-    const updatedPlant = await Plant.getOneByPlantId(plantId);
-    return updatedPlant;
+    return new Plant(response.rows[0]);
   }
 
   //DELETE ONE
-  async deleteMyPlant() {
+  async deleteThisPlant() {
     const response = await db.query(
       "DELETE FROM plant WHERE plant_id = $1 RETURNING *;",
       [this.plant_id]

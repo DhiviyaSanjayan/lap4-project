@@ -2,9 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const logger = require("morgan");
 
+const trefleRouter = require("./routers/trefle");
 const userRouter = require("./routers/user");
 const animalRouter = require("./routers/animal");
-const trefleRouter = require("./routers/trefle");
 const plantRouter = require("./routers/plant");
 const gardenRouter = require("./routers/garden");
 
@@ -21,11 +21,10 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use("/trefle-api", trefleRouter);
 app.use("/users", userRouter);
 app.use("/animal", animalRouter);
-app.use("/trefle-api", trefleRouter);
 app.use("/plants", plantRouter);
-app.use("/trefle-api", trefleRouter);
 app.use("/gardens", gardenRouter);
 
 module.exports = app;

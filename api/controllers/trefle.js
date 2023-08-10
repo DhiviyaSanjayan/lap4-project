@@ -1,7 +1,7 @@
 require("dotenv").configuration;
 const axios = require("axios");
 
-class Trefle {
+class TrefleController {
   static async trefleFetch(req, res) {
     const path = req._parsedUrl.path;
     console.log(path);
@@ -21,4 +21,4 @@ class Trefle {
   }
 }
 
-module.exports = Trefle;
+module.exports = TrefleController;

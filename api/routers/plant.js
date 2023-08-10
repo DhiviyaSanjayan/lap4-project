@@ -11,10 +11,10 @@ plantRouter.post("/", PlantController.createAPlant);
 //READ ALL
 plantRouter.get("/", PlantController.getAllMyPlants);
 //READ ONE
-plantRouter.get("/:id", PlantController.getOneOfMyPlantsByPlantId);
+plantRouter.get("/:id", PlantController.getOneOfMyPlants);
 //UPDATE ONE
-plantRouter.patch("/:id", PlantController.updateMyPlant);
+plantRouter.patch("/:id", PlantController.updateThisPlant);
 //DELETE ONE
-plantRouter.delete("/:id", PlantController.deleteMyPlant);
+plantRouter.delete("/:id", PlantController.deleteThisPlant);
 
 module.exports = plantRouter;
