@@ -4,6 +4,19 @@ const User = require("../models/User");
 const Token = require("../models/token");
 
 class UserController {
+  static async getAllUsers(req, res) {
+    try {
+      const allUsers = await User.getAllUsers();
+
+      console.log("All users:", allUsers);
+
+      res.status(200).json(allUsers);
+    } catch (error) {
+      console.error("Error fetching all users:", error);
+      res.status(500).json({ error: error.message });
+    }
+  }
+
   static async register(req, res) {
     try {
       const data = req.body;
@@ -16,6 +29,7 @@ class UserController {
 
       res.status(201).send(result);
     } catch (error) {
+      console.error("Registration error:", error);
       switch (+error.code) {
         case 23505:
           res
@@ -66,12 +80,10 @@ class UserController {
   static async logout(req, res) {
     const tokenObj = req.tokenObj;
     try {
-      await tokenObj.deleteToken();
-      res
-        .status(202)
-        .json({
-          message: "Your token has been deleted and you've been logged out",
-        });
+      await tokenObj.deleteToken(req.tokenObj.user_id); // Pass the user ID here
+      res.status(202).json({
+        message: "Your token has been deleted and you've been logged out",
+      });
     } catch (error) {
       res.status(403).json({ error: error.message });
     }

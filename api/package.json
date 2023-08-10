@@ -4,13 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -L ./index.js",
+    "test": "npx jest --detectOpenHandles --coverage",
     "setup-db": "node ./database/setup.js",
-    "setup-test-db": "node ./database/setup-test-db.js",
-    "test": "jest --setupFiles ./__tests__/integration/config.js --watchAll --verbose --detectOpenHandles",
-    "unitTests": "jest --testPathPattern=/unit/ --watchAll --verbose",
-    "coverage": "jest --testPathPattern=/unit/ --coverage",
-    "start": "node index.js"
+    "dev": "nodemon -L ./index.js"
   },
   "keywords": [],
   "author": "",
@@ -26,19 +22,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "jest": "^29.6.2",
-    "jsdom": "^22.1.0",
-    "live-server": "^1.2.2",
     "nodemon": "^3.0.1",
     "supertest": "^6.3.3"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "testPathIgnorePatterns": [
-      "/__tests__/integration/config.js"
-    ]
   }
 }

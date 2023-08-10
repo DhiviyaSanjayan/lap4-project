@@ -1,10 +1,8 @@
 DROP TABLE IF EXISTS token;
 
-DROP TABLE IF EXISTS plants;
-
-DROP TABLE IF EXISTS users;
-
 DROP TABLE IF EXISTS user_account;
+
+DROP TABLE IF EXISTS animal;
 
 CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
@@ -21,6 +19,15 @@ CREATE TABLE token (
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
+CREATE TABLE animal (
+    animal_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    name VARCHAR(100),
+    wellbeing INT CHECK (wellbeing >= 1 AND wellbeing <= 100),
+    influence INT CHECK (influence >= 1 AND influence <= 10),
+    PRIMARY KEY (animal_id),
+    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
+);
 -- the password is 1
 INSERT INTO
     user_account (username, password)
@@ -29,6 +36,11 @@ VALUES
         'cors',
         '$2b$10$.pj1LTt4HxpVVg6fZDhdFOMBfiywBTikuDqx3KjDy85aJNyZ4IoJC'
     );
+
+INSERT INTO
+    animal (user_id, name, wellbeing, influence)
+VALUES
+    (1, 'bird', 100, 10);
 
 -- CREATE TABLE plants (
 --     plant_id INT GENERATED ALWAYS AS IDENTITY,

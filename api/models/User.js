@@ -7,6 +7,15 @@ class User {
     this.password = password;
   }
 
+  static async getAllUsers() {
+    try {
+      const response = await db.query("SELECT * FROM user_account");
+      return response.rows.map((g) => new User(g));
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async getOneById(id) {
     const response = await db.query(
       "SELECT * FROM user_account WHERE user_id = $1",
@@ -27,16 +36,19 @@ class User {
   }
 
   static async createUser(data) {
-    const { username, password} = data;
-    let response = await db.query(
-      "INSERT INTO user_account (username, password) VALUES ($1, $2) RETURNING user_id;",
-      [username, password]
-    );
-    const newId = response.rows[0].user_id;
-    const newUser = await User.getOneById(newId);
-    return newUser;
+    const { username, password } = data;
+    try {
+      let response = await db.query(
+        "INSERT INTO user_account (username, password) VALUES ($1, $2) RETURNING user_id;",
+        [username, password]
+      );
+      const newId = response.rows[0].user_id;
+      const newUser = await User.getOneById(newId);
+
+      return newUser;
+    } catch (error) {
+      throw error;
+    }
   }
-};
-
-
+}
 module.exports = User;
