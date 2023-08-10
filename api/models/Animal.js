@@ -9,74 +9,69 @@ class Animal {
     this.influence = influence;
   }
 
-  static async getAllAnimals(user_id) {
-    try {
-      const response = await db.query(
-        "SELECT * FROM animal WHERE user_id = $1 ORDER BY animal_id;",
-        [user_id]
-      );
-      return response.rows.map((a) => new Animal(a));
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  static async getAnimalById(animal_id) {
+  //READ ONE - helper
+  static async getOneByAnimalId(animal_id) {
     const response = await db.query(
       "SELECT * FROM animal WHERE animal_id = $1",
       [animal_id]
     );
-    if (response.rows.length !== 1) {
-      throw new Error("Animal with this ID doesn't exist");
+    if (response.rows.length === 0) {
+      throw new Error("Unable to find the animal you're looking for");
     }
     return new Animal(response.rows[0]);
   }
 
-  static async createAnimal(data) {
-    const { user_id, name, wellbeing, influence } = data;
-    try {
-      const response = await db.query(
-        "INSERT INTO animal (user_id, name, wellbeing, influence) VALUES ($1, $2, $3, $4) RETURNING animal_id;",
-        [user_id, name, wellbeing, influence]
-      );
-      const newId = response.rows[0].animal_id;
-      const newAnimal = await Animal.getAnimalById(newId);
+  //READ ONE
+  static async getOneOfMyAnimals(user_id, animal_id) {
+    const animal = await Animal.getOneByAnimalId(animal_id);
 
-      return newAnimal;
-    } catch (error) {
-      throw error;
+    if (animal["user_id"] !== user_id) {
+      throw new Error("This isn't one of your animals");
     }
+    return animal;
   }
 
-  static async updateAnimal(animal_id, data) {
-    const { name, wellbeing, influence } = data;
-    try {
-      const response = await db.query(
-        "UPDATE animal SET name = $1, wellbeing = $2, influence = $3 WHERE animal_id = $4 RETURNING *;",
-        [name, wellbeing, influence, animal_id]
-      );
-      if (response.rows.length !== 1) {
-        throw new Error("Animal with this ID doesn't exist");
-      }
-      return new Animal(response.rows[0]);
-    } catch (error) {
-      throw error;
-    }
+  //READ ALL
+  static async getAllMyAnimals(user_id) {
+    const response = await db.query(
+      "SELECT * FROM animal WHERE user_id = $1 ORDER BY animal_id;",
+      [user_id]
+    );
+    return response.rows.map((a) => new Animal(a));
   }
 
-  static async deleteAnimal(animal_id) {
-    try {
-      const response = await db.query(
-        "DELETE FROM animal WHERE animal_id = $1 RETURNING *;",
-        [animal_id]
-      );
-      if (response.rows.length !== 1) {
-        throw new Error("Animal with this ID doesn't exist");
-      }
-      return new Animal(response.rows[0]);
-    } catch (error) {
-      throw error;
-    }
+  //CREATE ONE
+  static async createAnAnimal(user_id, { name, influence }) {
+    const values = [user_id, name, influence];
+
+    const response = await db.query(
+      "INSERT INTO animal (user_id, name, influence) VALUES ($1, $2, $3) RETURNING *;",
+      values
+    );
+    return new Animal(response.rows[0]);
+  }
+
+  //UPDATE ONE
+  async updateThisAnimal({
+    name = this.name,
+    wellbeing = this.wellbeing,
+    influence = this.influence,
+  }) {
+    const values = [name, wellbeing, influence, this.animal_id];
+    const response = await db.query(
+      "UPDATE animal SET name = $1, wellbeing = $2, influence = $3 WHERE animal_id = $4 RETURNING *;",
+      values
+    );
+    return new Animal(response.rows[0]);
+  }
+
+  //DELETE ONE
+  async deleteThisAnimal() {
+    const response = await db.query(
+      "DELETE FROM animal WHERE animal_id = $1 RETURNING *;",
+      [this.animal_id]
+    );
+    return new Animal(response.rows[0]);
   }
 }
 

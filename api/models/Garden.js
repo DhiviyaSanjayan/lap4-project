@@ -49,11 +49,17 @@ class Garden {
     pest_level = this.pest_level,
     water_level = this.water_level,
   }) {
-    const values = [name, weather, soil_quality, pest_level, water_level];
-    console.log([...values, this.garden_id])
+    const values = [
+      name,
+      weather,
+      soil_quality,
+      pest_level,
+      water_level,
+      this.garden_id,
+    ];
     const response = await db.query(
       "UPDATE garden SET name = $1, weather = $2, soil_quality = $3, pest_level = $4, water_level = $5 WHERE garden_id = $6 RETURNING *;",
-      [...values, this.garden_id]
+      values
     );
 
     return new Garden(response.rows[0]);

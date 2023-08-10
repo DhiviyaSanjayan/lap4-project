@@ -1,6 +1,14 @@
 const Plant = require("../models/plant");
 
 class PlantController {
+  //READ ALL
+  static async getAllMyPlants(req, res) {
+    const user_id = req.tokenObj.user_id;
+    const data = await Plant.getAllMyPlants(user_id);
+    res.status(200).json(data);
+  }
+
+  //READ ONE
   static async getOneOfMyPlants(req, res) {
     const user_id = req.tokenObj.user_id;
     const plant_id = req.params.id;
@@ -13,12 +21,7 @@ class PlantController {
     }
   }
 
-  static async getAllMyPlants(req, res) {
-    const user_id = req.tokenObj.user_id;
-    const data = await Plant.getAllMyPlants(user_id);
-    res.status(200).json(data);
-  }
-
+  //CREATE ONE
   static async createAPlant(req, res) {
     const user_id = req.tokenObj.user_id;
     const plantInfo = req.body;
@@ -41,6 +44,7 @@ class PlantController {
     }
   }
 
+  //UPDATE ONE
   static async updateThisPlant(req, res) {
     const plant_id = req.params.id;
     const user_id = req.tokenObj.user_id;
@@ -55,6 +59,7 @@ class PlantController {
     }
   }
 
+  //DELETE ONE
   static async deleteThisPlant(req, res) {
     const plant_id = req.params.id;
     const user_id = req.tokenObj.user_id;

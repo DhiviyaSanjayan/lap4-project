@@ -1,6 +1,7 @@
 const Garden = require("../models/Garden.js");
 
 class GardenController {
+   //READ ONE
   static async getMyGarden(req, res) {
     const user_id = req.tokenObj.user_id;
     try {
@@ -12,6 +13,7 @@ class GardenController {
     }
   }
 
+  //CREATE ONE
   static async createMyGarden(req, res) {
     const user_id = req.tokenObj.user_id;
     try {
@@ -33,6 +35,7 @@ class GardenController {
     }
   }
 
+  //UPDATE ONE
   static async updateThisGarden(req, res) {
     const user_id = req.tokenObj.user_id;
     const data = req.body;
@@ -46,6 +49,7 @@ class GardenController {
     }
   }
 
+  //DELETE ONE
   static async deleteThisGarden(req, res) {
     const user_id = req.tokenObj.user_id;
     try {

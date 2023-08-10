@@ -31,7 +31,7 @@ class Plant {
     this.last_update_date = last_update_date;
   }
 
-  //READ - helper
+  //READ ONE - helper
   static async getOneByPlantId(plant_id) {
     const response = await db.query("SELECT * FROM plant WHERE plant_id = $1", [
       plant_id,
