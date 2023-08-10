@@ -56,6 +56,8 @@ class User {
     //delete all records related to user in other tables
     //PLANT
     await db.query("DELETE FROM plant WHERE user_id = $1;", [this.user_id]);
+    //GARDEN
+    await db.query("DELETE FROM garden WHERE user_id = $1;", [this.user_id]);
     //TOKEN
     await db.query("DELETE FROM token WHERE user_id = $1;", [this.user_id]);
 

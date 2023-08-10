@@ -1,5 +1,18 @@
+<<<<<<< HEAD
 DROP TABLE IF EXISTS animal CASCADE;
 DROP TABLE IF EXISTS token CASCADE;
+=======
+DROP TABLE IF EXISTS token;
+
+DROP TABLE IF EXISTS plants;
+
+DROP TABLE IF EXISTS plant;
+
+DROP TABLE IF EXISTS users;
+
+DROP TABLE IF EXISTS garden;
+
+>>>>>>> 924230543aa62a6519755467d2faab4b2dc0fc57
 DROP TABLE IF EXISTS user_account;
 DROP TABLE IF EXISTS plant CASCADE;
 DROP TABLE IF EXISTS garden CASCADE;
@@ -64,3 +77,15 @@ CREATE TABLE plant (
     PRIMARY KEY (plant_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
+
+CREATE TABLE garden(
+    garden_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    weather INT,
+    soil_quality INT,
+    pest_level INT CHECK (pest_level BETWEEN 0 AND 100),
+    water_level INT,
+    PRIMARY KEY (garden_id),
+    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
+);    

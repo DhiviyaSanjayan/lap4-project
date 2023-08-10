@@ -78,13 +78,14 @@ class Plant {
   //UPDATE ONE
   async updateMyPlant({
     nickname = this.nickname,
+    wellbeing_rating,
     water_satisfaction = this.water_satisfaction,
     air_satisfaction = this.air_satisfaction,
     nutrient_satisfaction = this.nutrient_satisfaction,
     light_satisfaction = this.light_satisfaction,
     space_satisfaction = this.space_satisfaction,
   }) {
-    const wellBeingRating = Plant.calcWellbeingRating(
+    const wellBeingRating =  wellbeing_rating ?? Plant.calcWellbeingRating(
       water_satisfaction,
       air_satisfaction,
       nutrient_satisfaction,
