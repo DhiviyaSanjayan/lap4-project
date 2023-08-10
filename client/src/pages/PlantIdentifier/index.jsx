@@ -1,20 +1,32 @@
 import { useState } from "react";
 
-import { FlowerColorFilter, FetchResultButton, FilterResults } from "./components";
+import {
+  FlowerColorFilter,
+  FoliageColorFilter,
+  FoliageTextureFilter,
+  FlowerVisibilityFilter,
+  FetchResults,
+  Results,
+} from "./components";
 import { PlantFilterProvider } from "./contexts";
 import styles from "./style.module.css";
 
 export default function PlantIdentifier() {
-  
   return (
     <PlantFilterProvider>
       <main className={styles["container"]}>
         <div>
-        <FlowerColorFilter />
-        <FetchResultButton />
+          <h3>Flower Colors</h3>
+          <FlowerColorFilter />
+          <h3>Is Flower Clearly Visible?</h3>
+          <FlowerVisibilityFilter />
+          <h3>Foliage Colors</h3>
+          <FoliageColorFilter />
+          <h3>Foliage Textures</h3>
+          <FoliageTextureFilter />
+          <FetchResults />
         </div>
-        
-        <FilterResults />
+        <Results />
       </main>
     </PlantFilterProvider>
   );

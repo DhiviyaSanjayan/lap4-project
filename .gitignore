@@ -1,7 +1,4 @@
-.env
-coverage 
 
-# Logs
 logs
 *.log
 npm-debug.log*
@@ -16,7 +13,6 @@ dist
 dist-ssr
 *.local
 
-# Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -27,6 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
+package-lock.json
+.DS_Store
+.env
 
 package-lock.json
 api/google-account-vision-key.json
