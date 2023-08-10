@@ -6,23 +6,36 @@ const setupMockDB = require("./mock/database/setup");
 
 describe("Animal MVC", () => {
   let token;
+  let tokenOther;
   let animalId;
 
   beforeAll(async () => {
+    //Set the database to it's default state before starting test
     await setupMockDB();
     token = await getValidToken("user1", "1");
+    tokenOther = await getValidToken("user2", "2");
   });
 
   afterAll(async () => {
+    // Close the database connection
     await db.end();
   });
 
-  // POST
+  //GET
+  it("Should respond with an error when trying to retrieve a animal which doesn't exist in the db", async () => {
+    const response = await request(app)
+      .get("/animals/1")
+      .set({ authorization: token })
+      .expect(404);
+    const { error } = response.body;
+    expect(error).toMatch(/unable/i);
+  });
+
+  //POST - SUCCESS
   it("Should create a new animal record entry", async () => {
     const newAnimalData = {
-      name: "bird",
-      wellbeing: 100,
-      influence: 10,
+      name: "Bee",
+      influence: "65",
     };
 
     const response = await request(app)
@@ -31,17 +44,30 @@ describe("Animal MVC", () => {
       .send(newAnimalData)
       .expect(201);
 
-    const { animal_id, name } = response.body;
+    const { name, animal_id } = response.body;
 
-    // Save animal id for a later test
+    //save animal id for a later test
     animalId = animal_id;
 
-    expect(name).toBe("bird");
-    expect(response.body).toHaveProperty("wellbeing");
+    expect(name).toBe("Bee");
     expect(response.body).toHaveProperty("influence");
+    expect(response.body).toHaveProperty("wellbeing");
   });
 
-  // GET
+  //POST - ERROR
+  it("Should return an error message if conditions for creating a new animal haven't been met", async () => {
+    const newAnimalData = {
+      name: "Snail",
+    };
+
+    await request(app)
+      .post("/animals")
+      .set({ authorization: token })
+      .send(newAnimalData)
+      .expect(412);
+  });
+
+  //GET - SUCCESS
   it("Should get all of user's animals", async () => {
     const response = await request(app)
       .get("/animals")
@@ -51,7 +77,7 @@ describe("Animal MVC", () => {
     expect(response.body.length).toBeGreaterThan(0);
   });
 
-  // GET
+  //GET - SUCCESS
   it("Should get the animal that has been created", async () => {
     const response = await request(app)
       .get(`/animals/${animalId}`)
@@ -59,30 +85,68 @@ describe("Animal MVC", () => {
       .expect(200);
 
     const { name } = response.body;
-    expect(name).toBe("bird");
+    expect(name).toBe("Bee");
+    expect(response.body).toHaveProperty("wellbeing");
   });
 
-  // PATCH
+  //GET - ERROR
+  it("Should get an error if you try to access another user's animal", async () => {
+    //another user is creates a new animal and it's id is obtained
+    const newAnimalData2 = {
+      name: "Bird",
+      influence: 20,
+    };
+    const newAnimalId = (
+      await request(app)
+        .post("/animals")
+        .set({ authorization: tokenOther })
+        .send(newAnimalData2)
+        .expect(201)
+    ).body.animal_id;
+
+    const response = await request(app)
+      .get(`/animals/${newAnimalId}`)
+      .set({ authorization: token });
+
+    const { error } = response.body;
+    expect(error).toMatch(/isn't/i);
+  });
+
+  //PATCH - SUCCESS
   it("Should update user's animal information with valid details", async () => {
     const updatedAnimalInfo = {
-      name: "parrot",
-      wellbeing: 90,
+      name: "Lady Bug",
+      wellbeing: 44,
     };
 
     const response = await request(app)
       .patch(`/animals/${animalId}`)
       .set({ authorization: token })
       .send(updatedAnimalInfo)
-      .expect(200);
+      .expect(202);
 
     const { name, wellbeing } = response.body;
 
-    expect(name).toBe("parrot");
-    expect(wellbeing).toBe(90);
+    expect(name).toBe("Lady Bug");
+    expect(wellbeing).toBe(44);
   });
 
-  // DELETE
-  it("Should delete an animal", async () => {
+  //PATCH - ERROR
+  it("Should respond with an error message if user updates animal information with invalid details", async () => {
+    const updatedAnimalInfo = {
+      // values over 100 exceed the max
+      wellbeing: 144,
+    };
+
+    await request(app)
+      .patch(`/animals/${animalId}`)
+      .set({ authorization: token })
+      .send(updatedAnimalInfo)
+      .expect(304);
+  });
+
+  //DELETE - SUCCESS
+  it("Should delete a animal", async () => {
     await request(app)
       .delete(`/animals/${animalId}`)
       .set({ authorization: token })

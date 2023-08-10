@@ -49,7 +49,7 @@ class UserController {
         });
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       res.status(403).json({ error: error.message });
     }
   }

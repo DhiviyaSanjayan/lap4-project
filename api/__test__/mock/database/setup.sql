@@ -14,6 +14,7 @@ CREATE TABLE user_account (
     password CHAR(60) NOT NULL,
     exp INT DEFAULT 0 NOT NULL,
     coins INT DEFAULT 0 NOT NULL,
+    creation_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id)
 );
 
@@ -22,22 +23,6 @@ CREATE TABLE token (
     user_id INT NOT NULL,
     token CHAR(36) UNIQUE NOT NULL,
     PRIMARY KEY (token_id),
-    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
-);
-
-CREATE TABLE animal (
-    animal_id INT GENERATED ALWAYS AS IDENTITY,
-    user_id INT NOT NULL,
-    name VARCHAR(100),
-    wellbeing INT CHECK (
-        wellbeing >= 1
-        AND wellbeing <= 100
-    ),
-    influence INT CHECK (
-        influence >= 1
-        AND influence <= 10
-    ),
-    PRIMARY KEY (animal_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
@@ -72,22 +57,48 @@ CREATE TABLE plant (
         AND 100
     ),
     creation_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_check_time TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     last_update_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (plant_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
-CREATE TABLE garden(
+CREATE TABLE garden (
     garden_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
     name VARCHAR(100) NOT NULL,
-    weather INT,
-    soil_quality INT,
-    pest_level INT CHECK (
+    weather INT NOT NULL DEFAULT 10 CHECK (
+        weather BETWEEN 0
+        AND 10
+    ),
+    soil_quality FLOAT NOT NULL DEFAULT 100 CHECK (
+        soil_quality BETWEEN 0
+        AND 100
+    ),
+    pest_level FLOAT NOT NULL DEFAULT 0 CHECK (
         pest_level BETWEEN 0
         AND 100
     ),
-    water_level INT,
+    water_level FLOAT NOT NULL DEFAULT 50 CHECK (
+        water_level BETWEEN 0
+        AND 100
+    ),
     PRIMARY KEY (garden_id),
+    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
+);
+
+CREATE TABLE animal (
+    animal_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    name VARCHAR(100),
+    wellbeing FLOAT NOT NULL DEFAULT 50 CHECK (
+        wellbeing BETWEEN 0
+        AND 100
+    ),
+    influence FLOAT NOT NULL DEFAULT 50 CHECK (
+        influence BETWEEN 0
+        AND 100
+    ),
+    PRIMARY KEY (animal_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );

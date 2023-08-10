@@ -1,24 +1,27 @@
-const Plant = require("../models/plant");
+const Plant = require("../models/Plant");
 
 class PlantController {
-  static async getOneOfMyPlantsByPlantId(req, res) {
-    const user_id = req.tokenObj.user_id;
-    const plant_id = req.params.id;
-    try {
-      const data = await Plant.getOneOfMyPlantsByPlantId(user_id, plant_id);
-      res.status(200).json(data);
-    } catch (error) {
-    //   console.log(error);
-      res.status(404).json({ error: error.message });
-    }
-  }
-
+  //READ ALL
   static async getAllMyPlants(req, res) {
     const user_id = req.tokenObj.user_id;
     const data = await Plant.getAllMyPlants(user_id);
     res.status(200).json(data);
   }
 
+  //READ ONE
+  static async getOneOfMyPlants(req, res) {
+    const user_id = req.tokenObj.user_id;
+    const plant_id = req.params.id;
+    try {
+      const data = await Plant.getOneOfMyPlants(user_id, plant_id);
+      res.status(200).json(data);
+    } catch (error) {
+      //   console.log(error);
+      res.status(404).json({ error: error.message });
+    }
+  }
+
+  //CREATE ONE
   static async createAPlant(req, res) {
     const user_id = req.tokenObj.user_id;
     const plantInfo = req.body;
@@ -41,13 +44,14 @@ class PlantController {
     }
   }
 
-  static async updateMyPlant(req, res) {
+  //UPDATE ONE
+  static async updateThisPlant(req, res) {
     const plant_id = req.params.id;
     const user_id = req.tokenObj.user_id;
     const plantInfo = req.body;
     try {
-      const plant = await Plant.getOneOfMyPlantsByPlantId(user_id, plant_id);
-      const data = await plant.updateMyPlant(plantInfo);
+      const plant = await Plant.getOneOfMyPlants(user_id, plant_id);
+      const data = await plant.updateThisPlant(plantInfo);
       res.status(202).json(data);
     } catch (error) {
       // console.log(error);
@@ -55,15 +59,16 @@ class PlantController {
     }
   }
 
-  static async deleteMyPlant(req, res) {
+  //DELETE ONE
+  static async deleteThisPlant(req, res) {
     const plant_id = req.params.id;
     const user_id = req.tokenObj.user_id;
     try {
-      const plant = await Plant.getOneOfMyPlantsByPlantId(user_id, plant_id);
-      const data = await plant.deleteMyPlant();
-      res.status(204).json(data);
+      const plant = await Plant.getOneOfMyPlants(user_id, plant_id);
+      await plant.deleteThisPlant();
+      res.status(204).end();
     } catch (error) {
-    //   console.log(error);
+      //   console.log(error);
       res.status(500).json({ error: error.message });
     }
   }
