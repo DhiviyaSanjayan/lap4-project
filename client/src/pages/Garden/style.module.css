@@ -1,0 +1,13 @@
+.outer-container {
+  display: grid;
+  place-items: center;
+}
+
+.inner-container {
+  display: grid;
+  margin: 2.5rem;
+  z-index: 1;
+  padding: 2.5rem;
+  border-radius: 15px;
+  border: 2px solid;
+}

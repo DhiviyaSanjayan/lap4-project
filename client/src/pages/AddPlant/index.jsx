@@ -6,7 +6,28 @@ export default function AddPlant() {
   const [speciesText, setSpeciesText] = useState("");
   const [imgFile, setImgFile] = useState("");
 
-  async function handleSubmit() {}
+  async function handleSubmit() {
+    if (!file) {
+      setMessage('Please select a file');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_SERVER}/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      setMessage(data.message);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      setMessage('Error uploading file');
+    }
+  }
 
   async function handleInput(e) {
     setInputText(e.target.value);
@@ -16,7 +37,9 @@ export default function AddPlant() {
     setSpeciesText(e.target.value);
   }
 
-  async function handleImageUpload() {}
+  async function handleImageUpload(e) {
+    setImgFile(e.target.files[0]);
+  }
 
   return (
     <div className={style["outer-container"]}>
@@ -57,3 +80,52 @@ export default function AddPlant() {
     </div>
   );
 }
+
+
+
+
+
+// import React, { useState } from 'react';
+
+// function FileUpload() {
+//   const [file, setFile] = useState(null);
+//   const [message, setMessage] = useState('');
+
+//   const handleFileChange = (event) => {
+//     setFile(event.target.files[0]);
+//   };
+
+//   const handleUpload = async () => {
+//     if (!file) {
+//       setMessage('Please select a file');
+//       return;
+//     }
+
+//     const formData = new FormData();
+//     formData.append('file', file);
+
+//     try {
+//       const response = await fetch('/upload', {
+//         method: 'POST',
+//         body: formData,
+//       });
+
+//       const data = await response.json();
+//       setMessage(data.message);
+//     } catch (error) {
+//       console.error('Error uploading file:', error);
+//       setMessage('Error uploading file');
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h1>File Upload</h1>
+//       <input type="file" onChange={handleFileChange} />
+//       <button onClick={handleUpload}>Upload</button>
+//       <p>{message}</p>
+//     </div>
+//   );
+// }
+
+// export default FileUpload;
