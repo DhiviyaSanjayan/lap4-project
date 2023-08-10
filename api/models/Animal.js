@@ -9,9 +9,12 @@ class Animal {
     this.influence = influence;
   }
 
-  static async getAllAnimals() {
+  static async getAllAnimals(user_id) {
     try {
-      const response = await db.query("SELECT * FROM animal");
+      const response = await db.query(
+        "SELECT * FROM animal WHERE user_id = $1 ORDER BY animal_id;",
+        [user_id]
+      );
       return response.rows.map((a) => new Animal(a));
     } catch (error) {
       throw error;

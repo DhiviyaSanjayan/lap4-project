@@ -12,6 +12,7 @@ html { font-size: clamp(12px, calc(100vw * 0.0105),16px); }
 }
 
 body {
+  font-size: inherit;
   margin: 0;
   min-width: 320px;
   display: grid;

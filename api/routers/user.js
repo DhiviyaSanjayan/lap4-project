@@ -11,6 +11,8 @@ userRouter.post("/login", UserController.login);
 userRouter.use(authenticator);
 
 userRouter.get("/details", UserController.getProfileDetails);
+userRouter.patch("/update", UserController.updateUserDetails);
 userRouter.delete("/logout", UserController.logout);
+userRouter.delete("/", UserController.deleteUser);
 
 module.exports = userRouter;

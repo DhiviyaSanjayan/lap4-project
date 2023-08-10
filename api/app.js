@@ -5,7 +5,8 @@ const logger = require("morgan");
 const userRouter = require("./routers/user");
 const animalRouter = require("./routers/animal");
 const trefleRouter = require("./routers/trefle");
-// const plantRouter = require("./routers/plant");
+const plantRouter = require("./routers/plant");
+const gardenRouter = require("./routers/garden");
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.get("/", (req, res) => {
 app.use("/users", userRouter);
 app.use("/animal", animalRouter);
 app.use("/trefle-api", trefleRouter);
-// app.use("/plants", plantRouter);
+app.use("/plants", plantRouter);
+app.use("/trefle-api", trefleRouter);
+app.use("/gardens", gardenRouter);
 
 module.exports = app;

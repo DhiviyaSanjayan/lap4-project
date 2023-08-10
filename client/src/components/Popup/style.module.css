@@ -10,9 +10,8 @@
   z-index: 1000000000000;
   font-size: 1.125rem;
   border-radius: 20px;
-  background-color: #1c253c;
-  color: #4deeea;
-  border: 2px solid #4deeea;
+  background-color: lightgray;
+  border: 2px solid;
   padding: 1.5rem;
   transition: opacity ease-in-out 1s;
 }

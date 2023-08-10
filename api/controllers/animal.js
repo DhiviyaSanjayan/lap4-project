@@ -2,6 +2,7 @@ const Animal = require("../models/Animal");
 
 class AnimalController {
   static async getAllAnimals(req, res) {
+    const user_id = req.tokenObj.user_id;
     try {
       const allAnimals = await Animal.getAllAnimals();
       res.status(200).json(allAnimals);
@@ -12,6 +13,7 @@ class AnimalController {
   }
 
   static async createAnimal(req, res) {
+    const user_id = req.tokenObj.user_id;
     try {
       const data = req.body;
       const result = await Animal.createAnimal(data);
@@ -23,6 +25,7 @@ class AnimalController {
   }
 
   static async getAnimalDetails(req, res) {
+    const user_id = req.tokenObj.user_id;
     const animal_id = req.params.id;
     try {
       const result = await Animal.getAnimalById(animal_id);
@@ -34,6 +37,7 @@ class AnimalController {
   }
 
   static async updateAnimal(req, res) {
+    const user_id = req.tokenObj.user_id;
     const animal_id = req.params.id;
     const data = req.body;
     try {
@@ -46,6 +50,7 @@ class AnimalController {
   }
 
   static async deleteAnimal(req, res) {
+    const user_id = req.tokenObj.user_id;
     const animal_id = req.params.id;
     try {
       const result = await Animal.deleteAnimal(animal_id);

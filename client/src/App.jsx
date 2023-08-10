@@ -7,6 +7,7 @@ import {
   Profile,
   NotFound,
   GetStarted,
+  PlantPage,
   PlantIdentifier,
 } from "./pages";
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/plant-identifier" element={<PlantIdentifier />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/plants" element={<PlantPage />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="*" element={<Navigate to="/login" />} />
