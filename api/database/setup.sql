@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS animal CASCADE;
 DROP TABLE IF EXISTS token CASCADE;
-DROP TABLE IF EXISTS user_account;
 DROP TABLE IF EXISTS plant CASCADE;
 DROP TABLE IF EXISTS garden CASCADE;
+DROP TABLE IF EXISTS user_account;
 
 CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
@@ -98,3 +98,18 @@ INSERT INTO
 VALUES
     (1, 'Steven', 'Rubus arcticus', 266630);
 
+INSERT INTO plant (user_id, nickname, name, trefle_id, wellbeing_rating, water_satisfaction, nutrient_satisfaction, light_satisfaction, air_satisfaction, space_satisfaction)
+VALUES
+    (1, 'Plant 1', 'Sunflower', 123, 90, 80, 95, 70, 85, 90),
+    (1, 'Plant 2', 'Rose', 456, 85, 70, 80, 90, 75, 80),
+    (1, 'Plant 3', 'Lavender', 789, 95, 90, 75, 85, 80, 95);
+
+INSERT INTO animal (user_id, name, wellbeing, influence)
+VALUES
+    (1, 'Dog', 85, 5),
+    (1, 'Cat', 80, 4),
+    (1, 'Parrot', 90, 3);
+
+INSERT INTO garden (user_id, name, weather, soil_quality, pest_level, water_level)
+VALUES
+    (1, 'My Garden', 2, 3, 50, 70);

@@ -8,106 +8,54 @@ export default function Garden() {
   const [animal, setAnimal] = useState([]);
 
   const { user } = useAuth();
-
-  console.log("user", user);
-
-  //Get user token from localStorage??
+  const token = localStorage.getItem("token");
 
   async function fetchGarden() {
-    // use API to fetch data
-
-    // const response = await fetch(`${process.env.VITE_SERVER}/`)
-    // const data = await response.json()
-
-    //mocking data for now
-    const data = {
-      garden_id: 1,
-      user_id: 1,
-      name: "My Garden",
-      weather: 1,
-      soil_quality: 1,
-      pest_level: 50,
-      water_level: 50,
+    const apiURL = `${import.meta.env.VITE_SERVER}/gardens`;
+    const headers = {
+      Authorization: token,
     };
+
+    const response = await fetch(apiURL, { headers: headers });
+    const data = await response.json();
     setGarden(data);
+    console.log("Garden Data", data);
   }
 
   async function fetchPlants() {
-    // use API to fetch data
+    const apiURL = `${import.meta.env.VITE_SERVER}/plants`;
+    const headers = {
+      Authorization: token,
+    };
 
-    // const response = await fetch(`${process.env.VITE_SERVER}/`)
-    // const data = await response.json()
-
-    //mocking data for now
-    const data = [{
-        'plant_id': 1,
-        'user_id': 1,
-        'nickname': 'My first plant',
-        'name': 'My first plant',
-        'Wellbeing_rating': 50,
-        'Water Satisfaction': 50,
-        'Nutrient satisfaction': 50,
-        'Air Satisfaction': 50,
-        'Space Satisfaction': 50,
-        'Light Satisfaction': 50  
-    }, 
-    {
-        'plant_id': 2,
-        'user_id': 1,
-        'nickname': 'My second plant',
-        'name': 'My second plant',
-        'Wellbeing_rating': 50,
-        'Water Satisfaction': 50,
-        'Nutrient satisfaction': 50,
-        'Air Satisfaction': 50,
-        'Space Satisfaction': 50,
-        'Light Satisfaction': 50  
-    }, 
-    {
-        'plant_id': 3,
-        'user_id': 1,
-        'nickname': 'My third plant',
-        'name': 'My third plant',
-        'Wellbeing_rating': 50,
-        'Water Satisfaction': 50,
-        'Nutrient satisfaction': 50,
-        'Air Satisfaction': 50,
-        'Space Satisfaction': 50,
-        'Light Satisfaction': 50  
-    }, ]
+    const response = await fetch(apiURL, { headers: headers });
+    const data = await response.json();
     setPlant(data);
+    console.log("Plant Data", data);
   }
 
   async function fetchAnimals() {
-    // use API to fetch data
+    const apiURL = `${import.meta.env.VITE_SERVER}/animal`;
+    const headers = {
+      Authorization: token,
+    };
 
-    // const response = await fetch(`${process.env.VITE_SERVER}/`)
-    // const data = await response.json()
-
-    //mocking data for now
-    const data = [{
-        'animal_id': 1,
-        'user_id': 1,
-        'name': 'Bee',
-        'wellbeing': 50,
-        'influence': 50
-    }, 
-    {
-        'animal_id': 2,
-        'user_id': 1,
-        'name': 'Bird',
-        'wellbeing': 50,
-        'influence': 50
-    }, 
-    {
-        'animal_id': 3,
-        'user_id': 1,
-        'name': 'Ladybird',
-        'wellbeing': 50,
-        'influence': 50
-    }, ]
-
+    const response = await fetch(apiURL, { headers: headers });
+    const data = await response.json();
     setAnimal(data);
+    console.log("Animal Data", data);
+  }
+
+  async function waterPlant(plantObj) {
+    // How will we change the water satisifaction level
+    // Do a patch request to update the plant object
+    // Re-render the garden to show the update
+  }
+
+  async function fertilisePlant(plantObj) {
+    // How will we change the nutrient satisifaction level
+    // Do a patch request to update the plant object
+    // Re-render the garden to show the update
   }
 
   useEffect(() => {
@@ -135,27 +83,34 @@ export default function Garden() {
         </div>
         <h2>Plant Array</h2>
         <div>
-            {plant && (plant.map((plantObj, index) => (
-                <div key={index}>
+          {plant &&
+            plant.map((plantObj, index) => (
+              <div key={index}>
                 {Object.entries(plantObj).map(([key, value]) => (
-                    <p key={key}>
+                  <p key={key}>
                     {key}: {value}
-                    </p>
+                  </p>
                 ))}
-                </div>
-            )))}
+                <button onClick={() => waterPlant(plantObj)}>Water</button>
+                &nbsp;&nbsp;
+                <button onClick={() => fertilisePlant(plantObj)}>
+                  Fertilise
+                </button>
+              </div>
+            ))}
         </div>
         <h2>Animal Object</h2>
         <div>
-            {animal && (animal.map((animalObj, index) => (
-                <div key={index}>
+          {animal &&
+            animal.map((animalObj, index) => (
+              <div key={index}>
                 {Object.entries(animalObj).map(([key, value]) => (
-                    <p key={key}>
+                  <p key={key}>
                     {key}: {value}
-                    </p>
+                  </p>
                 ))}
-                </div>
-            )))}
+              </div>
+            ))}
         </div>
       </main>
     </div>

@@ -7,6 +7,7 @@ const animalRouter = require("./routers/animal");
 const trefleRouter = require("./routers/trefle");
 const plantRouter = require("./routers/plant");
 const gardenRouter = require("./routers/garden");
+const visionaiRouter = require("./routers/visionai");
 
 const app = express();
 
