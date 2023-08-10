@@ -47,15 +47,89 @@ export default function Garden() {
   }
 
   async function waterPlant(plantObj) {
-    // How will we change the water satisifaction level
-    // Do a patch request to update the plant object
-    // Re-render the garden to show the update
+    try {
+      //Update the state of the React App
+      const water_satisfaction_increase = 20;
+      const newWaterSatisfaction =
+        plantObj.water_satisfaction + water_satisfaction_increase;
+      const updatedPlantObj = {
+        ...plantObj,
+        water_satisfaction: newWaterSatisfaction,
+      };
+      const updatedPlants = plant.map((p) =>
+        p.plant_id === updatedPlantObj.plant_id ? updatedPlantObj : p
+      );
+      setPlant(updatedPlants);
+
+      // Update the DB with a patch request
+      const apiURL = `${import.meta.env.VITE_SERVER}/plants/${
+        plantObj.plant_id
+      }`;
+      const headers = {
+        Authorization: token,
+        "Content-Type": "application/json",
+      };
+      const body = JSON.stringify({
+        water_satisfaction: newWaterSatisfaction,
+      });
+
+      const response = await fetch(apiURL, {
+        method: "PATCH",
+        headers: headers,
+        body: body,
+      });
+
+      if (!response.ok) {
+        console.error("Failed to update plant water satisfaction");
+        return;
+      }
+      console.log("Plant water satisfaction updated successfully");
+    } catch (error) {
+      console.error("Error while updating plant water satisfaction:", error);
+    }
   }
 
   async function fertilisePlant(plantObj) {
-    // How will we change the nutrient satisifaction level
-    // Do a patch request to update the plant object
-    // Re-render the garden to show the update
+    try {
+      //Update the state of the React App
+      const nutrient_satisfaction_increase = 20;
+      const newNutrientSatisfaction =
+        plantObj.nutrient_satisfaction + nutrient_satisfaction_increase;
+      const updatedPlantObj = {
+        ...plantObj,
+        nutrient_satisfaction: newNutrientSatisfaction,
+      };
+      const updatedPlants = plant.map((p) =>
+        p.plant_id === updatedPlantObj.plant_id ? updatedPlantObj : p
+      );
+      setPlant(updatedPlants);
+
+      // Update the DB with a patch request
+      const apiURL = `${import.meta.env.VITE_SERVER}/plants/${
+        plantObj.plant_id
+      }`;
+      const headers = {
+        Authorization: token,
+        "Content-Type": "application/json",
+      };
+      const body = JSON.stringify({
+        nutrient_satisfaction: newNutrientSatisfaction,
+      });
+
+      const response = await fetch(apiURL, {
+        method: "PATCH",
+        headers: headers,
+        body: body,
+      });
+
+      if (!response.ok) {
+        console.error("Failed to update plant nutrient satisfaction");
+        return;
+      }
+      console.log("Plant nutrient satisfaction updated successfully");
+    } catch (error) {
+      console.error("Error while updating plant nutrient satisfaction:", error);
+    }
   }
 
   useEffect(() => {
