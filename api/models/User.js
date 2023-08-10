@@ -1,12 +1,13 @@
 const db = require("../database/connect");
 
 class User {
-  constructor({ user_id, username, password, exp, coins }) {
+  constructor({ user_id, username, password, exp, coins, creation_date }) {
     this.user_id = user_id;
     this.username = username;
     this.password = password;
     this.exp = exp;
     this.coins = coins;
+    this.creation_date = creation_date;
   }
 
   static async getOneById(user_id) {
@@ -58,6 +59,8 @@ class User {
     await db.query("DELETE FROM plant WHERE user_id = $1;", [this.user_id]);
     //GARDEN
     await db.query("DELETE FROM garden WHERE user_id = $1;", [this.user_id]);
+    //ANIMAL
+    await db.query("DELETE FROM animal WHERE user_id = $1;", [this.user_id]);
     //TOKEN
     await db.query("DELETE FROM token WHERE user_id = $1;", [this.user_id]);
 
