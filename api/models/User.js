@@ -22,7 +22,7 @@ class User {
       "SELECT * FROM user_account WHERE username = $1",
       [username]
     );
-    
+
     if (response.rows.length === 0) {
       throw new Error("User with this username doesn't exist");
     }

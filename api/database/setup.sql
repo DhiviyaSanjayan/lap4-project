@@ -1,14 +1,8 @@
-DROP TABLE IF EXISTS token;
-
-DROP TABLE IF EXISTS plants;
-
-DROP TABLE IF EXISTS plant;
-
-DROP TABLE IF EXISTS users;
-
+DROP TABLE IF EXISTS animal CASCADE;
+DROP TABLE IF EXISTS token CASCADE;
 DROP TABLE IF EXISTS user_account;
-
-DROP TABLE IF EXISTS garden;
+DROP TABLE IF EXISTS plant CASCADE;
+DROP TABLE IF EXISTS garden CASCADE;
 
 CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
@@ -27,6 +21,15 @@ CREATE TABLE token (
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
+CREATE TABLE animal (
+    animal_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    name VARCHAR(100),
+    wellbeing INT CHECK (wellbeing >= 1 AND wellbeing <= 100),
+    influence INT CHECK (influence >= 1 AND influence <= 10),
+    PRIMARY KEY (animal_id),
+    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
+);
 CREATE TABLE plant (
     plant_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
@@ -63,20 +66,6 @@ CREATE TABLE plant (
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
--- the password is 1
-INSERT INTO
-    user_account (username, password)
-VALUES
-    (
-        'cors',
-        '$2b$10$.pj1LTt4HxpVVg6fZDhdFOMBfiywBTikuDqx3KjDy85aJNyZ4IoJC'
-    );
-
-INSERT INTO
-    plant (user_id, nickname, name, trefle_id)
-VALUES
-    (1, 'Steven', 'Rubus arcticus', 266630);
-
 CREATE TABLE garden(
     garden_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
@@ -88,3 +77,24 @@ CREATE TABLE garden(
     PRIMARY KEY (garden_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );    
+
+
+-- the password is 1
+INSERT INTO
+    user_account (username, password)
+VALUES
+    (
+        'cors',
+        '$2b$10$.pj1LTt4HxpVVg6fZDhdFOMBfiywBTikuDqx3KjDy85aJNyZ4IoJC'
+    );
+
+INSERT INTO
+    animal (user_id, name, wellbeing, influence)
+VALUES
+    (1, 'bird', 100, 10);
+
+INSERT INTO
+    plant (user_id, nickname, name, trefle_id)
+VALUES
+    (1, 'Steven', 'Rubus arcticus', 266630);
+
