@@ -26,22 +26,6 @@ CREATE TABLE token (
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
-CREATE TABLE animal (
-    animal_id INT GENERATED ALWAYS AS IDENTITY,
-    user_id INT NOT NULL,
-    name VARCHAR(100),
-    wellbeing INT CHECK (
-        wellbeing >= 1
-        AND wellbeing <= 100
-    ),
-    influence INT CHECK (
-        influence >= 1
-        AND influence <= 10
-    ),
-    PRIMARY KEY (animal_id),
-    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
-);
-
 CREATE TABLE plant (
     plant_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
@@ -52,23 +36,23 @@ CREATE TABLE plant (
         wellbeing_rating BETWEEN 0
         AND 100
     ),
-    water_satisfaction INT NOT NULL DEFAULT 100 CHECK (
+    water_satisfaction FLOAT NOT NULL DEFAULT 100 CHECK (
         water_satisfaction BETWEEN 0
         AND 100
     ),
-    nutrient_satisfaction INT NOT NULL DEFAULT 100 CHECK (
+    nutrient_satisfaction FLOAT NOT NULL DEFAULT 100 CHECK (
         nutrient_satisfaction BETWEEN 0
         AND 100
     ),
-    light_satisfaction INT NOT NULL DEFAULT 100 CHECK (
+    light_satisfaction FLOAT NOT NULL DEFAULT 100 CHECK (
         light_satisfaction BETWEEN 0
         AND 100
     ),
-    air_satisfaction INT NOT NULL DEFAULT 100 CHECK (
+    air_satisfaction FLOAT NOT NULL DEFAULT 100 CHECK (
         air_satisfaction BETWEEN 0
         AND 100
     ),
-    space_satisfaction INT NOT NULL DEFAULT 100 CHECK (
+    space_satisfaction FLOAT NOT NULL DEFAULT 100 CHECK (
         space_satisfaction BETWEEN 0
         AND 100
     ),
@@ -99,6 +83,22 @@ CREATE TABLE garden (
         AND 100
     ),
     PRIMARY KEY (garden_id),
+    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
+);
+
+CREATE TABLE animal (
+    animal_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    name VARCHAR(100),
+    wellbeing FLOAT NOT NULL DEFAULT 50 CHECK (
+        wellbeing BETWEEN 0
+        AND 100
+    ),
+    influence FLOAT NOT NULL DEFAULT 50 CHECK (
+        influence BETWEEN 0
+        AND 100
+    ),
+    PRIMARY KEY (animal_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 

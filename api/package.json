@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./index.js",
     "test": "npx jest --detectOpenHandles --coverage",
     "setup-db": "node ./database/setup.js",
     "dev": "nodemon -L ./index.js"

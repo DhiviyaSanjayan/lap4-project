@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 
 app.use("/trefle-api", trefleRouter);
 app.use("/users", userRouter);
-app.use("/animal", animalRouter);
+app.use("/animals", animalRouter);
 app.use("/plants", plantRouter);
 app.use("/gardens", gardenRouter);
 

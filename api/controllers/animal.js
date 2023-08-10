@@ -1,62 +1,74 @@
 const Animal = require("../models/Animal");
 
 class AnimalController {
-  static async getAllAnimals(req, res) {
+  //READ ALL
+  static async getAllMyAnimals(req, res) {
     const user_id = req.tokenObj.user_id;
-    try {
-      const allAnimals = await Animal.getAllAnimals();
-      res.status(200).json(allAnimals);
-    } catch (error) {
-      console.error("Error fetching all animals:", error);
-      res.status(500).json({ error: error.message });
-    }
+    const data = await Animal.getAllMyAnimals(user_id);
+    res.status(200).json(data);
   }
 
-  static async createAnimal(req, res) {
-    const user_id = req.tokenObj.user_id;
-    try {
-      const data = req.body;
-      const result = await Animal.createAnimal(data);
-      res.status(201).send(result);
-    } catch (error) {
-      console.error("Animal creation error:", error);
-      res.status(500).json({ error: error.message });
-    }
-  }
-
-  static async getAnimalDetails(req, res) {
+  //READ ONE
+  static async getOneOfMyAnimals(req, res) {
     const user_id = req.tokenObj.user_id;
     const animal_id = req.params.id;
     try {
-      const result = await Animal.getAnimalById(animal_id);
+      const result = await Animal.getOneOfMyAnimals(user_id, animal_id);
       res.status(200).send(result);
     } catch (error) {
-      console.error("Animal details error:", error);
+      // console.log(error);
       res.status(404).json({ error: error.message });
     }
   }
 
-  static async updateAnimal(req, res) {
+  //CREATE ONE
+  static async createAnAnimal(req, res) {
+    const user_id = req.tokenObj.user_id;
+    try {
+      const data = req.body;
+      const result = await Animal.createAnAnimal(user_id, data);
+      res.status(201).send(result);
+    } catch (error) {
+      // console.log(error);
+      switch (+error.code) {
+        case 23502:
+          res.status(412).json({
+            error:
+              "You must give your animal a name to specify the type of animal it is",
+          });
+          break;
+        default:
+          res.status(500).json({ error: error.message });
+          break;
+      }
+    }
+  }
+
+  //UPDATE ONE
+  static async updateThisAnimal(req, res) {
     const user_id = req.tokenObj.user_id;
     const animal_id = req.params.id;
     const data = req.body;
     try {
-      const result = await Animal.updateAnimal(animal_id, data);
-      res.status(200).send(result);
+      const animal = await Animal.getOneOfMyAnimals(user_id, animal_id);
+      const result = await animal.updateThisAnimal(data);
+      res.status(202).send(result);
     } catch (error) {
-      console.error("Animal update error:", error);
-      res.status(500).json({ error: error.message });
+      // console.log(error);
+      res.status(304).json({ error: error.message });
     }
   }
 
-  static async deleteAnimal(req, res) {
+  //DELETE ONE
+  static async deleteThisAnimal(req, res) {
     const user_id = req.tokenObj.user_id;
     const animal_id = req.params.id;
     try {
-      const result = await Animal.deleteAnimal(animal_id);
-      res.status(200).send(result);
+      const animal = await Animal.getOneOfMyAnimals(user_id, animal_id);
+      await animal.deleteThisAnimal();
+      res.status(204).end();
     } catch (error) {
-      console.error("Animal deletion error:", error);
+      // console.log(error);
       res.status(500).json({ error: error.message });
     }
   }
