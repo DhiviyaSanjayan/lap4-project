@@ -7,17 +7,22 @@ export default function Garden() {
   const { user } = useAuth();
   const { display, setDisplay, plant, setPlant, animal, setAnimal } =
     useGarden();
-
   const token = localStorage.getItem("token");
 
-  async function waterPlant(plantObj) {
+  async function plantAction(plantObj, action) {
+    
+    //on button click will pass in 'water' or 'fertilise' as args
+
     try {
       //Update the state of the React App
-      const new_water_satisfaction = 100;
-      const updatedPlantObj = {
-        ...plantObj,
-        soil_moisture: new_water_satisfaction,
-      };
+      const satisfaction = 100;
+
+      // find out user is watering or fertilising the plant
+      const updatedPlantObj =
+        action === "water"
+          ? { ...plantObj, soil_moisture: satisfaction }
+          : { ...plantObj, soil_fertility: satisfaction };
+
       const updatedPlants = plant.map((p) =>
         p.plant_id === updatedPlantObj.plant_id ? updatedPlantObj : p
       );
@@ -31,9 +36,12 @@ export default function Garden() {
         Authorization: token,
         "Content-Type": "application/json",
       };
-      const body = JSON.stringify({
-        soil_moisture: new_water_satisfaction,
-      });
+
+      // find out user is watering or fertilising the plant
+      const body =
+        action === "water"
+          ? JSON.stringify({ soil_moisture: satisfaction })
+          : JSON.stringify({ soil_fertility: satisfaction });
 
       const response = await fetch(apiURL, {
         method: "PATCH",
@@ -42,53 +50,15 @@ export default function Garden() {
       });
 
       if (!response.ok) {
-        console.error("Failed to update plant water satisfaction");
+        console.error(`Failed to update plant ${action} satisfaction`);
         return;
       }
-      console.log("Plant water satisfaction updated successfully");
+      console.log(`Plant ${action} satisfaction updated successfully`);
     } catch (error) {
-      console.error("Error while updating plant water satisfaction:", error);
-    }
-  }
-
-  async function fertilisePlant(plantObj) {
-    try {
-      //Update the state of the React App
-      const new_nutrient_satisfaction = 100;
-      const updatedPlantObj = {
-        ...plantObj,
-        soil_fertility: new_nutrient_satisfaction,
-      };
-      const updatedPlants = plant.map((p) =>
-        p.plant_id === updatedPlantObj.plant_id ? updatedPlantObj : p
+      console.error(
+        `Error while updating plant ${action} satisfaction:`,
+        error
       );
-      setPlant(updatedPlants);
-
-      // Update the DB with a patch request
-      const apiURL = `${import.meta.env.VITE_SERVER}/plants/${
-        plantObj.plant_id
-      }`;
-      const headers = {
-        Authorization: token,
-        "Content-Type": "application/json",
-      };
-      const body = JSON.stringify({
-        soil_fertility: new_nutrient_satisfaction,
-      });
-
-      const response = await fetch(apiURL, {
-        method: "PATCH",
-        headers: headers,
-        body: body,
-      });
-
-      if (!response.ok) {
-        console.error("Failed to update plant nutrient satisfaction");
-        return;
-      }
-      console.log("Plant nutrient satisfaction updated successfully");
-    } catch (error) {
-      console.error("Error while updating plant nutrient satisfaction:", error);
     }
   }
 
@@ -119,9 +89,11 @@ export default function Garden() {
                     {key}: {value}
                   </p>
                 ))}
-                <button onClick={() => waterPlant(plantObj)}>Water</button>
+                <button onClick={() => plantAction(plantObj, 'water')}>
+                  Water
+                </button>
                 &nbsp;&nbsp;
-                <button onClick={() => fertilisePlant(plantObj)}>
+                <button onClick={() => plantAction(plantObj, 'fertilise')}>
                   Fertilise
                 </button>
               </div>
