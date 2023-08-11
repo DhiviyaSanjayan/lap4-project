@@ -1,59 +1,28 @@
 import React, { useState, useContext, useEffect } from "react";
 import style from "./style.module.css";
-import { useAuth } from "../../contexts";
+import { useAuth, useGarden } from "../../contexts";
+import CountdownTimer from "../../components/Timer";
 
 export default function Garden() {
-  const [garden, setGarden] = useState({});
-  const [plant, setPlant] = useState([]);
-  const [animal, setAnimal] = useState([]);
-
   const { user } = useAuth();
+  const { display, setDisplay, plant, setPlant, animal, setAnimal } =
+    useGarden();
   const token = localStorage.getItem("token");
 
-  async function fetchGarden() {
-    const apiURL = `${import.meta.env.VITE_SERVER}/gardens`;
-    const headers = {
-      Authorization: token,
-    };
+  async function plantAction(plantObj, action) {
+    
+    //on button click will pass in 'water' or 'fertilise' as args
 
-    const response = await fetch(apiURL, { headers: headers });
-    const data = await response.json();
-    setGarden(data);
-    console.log("Garden Data", data);
-  }
-
-  async function fetchPlants() {
-    const apiURL = `${import.meta.env.VITE_SERVER}/plants`;
-    const headers = {
-      Authorization: token,
-    };
-
-    const response = await fetch(apiURL, { headers: headers });
-    const data = await response.json();
-    setPlant(data);
-    console.log("Plant Data", data);
-  }
-
-  async function fetchAnimals() {
-    const apiURL = `${import.meta.env.VITE_SERVER}/animals`;
-    const headers = {
-      Authorization: token,
-    };
-
-    const response = await fetch(apiURL, { headers: headers });
-    const data = await response.json();
-    setAnimal(data);
-    console.log("Animal Data", data);
-  }
-
-  async function waterPlant(plantObj) {
     try {
       //Update the state of the React App
-      const new_water_satisfaction = 100;
-      const updatedPlantObj = {
-        ...plantObj,
-        water_satisfaction: new_water_satisfaction,
-      };
+      const satisfaction = 100;
+
+      // find out user is watering or fertilising the plant
+      const updatedPlantObj =
+        action === "water"
+          ? { ...plantObj, soil_moisture: satisfaction }
+          : { ...plantObj, soil_fertility: satisfaction };
+
       const updatedPlants = plant.map((p) =>
         p.plant_id === updatedPlantObj.plant_id ? updatedPlantObj : p
       );
@@ -67,9 +36,12 @@ export default function Garden() {
         Authorization: token,
         "Content-Type": "application/json",
       };
-      const body = JSON.stringify({
-        water_satisfaction: new_water_satisfaction,
-      });
+
+      // find out user is watering or fertilising the plant
+      const body =
+        action === "water"
+          ? JSON.stringify({ soil_moisture: satisfaction })
+          : JSON.stringify({ soil_fertility: satisfaction });
 
       const response = await fetch(apiURL, {
         method: "PATCH",
@@ -78,72 +50,28 @@ export default function Garden() {
       });
 
       if (!response.ok) {
-        console.error("Failed to update plant water satisfaction");
+        console.error(`Failed to update plant ${action} satisfaction`);
         return;
       }
-      console.log("Plant water satisfaction updated successfully");
+      console.log(`Plant ${action} satisfaction updated successfully`);
     } catch (error) {
-      console.error("Error while updating plant water satisfaction:", error);
-    }
-  }
-
-  async function fertilisePlant(plantObj) {
-    try {
-      //Update the state of the React App
-      const new_nutrient_satisfaction = 100
-      const updatedPlantObj = {
-        ...plantObj,
-        nutrient_satisfaction: new_nutrient_satisfaction,
-      };
-      const updatedPlants = plant.map((p) =>
-        p.plant_id === updatedPlantObj.plant_id ? updatedPlantObj : p
+      console.error(
+        `Error while updating plant ${action} satisfaction:`,
+        error
       );
-      setPlant(updatedPlants);
-
-      // Update the DB with a patch request
-      const apiURL = `${import.meta.env.VITE_SERVER}/plants/${
-        plantObj.plant_id
-      }`;
-      const headers = {
-        Authorization: token,
-        "Content-Type": "application/json",
-      };
-      const body = JSON.stringify({
-        nutrient_satisfaction: new_nutrient_satisfaction,
-      });
-
-      const response = await fetch(apiURL, {
-        method: "PATCH",
-        headers: headers,
-        body: body,
-      });
-
-      if (!response.ok) {
-        console.error("Failed to update plant nutrient satisfaction");
-        return;
-      }
-      console.log("Plant nutrient satisfaction updated successfully");
-    } catch (error) {
-      console.error("Error while updating plant nutrient satisfaction:", error);
     }
   }
-
-  useEffect(() => {
-    fetchGarden();
-    fetchPlants();
-    fetchAnimals();
-  }, []);
 
   return (
     <div className={style["outer-container"]}>
       <main className={style["inner-container"]}>
         <h1>This is your virtual garden</h1>
-
+        <CountdownTimer plant={plant} setPlant={setPlant} />
         <h2>Garden Object</h2>
         <div>
-          {garden && (
+          {display && (
             <div>
-              {Object.entries(garden).map(([key, value]) => (
+              {Object.entries(display).map(([key, value]) => (
                 <p key={key}>
                   {key}: {value}
                 </p>
@@ -161,9 +89,11 @@ export default function Garden() {
                     {key}: {value}
                   </p>
                 ))}
-                <button onClick={() => waterPlant(plantObj)}>Water</button>
+                <button onClick={() => plantAction(plantObj, 'water')}>
+                  Water
+                </button>
                 &nbsp;&nbsp;
-                <button onClick={() => fertilisePlant(plantObj)}>
+                <button onClick={() => plantAction(plantObj, 'fertilise')}>
                   Fertilise
                 </button>
               </div>
