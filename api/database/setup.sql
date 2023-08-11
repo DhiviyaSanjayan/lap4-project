@@ -14,6 +14,8 @@ CREATE TABLE user_account (
     password CHAR(60) NOT NULL,
     exp INT DEFAULT 0 NOT NULL,
     coins INT DEFAULT 0 NOT NULL,
+    last_logout_time TIMESTAMPTZ,
+    last_login_time TIMESTAMPTZ,
     creation_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id)
 );
