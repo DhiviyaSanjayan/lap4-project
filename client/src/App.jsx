@@ -10,15 +10,25 @@ import {
   PlantPage,
   AddPlant,
   Garden,
-  PlantIdentifier
+  PlantIdentifier,
 } from "./pages";
 
-import { AuthProvider } from "./contexts";
+import { AuthProvider, GardenProvider } from "./contexts";
 import { Guest, User } from "./layouts";
 
 import { Popup } from "./components";
 
 import "./App.css";
+
+function GardenRoute() {
+  return (
+    <GardenProvider>
+      <Routes>
+        <Route path="/" element={<Garden />} />
+      </Routes>
+    </GardenProvider>
+  );
+}
 
 function App() {
   return (
@@ -30,13 +40,13 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/addplant" element={<AddPlant />} />
-            <Route path="/garden" element={<Garden />} />
           </Route>
           <Route element={<User />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/plant-identifier" element={<PlantIdentifier />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/plants" element={<PlantPage />} />
+            <Route path="/garden/*" element={<GardenRoute />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="*" element={<Navigate to="/login" />} />
