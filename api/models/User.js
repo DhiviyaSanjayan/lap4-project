@@ -8,6 +8,7 @@ class User {
     exp,
     coins,
     creation_date,
+    last_refresh,
     last_login_time,
     last_logout_time,
   }) {
@@ -17,6 +18,7 @@ class User {
     this.exp = exp;
     this.coins = coins;
     this.creation_date = creation_date;
+    this.last_refresh = last_refresh;
     this.last_login_time = last_login_time;
     this.last_logout_time = last_logout_time;
   }
@@ -67,7 +69,7 @@ class User {
     ];
     try {
       let response = await db.query(
-        "UPDATE user_account SET exp = $1, coins = $2, last_logout_time = $3, last_login_time = $4 WHERE user_id = $5 RETURNING user_id;",
+        "UPDATE user_account SET exp = $1, coins = $2, last_logout_time = $3, last_login_time = $4, last_refresh = CURRENT_TIMESTAMP WHERE user_id = $5 RETURNING user_id;",
         values
       );
       const userId = response.rows[0].user_id;
@@ -84,8 +86,8 @@ class User {
     //delete all records related to user in other tables
     //PLANT
     await db.query("DELETE FROM plant WHERE user_id = $1;", [this.user_id]);
-    //GARDEN
-    await db.query("DELETE FROM garden WHERE user_id = $1;", [this.user_id]);
+    //DISPLAY
+    await db.query("DELETE FROM display WHERE user_id = $1;", [this.user_id]);
     //ANIMAL
     await db.query("DELETE FROM animal WHERE user_id = $1;", [this.user_id]);
     //TOKEN

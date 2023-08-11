@@ -34,7 +34,7 @@ describe("Animal MVC", () => {
   //POST - SUCCESS
   it("Should create a new animal record entry", async () => {
     const newAnimalData = {
-      name: "Bee",
+      animal_type: "Bees",
       influence: "65",
     };
 
@@ -44,27 +44,37 @@ describe("Animal MVC", () => {
       .send(newAnimalData)
       .expect(201);
 
-    const { name, animal_id } = response.body;
+    const { animal_type, animal_id } = response.body;
 
     //save animal id for a later test
     animalId = animal_id;
 
-    expect(name).toBe("Bee");
+    expect(animal_type).toBe("Bees");
     expect(response.body).toHaveProperty("influence");
     expect(response.body).toHaveProperty("wellbeing");
   });
 
   //POST - ERROR
   it("Should return an error message if conditions for creating a new animal haven't been met", async () => {
-    const newAnimalData = {
-      name: "Snail",
+    const newAnimalData1 = {
+      animal_type: "Snail",
     };
-
-    await request(app)
+    const response1 = await request(app)
       .post("/animals")
       .set({ authorization: token })
-      .send(newAnimalData)
+      .send(newAnimalData1)
       .expect(412);
+    expect(response1.body.error).toMatch(/invalid/i);
+
+    const newAnimalData2 = {
+      animal_type: "Bees",
+    };
+    const response2 = await request(app)
+      .post("/animals")
+      .set({ authorization: token })
+      .send(newAnimalData2)
+      .expect(412);
+    expect(response2.body.error).toMatch(/influence/i);
   });
 
   //GET - SUCCESS
@@ -84,8 +94,8 @@ describe("Animal MVC", () => {
       .set({ authorization: token })
       .expect(200);
 
-    const { name } = response.body;
-    expect(name).toBe("Bee");
+    const { animal_type } = response.body;
+    expect(animal_type).toBe("Bees");
     expect(response.body).toHaveProperty("wellbeing");
   });
 
@@ -93,7 +103,7 @@ describe("Animal MVC", () => {
   it("Should get an error if you try to access another user's animal", async () => {
     //another user is creates a new animal and it's id is obtained
     const newAnimalData2 = {
-      name: "Bird",
+      animal_type: "Birds",
       influence: 20,
     };
     const newAnimalId = (
@@ -115,7 +125,7 @@ describe("Animal MVC", () => {
   //PATCH - SUCCESS
   it("Should update user's animal information with valid details", async () => {
     const updatedAnimalInfo = {
-      name: "Lady Bug",
+      animal_type: "Lady Bugs",
       wellbeing: 44,
     };
 
@@ -125,9 +135,9 @@ describe("Animal MVC", () => {
       .send(updatedAnimalInfo)
       .expect(202);
 
-    const { name, wellbeing } = response.body;
+    const { animal_type, wellbeing } = response.body;
 
-    expect(name).toBe("Lady Bug");
+    expect(animal_type).toBe("Lady Bugs");
     expect(wellbeing).toBe(44);
   });
 

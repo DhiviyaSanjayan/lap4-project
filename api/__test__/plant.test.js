@@ -34,9 +34,9 @@ describe("Plant MVC", () => {
   //POST - SUCCESS
   it("Should create a new plant record entry", async () => {
     const newPlantData = {
-      nickname: "Jason",
-      name: "Rubus arcticus",
-      trefle_id: 266630,
+      pet_name: "Jason",
+      plant_name: "Rubus arcticus",
+      perenual_id: 2660,
     };
 
     const response = await request(app)
@@ -45,23 +45,23 @@ describe("Plant MVC", () => {
       .send(newPlantData)
       .expect(201);
 
-    const { plant_id, nickname, name } = response.body;
+    const { plant_id, pet_name, plant_name } = response.body;
 
     //save plant id for a later test
     plantId = plant_id;
 
-    expect(name).toBe("Rubus arcticus");
-    expect(nickname).toBe("Jason");
+    expect(plant_name).toBe("Rubus arcticus");
+    expect(pet_name).toBe("Jason");
     expect(response.body).toHaveProperty("plant_id");
-    expect(response.body).toHaveProperty("water_satisfaction");
+    expect(response.body).toHaveProperty("soil_moisture");
     expect(response.body).toHaveProperty("creation_date");
   });
 
   //POST - ERROR
   it("Should return an error message if conditions for creating a new plant haven't been met", async () => {
     const newPlantData = {
-      name: "Rubus arcticus",
-      trefle_id: 266630,
+      plant_name: "Rubus arcticus",
+      perenual_id: 266630,
     };
 
     await request(app)
@@ -88,18 +88,18 @@ describe("Plant MVC", () => {
       .set({ authorization: token })
       .expect(200);
 
-    const { name, nickname } = response.body;
-    expect(name).toBe("Rubus arcticus");
-    expect(nickname).toBe("Jason");
+    const { plant_name, pet_name } = response.body;
+    expect(plant_name).toBe("Rubus arcticus");
+    expect(pet_name).toBe("Jason");
   });
 
   //GET - ERROR
   it("Should get an error if you try to access another user's plant", async () => {
     //another user is creates a new plant and it's id is obtained
     const newPlantData2 = {
-      nickname: "Felix",
-      name: "Rubus arcticus",
-      trefle_id: 266630,
+      pet_name: "Felix",
+      plant_name: "Rubus arcticus",
+      perenual_id: 26663,
     };
     const newPlantId = (
       await request(app)
@@ -120,8 +120,8 @@ describe("Plant MVC", () => {
   //PATCH - SUCCESS
   it("Should update user's plant information with valid details", async () => {
     const updatedPlantInfo = {
-      nickname: "Barbara",
-      water_satisfaction: 44,
+      pet_name: "Barbara",
+      soil_moisture: 44,
     };
 
     const response = await request(app)
@@ -131,24 +131,20 @@ describe("Plant MVC", () => {
       .expect(202);
 
     const {
-      nickname,
-      wellbeing_rating,
-      water_satisfaction,
-      light_satisfaction,
+      pet_name,
+      soil_moisture,
+      sun_light,
     } = response.body;
 
-    expect(nickname).toBe("Barbara");
-    expect(water_satisfaction).toBe(44);
-    expect(wellbeing_rating).toBeLessThan(100);
-    expect(light_satisfaction).toBe(100);
+    expect(pet_name).toBe("Barbara");
+    expect(soil_moisture).toBe(44);
+    expect(sun_light).toBe(100);
   });
 
   //PATCH - ERROR
   it("Should respond with an error message if user updates plant information with invalid details", async () => {
     const updatedPlantInfo = {
-      // values over 100 exceed the max
-      air_satisfaction: 184,
-      water_satisfaction: -44,
+      soil_moisture: -44,
     };
 
     await request(app)

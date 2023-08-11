@@ -4,31 +4,25 @@ class Plant {
   constructor({
     plant_id,
     user_id,
-    nickname,
-    name,
-    trefle_id,
-    wellbeing_rating,
-    water_satisfaction,
-    air_satisfaction,
-    nutrient_satisfaction,
-    light_satisfaction,
-    space_satisfaction,
+    pet_name,
+    plant_name,
+    perenual_id,
+    soil_moisture,
+    soil_fertility,
+    sun_light,
+    plant_size,
     creation_date,
-    last_update_date,
   }) {
     this.plant_id = plant_id;
     this.user_id = user_id;
-    this.nickname = nickname;
-    this.name = name;
-    this.trefle_id = trefle_id;
-    this.wellbeing_rating = wellbeing_rating;
-    this.water_satisfaction = water_satisfaction;
-    this.air_satisfaction = air_satisfaction;
-    this.nutrient_satisfaction = nutrient_satisfaction;
-    this.light_satisfaction = light_satisfaction;
-    this.space_satisfaction = space_satisfaction;
+    this.pet_name = pet_name;
+    this.plant_name = plant_name;
+    this.perenual_id = perenual_id;
+    this.soil_moisture = soil_moisture;
+    this.soil_fertility = soil_fertility;
+    this.sun_light = sun_light;
+    this.plant_size = plant_size;
     this.creation_date = creation_date;
-    this.last_update_date = last_update_date;
   }
 
   //READ ONE - helper
@@ -64,10 +58,10 @@ class Plant {
   }
 
   //CREATE ONE
-  static async createAPlant(user_id, { nickname, name, trefle_id }) {
-    const values = [user_id, nickname, name, trefle_id];
+  static async createAPlant(user_id, { pet_name, plant_name, perenual_id }) {
+    const values = [user_id, pet_name, plant_name, perenual_id];
     const response = await db.query(
-      "INSERT INTO plant (user_id, nickname, name, trefle_id) VALUES ($1, $2, $3, $4) RETURNING *;",
+      "INSERT INTO plant (user_id, pet_name, plant_name, perenual_id) VALUES ($1, $2, $3, $4) RETURNING *;",
       values
     );
     return new Plant(response.rows[0]);
@@ -75,35 +69,24 @@ class Plant {
 
   //UPDATE ONE
   async updateThisPlant({
-    nickname = this.nickname,
-    wellbeing_rating,
-    water_satisfaction = this.water_satisfaction,
-    air_satisfaction = this.air_satisfaction,
-    nutrient_satisfaction = this.nutrient_satisfaction,
-    light_satisfaction = this.light_satisfaction,
-    space_satisfaction = this.space_satisfaction,
+    pet_name = this.pet_name,
+    soil_moisture = this.soil_moisture,
+    soil_fertility = this.soil_fertility,
+    sun_light = this.sun_light,
+    plant_size = this.plant_size,
   }) {
-    const wellBeingRating =  wellbeing_rating ?? Plant.calcWellbeingRating(
-      water_satisfaction,
-      air_satisfaction,
-      nutrient_satisfaction,
-      light_satisfaction,
-      space_satisfaction
-    );
 
     const values = [
-      nickname,
-      wellBeingRating,
-      water_satisfaction,
-      air_satisfaction,
-      nutrient_satisfaction,
-      light_satisfaction,
-      space_satisfaction,
+      pet_name,
+      soil_moisture,
+      soil_fertility,
+      sun_light,
+      plant_size,
       this.plant_id,
     ];
 
     const response = await db.query(
-      "UPDATE plant SET nickname = $1, wellbeing_rating = $2, water_satisfaction = $3, air_satisfaction = $4, nutrient_satisfaction = $5, light_satisfaction = $6, space_satisfaction = $7, last_update_date = CURRENT_TIMESTAMP WHERE plant_id = $8 RETURNING *;",
+      "UPDATE plant SET pet_name = $1, soil_moisture = $2, soil_fertility = $3, sun_light = $4, plant_size = $5 WHERE plant_id = $6 RETURNING *;",
       values
     );
     return new Plant(response.rows[0]);
@@ -116,16 +99,6 @@ class Plant {
       [this.plant_id]
     );
     return new Plant(response.rows[0]);
-  }
-
-  //calculate new wellbeing rating based on condition satisfaction ratings
-  static calcWellbeingRating(...args) {
-    const waterWeight = 0.3 * args[0];
-    const airWeight = 0.1 * args[1];
-    const nutrientWeight = 0.3 * args[2];
-    const lightWeight = 0.2 * args[3];
-    const spaceWeight = 0.1 * args[4];
-    return waterWeight + airWeight + nutrientWeight + lightWeight + spaceWeight;
   }
 }
 

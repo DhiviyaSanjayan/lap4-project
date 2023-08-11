@@ -107,7 +107,6 @@ class UserController {
       const updatedUser = await user.updateUserDetails(logoutData);
 
       await tokenObj.deleteToken();
-
       res.status(202).json({
         message: "Your token has been deleted and you've been logged out",
         user: updatedUser,
@@ -124,7 +123,7 @@ class UserController {
       await userToDelete.deleteUser();
       res
         .status(204)
-        .json({ message: "You're Account Has Been Successfully Deleted" });
+        .json({ message: "You're Account Has Beesn Successfully Deleted" });
     } catch (error) {
       // console.log(error);
       res.status(500).json({ error: error.message });
