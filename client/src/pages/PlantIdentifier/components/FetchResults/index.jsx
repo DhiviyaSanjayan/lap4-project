@@ -7,7 +7,6 @@ export default function FetchResults() {
     flowerColors,
     foliageColors,
     foliageTextures,
-    isFlowerEasilyVisible,
     setFilterResults,
   } = usePlantFilters();
 
@@ -16,7 +15,6 @@ export default function FetchResults() {
       flowerColors.length > 0 ? `[flower_color]=${flowerColors}` : "",
       foliageColors.length > 0 ? `[foliage_color]=${foliageColors}` : "",
       foliageTextures.length > 0 ? `[foliage_texture]=${foliageTextures}` : "",
-      `[flower_conspicuous]=${isFlowerEasilyVisible}`,
     ];
 
     allFiltersString = allFiltersString.filter(Boolean);
