@@ -11,11 +11,16 @@ const setupMockDB = async () => {
   const sql = fs.readFileSync(path.join(__dirname, "./setup.sql")).toString();
 
   try {
+    console.log("Initializing mock database setup...");
+    console.log("Executing SQL statements...");
+
     await db.query(sql);
     db.end();
+
     console.log("Mock Database Setup Complete 👍");
   } catch (error) {
-    console.log(error);
+    console.error("Error during mock database setup:");
+    console.error(error);
   }
 };
 

@@ -1,4 +1,5 @@
 const Animal = require("../models/Animal");
+const authenticator = require("../middleware/authenticator");
 
 class AnimalController {
   //READ ALL

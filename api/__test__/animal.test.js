@@ -35,7 +35,7 @@ describe("Animal MVC", () => {
   it("Should create a new animal record entry", async () => {
     const newAnimalData = {
       name: "Bee",
-      influence: "65"
+      influence: "65",
     };
 
     const response = await request(app)
@@ -125,10 +125,7 @@ describe("Animal MVC", () => {
       .send(updatedAnimalInfo)
       .expect(202);
 
-    const {
-      name,
-      wellbeing,
-    } = response.body;
+    const { name, wellbeing } = response.body;
 
     expect(name).toBe("Lady Bug");
     expect(wellbeing).toBe(44);
