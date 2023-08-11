@@ -6,7 +6,7 @@ const trefleRouter = require("./routers/trefle");
 const userRouter = require("./routers/user");
 const animalRouter = require("./routers/animal");
 const plantRouter = require("./routers/plant");
-const gardenRouter = require("./routers/garden");
+const displayRouter = require("./routers/display");
 const visionaiRouter = require("./routers/visionai");
 
 const app = express();
@@ -26,7 +26,7 @@ app.use("/trefle-api", trefleRouter);
 app.use("/users", userRouter);
 app.use("/animals", animalRouter);
 app.use("/plants", plantRouter);
-app.use("/gardens", gardenRouter);
+app.use("/displays", displayRouter);
 app.use("/visionai", visionaiRouter);
 
 module.exports = app;

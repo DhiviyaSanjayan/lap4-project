@@ -42,13 +42,11 @@ class UserController {
         throw new Error("Wrong username or password");
       } else {
         const token = await Token.create(user["user_id"]);
-        res
-          .status(201)
-          .json({
-            authenticated: true,
-            token: token.token,
-            user: user.username,
-          });
+        res.status(201).json({
+          authenticated: true,
+          token: token.token,
+          user: user.username,
+        });
       }
     } catch (error) {
       // console.log(error);
@@ -85,7 +83,11 @@ class UserController {
     const tokenObj = req.tokenObj;
     try {
       await tokenObj.deleteToken();
-      res.status(202).json({ message: "Your token has been deleted and you've been logged out" });
+      res
+        .status(202)
+        .json({
+          message: "Your token has been deleted and you've been logged out",
+        });
     } catch (error) {
       // console.log(error);
       res.status(403).json({ error: error.message });
@@ -97,7 +99,9 @@ class UserController {
     try {
       const userToDelete = await User.getOneById(user_id);
       await userToDelete.deleteUser();
-      res.status(204).json({ message: "You're Account Has Been Successfully Deleted" });
+      res
+        .status(204)
+        .json({ message: "You're Account Has Beesn Successfully Deleted" });
     } catch (error) {
       // console.log(error);
       res.status(500).json({ error: error.message });

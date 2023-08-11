@@ -16,7 +16,7 @@ class PlantController {
       const data = await Plant.getOneOfMyPlants(user_id, plant_id);
       res.status(200).json(data);
     } catch (error) {
-      //   console.log(error);
+      console.log(error);
       res.status(404).json({ error: error.message });
     }
   }
@@ -29,12 +29,12 @@ class PlantController {
       const data = await Plant.createAPlant(user_id, plantInfo);
       res.status(201).json(data);
     } catch (error) {
-      //   console.log(error);
+      console.log(error);
       switch (+error.code) {
         case 23502:
           res.status(412).json({
             error:
-              "You must give your plant a nickname and a name to specify the type of plant it is",
+              "You must give your plant a pet_name, plant_name and perenual_id",
           });
           break;
         default:
@@ -54,7 +54,7 @@ class PlantController {
       const data = await plant.updateThisPlant(plantInfo);
       res.status(202).json(data);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       res.status(304).json({ error: error.message });
     }
   }
@@ -68,7 +68,7 @@ class PlantController {
       await plant.deleteThisPlant();
       res.status(204).end();
     } catch (error) {
-      //   console.log(error);
+      console.log(error);
       res.status(500).json({ error: error.message });
     }
   }
