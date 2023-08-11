@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { PlantFilter, PlantCard } from "../../components";
+import axios from "axios";
 
 const PlantPage = () => {
   const [plants, setPlants] = useState([]);
@@ -12,7 +13,7 @@ const PlantPage = () => {
 
   useEffect(() => {
     async function loadPlants() {
-      const key = "sk-jb0464d232be4bbc31798";
+      const key = "sk-Cbth64d349a84316c1797";
       let url = `https://perenual.com/api/species-list?page=${page}&key=${key}`;
       if (indoorFilter) {
         url += "&indoor=1";
@@ -35,6 +36,39 @@ const PlantPage = () => {
     loadPlants();
   }, [page, indoorFilter, poisonousFilter, wateringFilter, searchQuery]); 
 
+  async function handleAddPlant(plant) {
+    const petName = prompt("Enter a pet name for your plant:");
+
+    if (petName) {
+      const plantData = {
+        plant_name: plant.name,
+        perenual_id: plant.id,
+        pet_name: petName,    
+      };
+
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      
+      try {
+        const { data } = await axios.post(`${import.meta.env.VITE_SERVER}/plants`, plantData, config);
+        console.log(data)
+        alert("Plant added successfully!");    
+      } catch (error) {
+        alert("An error occurred while adding the plant.");
+        console.log(error);
+      }
+
+      if (response.ok) {
+        alert("Plant added successfully!");
+      } else {
+        alert("An error occurred while adding the plant.");
+      }
+    }
+  }
+
   function displayPlants() {
     return plants.map((p) => (
       <PlantCard
@@ -43,6 +77,7 @@ const PlantPage = () => {
         name={p.common_name}
         family={p.scientific_name[0]}
         image={p.default_image ? p.default_image.regular_url : null}
+        onAddPlant={handleAddPlant}
       />
     ));
   }
