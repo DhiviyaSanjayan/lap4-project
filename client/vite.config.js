@@ -20,3 +20,10 @@ export default defineConfig({
     environment: "jsdom",
   },
 });
+// import { defineConfig } from "vite";
+
+// export default defineConfig({
+//   test: {
+//     environment: "jsdom",
+//   },
+// });

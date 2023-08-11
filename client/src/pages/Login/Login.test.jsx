@@ -6,6 +6,7 @@ import axios from "axios";
 import Login from "./index";
 import { AuthProvider } from "../../contexts/Authentication";
 import userEvent from "@testing-library/user-event";
+// import * as Jsdom from "jsdom";
 
 describe("Login component", () => {
   beforeEach(() => {

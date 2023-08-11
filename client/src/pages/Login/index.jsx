@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts";
@@ -19,18 +20,18 @@ export default function Login() {
   const loginUser = async (e) => {
     e.preventDefault();
     const userDetails = new FormData(e.target);
-    
+
     try {
       const config = {
         username: userDetails.get("username"),
         password: userDetails.get("password"),
       };
-      
+
       const { status, data } = await axios.post(
         `${import.meta.env.VITE_SERVER}/users/login`,
         config
       );
-      
+
       if (status === 201) {
         localStorage.setItem("token", data.token);
         setUser(data.user);
@@ -44,9 +45,7 @@ export default function Login() {
 
   return (
     <>
-      <div
-        className={style["container"]}
-      >
+      <div className={style["container"]}>
         <h1>Login</h1>
         <form id="login-form" onSubmit={loginUser}>
           <UsernameInput />
