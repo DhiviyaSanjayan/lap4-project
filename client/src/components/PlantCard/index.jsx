@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const PlantCard = ({ id, name, family, image }) => {
+const PlantCard = ({ id, name, family, image, onAddPlant }) => {
     return (
       <div className="card">
         <Link to={`/plants/${id}`}>
@@ -11,6 +11,7 @@ const PlantCard = ({ id, name, family, image }) => {
             {image && <img src={image} alt={name} className="plant-image" />}
           </div>
         </Link>
+        <button onClick={() => onAddPlant({ id, name })}>Add Plant</button>
       </div>
     );
   };
