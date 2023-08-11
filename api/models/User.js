@@ -1,7 +1,17 @@
 const db = require("../database/connect");
 
 class User {
-  constructor({ user_id, username, password, exp, coins, creation_date, last_refresh }) {
+  constructor({
+    user_id,
+    username,
+    password,
+    exp,
+    coins,
+    creation_date,
+    last_refresh,
+    last_login_time,
+    last_logout_time,
+  }) {
     this.user_id = user_id;
     this.username = username;
     this.password = password;
@@ -9,6 +19,8 @@ class User {
     this.coins = coins;
     this.creation_date = creation_date;
     this.last_refresh = last_refresh;
+    this.last_login_time = last_login_time;
+    this.last_logout_time = last_logout_time;
   }
 
   static async getOneById(user_id) {
@@ -42,16 +54,32 @@ class User {
     return newUser;
   }
 
-  async updateUserDetails({ exp = this.exp, coins = this.coins }) {
-    const values = [exp, coins, this.user_id];
-    let response = await db.query(
-      "UPDATE user_account SET exp = $1, coins = $2, last_refresh = CURRENT_TIMESTAMP WHERE user_id = $3 RETURNING user_id;",
-      values
-    );
-    const userId = response.rows[0].user_id;
-    const updatedUser = await User.getOneById(userId);
-    delete updatedUser.password;
-    return updatedUser;
+  async updateUserDetails({
+    exp = this.exp,
+    coins = this.coins,
+    last_logout_time = this.last_logout_time,
+    last_login_time = this.last_login_time,
+  }) {
+    const values = [
+      exp,
+      coins,
+      last_logout_time,
+      last_login_time,
+      this.user_id,
+    ];
+    try {
+      let response = await db.query(
+        "UPDATE user_account SET exp = $1, coins = $2, last_logout_time = $3, last_login_time = $4, last_refresh = CURRENT_TIMESTAMP WHERE user_id = $5 RETURNING user_id;",
+        values
+      );
+      const userId = response.rows[0].user_id;
+      const updatedUser = await User.getOneById(userId);
+      delete updatedUser.password;
+      return updatedUser;
+    } catch (error) {
+      console.error("Error updating user details in model:", error);
+      throw error;
+    }
   }
 
   async deleteUser() {
