@@ -45,6 +45,7 @@ describe("Plant MVC", () => {
       .send(newPlantData)
       .expect(201);
 
+    console.log(response.body);
     const { plant_id, pet_name, plant_name } = response.body;
 
     //save plant id for a later test
@@ -130,15 +131,11 @@ describe("Plant MVC", () => {
       .send(updatedPlantInfo)
       .expect(202);
 
-    const {
-      pet_name,
-      soil_moisture,
-      sun_light,
-    } = response.body;
+    const { pet_name, soil_moisture, wellbeing } = response.body;
 
     expect(pet_name).toBe("Barbara");
     expect(soil_moisture).toBe(44);
-    expect(sun_light).toBe(100);
+    expect(wellbeing).toBe(100);
   });
 
   //PATCH - ERROR

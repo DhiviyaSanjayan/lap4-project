@@ -18,10 +18,7 @@ CREATE TABLE user_account (
     password CHAR(60) NOT NULL,
     exp INT DEFAULT 0 NOT NULL,
     coins INT DEFAULT 0 NOT NULL,
-    last_logout_time TIMESTAMPTZ,
-    last_login_time TIMESTAMPTZ,
     creation_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    last_refresh TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id)
 );
 
@@ -39,6 +36,15 @@ CREATE TABLE plant (
     pet_name VARCHAR(200) NOT NULL,
     plant_name VARCHAR(200) NOT NULL,
     perenual_id INT NOT NULL,
+    wellbeing FLOAT NOT NULL DEFAULT 100 CHECK (
+        wellbeing BETWEEN 0
+        AND 100
+    ),
+    plant_exp INT NOT NULL DEFAULT 0,
+    plant_beauty INT NOT NULL DEFAULT 1 CHECK (
+        plant_beauty BETWEEN 1
+        AND 10
+    ),
     soil_moisture FLOAT NOT NULL DEFAULT 100 CHECK (
         soil_moisture BETWEEN 0
         AND 100
@@ -46,14 +52,6 @@ CREATE TABLE plant (
     soil_fertility FLOAT NOT NULL DEFAULT 100 CHECK (
         soil_fertility BETWEEN 0
         AND 100
-    ),
-    sun_light FLOAT NOT NULL DEFAULT 100 CHECK (
-        sun_light BETWEEN 0
-        AND 100
-    ),
-    plant_size FLOAT NOT NULL DEFAULT 1 CHECK (
-        plant_size BETWEEN 1
-        AND 5
     ),
     creation_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (plant_id),
