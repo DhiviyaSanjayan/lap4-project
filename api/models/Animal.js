@@ -1,10 +1,11 @@
 const db = require("../database/connect");
 
 class Animal {
-  constructor({ animal_id, user_id, name, wellbeing, influence }) {
+  constructor({ animal_id, user_id, animal_type, count, wellbeing, influence }) {
     this.animal_id = animal_id;
     this.user_id = user_id;
-    this.name = name;
+    this.animal_type = animal_type;
+    this.count = count;
     this.wellbeing = wellbeing;
     this.influence = influence;
   }
@@ -41,11 +42,11 @@ class Animal {
   }
 
   //CREATE ONE
-  static async createAnAnimal(user_id, { name, influence }) {
-    const values = [user_id, name, influence];
+  static async createAnAnimal(user_id, { animal_type, influence }) {
+    const values = [user_id, animal_type, influence];
 
     const response = await db.query(
-      "INSERT INTO animal (user_id, name, influence) VALUES ($1, $2, $3) RETURNING *;",
+      "INSERT INTO animal (user_id, animal_type, influence) VALUES ($1, $2, $3) RETURNING *;",
       values
     );
     return new Animal(response.rows[0]);
@@ -53,13 +54,14 @@ class Animal {
 
   //UPDATE ONE
   async updateThisAnimal({
-    name = this.name,
+    animal_type = this.animal_type,
+    count = this.count,
     wellbeing = this.wellbeing,
     influence = this.influence,
   }) {
-    const values = [name, wellbeing, influence, this.animal_id];
+    const values = [animal_type, count, wellbeing, influence, this.animal_id];
     const response = await db.query(
-      "UPDATE animal SET name = $1, wellbeing = $2, influence = $3 WHERE animal_id = $4 RETURNING *;",
+      "UPDATE animal SET animal_type = $1, count = $2, wellbeing = $3, influence = $4 WHERE animal_id = $5 RETURNING *;",
       values
     );
     return new Animal(response.rows[0]);

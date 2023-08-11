@@ -1,12 +1,12 @@
-const Garden = require("../models/Garden.js");
+const Display = require("../models/Display.js");
 
-class GardenController {
-   //READ ONE
-  static async getMyGarden(req, res) {
+class DisplayController {
+  //READ ONE
+  static async getMyDisplay(req, res) {
     const user_id = req.tokenObj.user_id;
     try {
-      const garden = await Garden.getMyGarden(user_id);
-      res.status(200).json(garden);
+      const display = await Display.getMyDisplay(user_id);
+      res.status(200).json(display);
     } catch (error) {
       // console.log(error);
       res.status(404).json({ error: error.message });
@@ -14,18 +14,18 @@ class GardenController {
   }
 
   //CREATE ONE
-  static async createMyGarden(req, res) {
+  static async createMyDisplay(req, res) {
     const user_id = req.tokenObj.user_id;
     try {
-      const garden = await Garden.createMyGarden(user_id, req.body);
-      res.status(201).json(garden);
+      const display = await Display.createMyDisplay(user_id, req.body);
+      res.status(201).json(display);
     } catch (error) {
       // console.log(error);
       switch (+error.code) {
         case 23502:
           res.status(412).json({
             error:
-              "You're missing the input fields required for successfully creating your garden",
+              "You're display requires a name to be successfully created",
           });
           break;
         default:
@@ -36,12 +36,12 @@ class GardenController {
   }
 
   //UPDATE ONE
-  static async updateThisGarden(req, res) {
+  static async updateThisDisplay(req, res) {
     const user_id = req.tokenObj.user_id;
     const data = req.body;
     try {
-      const garden = await Garden.getMyGarden(user_id);
-      const result = await garden.updateThisGarden(data);
+      const display = await Display.getMyDisplay(user_id);
+      const result = await display.updateThisDisplay(data);
       res.status(202).json(result);
     } catch (error) {
       // console.log(error);
@@ -50,11 +50,11 @@ class GardenController {
   }
 
   //DELETE ONE
-  static async deleteThisGarden(req, res) {
+  static async deleteThisDisplay(req, res) {
     const user_id = req.tokenObj.user_id;
     try {
-      const garden = await Garden.getMyGarden(user_id);
-      await garden.deleteThisGarden();
+      const display = await Display.getMyDisplay(user_id);
+      await display.deleteThisDisplay();
       res.status(204).end();
     } catch (error) {
       // console.log(error);
@@ -63,4 +63,4 @@ class GardenController {
   }
 }
 
-module.exports = GardenController;
+module.exports = DisplayController;

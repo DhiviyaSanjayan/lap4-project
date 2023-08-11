@@ -1,25 +1,26 @@
 import React, { useState, useContext, useEffect } from "react";
 import style from "./style.module.css";
 import { useAuth } from "../../contexts";
+import CountdownTimer from "../../components/Timer";
 
 export default function Garden() {
-  const [garden, setGarden] = useState({});
+  const [display, setDisplay] = useState({});
   const [plant, setPlant] = useState([]);
   const [animal, setAnimal] = useState([]);
 
   const { user } = useAuth();
   const token = localStorage.getItem("token");
 
-  async function fetchGarden() {
-    const apiURL = `${import.meta.env.VITE_SERVER}/gardens`;
+  async function fetchDisplay() {
+    const apiURL = `${import.meta.env.VITE_SERVER}/displays`;
     const headers = {
       Authorization: token,
     };
 
     const response = await fetch(apiURL, { headers: headers });
     const data = await response.json();
-    setGarden(data);
-    console.log("Garden Data", data);
+    setDisplay(data);
+    console.log("Display Data", data);
   }
 
   async function fetchPlants() {
@@ -52,7 +53,7 @@ export default function Garden() {
       const new_water_satisfaction = 100;
       const updatedPlantObj = {
         ...plantObj,
-        water_satisfaction: new_water_satisfaction,
+        soil_moisture : new_water_satisfaction,
       };
       const updatedPlants = plant.map((p) =>
         p.plant_id === updatedPlantObj.plant_id ? updatedPlantObj : p
@@ -68,7 +69,7 @@ export default function Garden() {
         "Content-Type": "application/json",
       };
       const body = JSON.stringify({
-        water_satisfaction: new_water_satisfaction,
+        soil_moisture: new_water_satisfaction,
       });
 
       const response = await fetch(apiURL, {
@@ -90,10 +91,10 @@ export default function Garden() {
   async function fertilisePlant(plantObj) {
     try {
       //Update the state of the React App
-      const new_nutrient_satisfaction = 100
+      const new_nutrient_satisfaction = 100;
       const updatedPlantObj = {
         ...plantObj,
-        nutrient_satisfaction: new_nutrient_satisfaction,
+        soil_fertility : new_nutrient_satisfaction,
       };
       const updatedPlants = plant.map((p) =>
         p.plant_id === updatedPlantObj.plant_id ? updatedPlantObj : p
@@ -109,7 +110,7 @@ export default function Garden() {
         "Content-Type": "application/json",
       };
       const body = JSON.stringify({
-        nutrient_satisfaction: new_nutrient_satisfaction,
+        soil_fertility : new_nutrient_satisfaction,
       });
 
       const response = await fetch(apiURL, {
@@ -129,7 +130,7 @@ export default function Garden() {
   }
 
   useEffect(() => {
-    fetchGarden();
+    fetchDisplay();
     fetchPlants();
     fetchAnimals();
   }, []);
@@ -138,12 +139,12 @@ export default function Garden() {
     <div className={style["outer-container"]}>
       <main className={style["inner-container"]}>
         <h1>This is your virtual garden</h1>
-
+        <CountdownTimer plant={plant} setPlant={setPlant} />
         <h2>Garden Object</h2>
         <div>
-          {garden && (
+          {display && (
             <div>
-              {Object.entries(garden).map(([key, value]) => (
+              {Object.entries(display).map(([key, value]) => (
                 <p key={key}>
                   {key}: {value}
                 </p>

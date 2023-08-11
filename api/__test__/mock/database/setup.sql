@@ -1,8 +1,12 @@
+DROP TYPE IF EXISTS animal_list CASCADE;
+
 DROP TABLE IF EXISTS animal CASCADE;
 
 DROP TABLE IF EXISTS plant CASCADE;
 
 DROP TABLE IF EXISTS garden CASCADE;
+
+DROP TABLE IF EXISTS display CASCADE;
 
 DROP TABLE IF EXISTS token CASCADE;
 
@@ -15,6 +19,7 @@ CREATE TABLE user_account (
     exp INT DEFAULT 0 NOT NULL,
     coins INT DEFAULT 0 NOT NULL,
     creation_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    last_refresh TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id)
 );
 
@@ -29,68 +34,61 @@ CREATE TABLE token (
 CREATE TABLE plant (
     plant_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
-    nickname VARCHAR(200) NOT NULL,
-    name VARCHAR(200) NOT NULL,
-    trefle_id INT,
-    wellbeing_rating FLOAT DEFAULT 100 CHECK (
-        wellbeing_rating BETWEEN 0
+    pet_name VARCHAR(200) NOT NULL,
+    plant_name VARCHAR(200) NOT NULL,
+    perenual_id INT NOT NULL,
+    soil_moisture FLOAT NOT NULL DEFAULT 100 CHECK (
+        soil_moisture BETWEEN 0
         AND 100
     ),
-    water_satisfaction INT DEFAULT 100 CHECK (
-        water_satisfaction BETWEEN 0
+    soil_fertility FLOAT NOT NULL DEFAULT 100 CHECK (
+        soil_fertility BETWEEN 0
         AND 100
     ),
-    nutrient_satisfaction INT DEFAULT 100 CHECK (
-        nutrient_satisfaction BETWEEN 0
+    sun_light FLOAT NOT NULL DEFAULT 100 CHECK (
+        sun_light BETWEEN 0
         AND 100
     ),
-    light_satisfaction INT DEFAULT 100 CHECK (
-        light_satisfaction BETWEEN 0
-        AND 100
-    ),
-    air_satisfaction INT DEFAULT 100 CHECK (
-        air_satisfaction BETWEEN 0
-        AND 100
-    ),
-    space_satisfaction INT DEFAULT 100 CHECK (
-        space_satisfaction BETWEEN 0
-        AND 100
+    plant_size FLOAT NOT NULL DEFAULT 1 CHECK (
+        plant_size BETWEEN 1
+        AND 5
     ),
     creation_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    last_check_time TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    last_update_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (plant_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
-CREATE TABLE garden (
-    garden_id INT GENERATED ALWAYS AS IDENTITY,
+CREATE TABLE display (
+    display_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
     name VARCHAR(100) NOT NULL,
-    weather INT NOT NULL DEFAULT 10 CHECK (
-        weather BETWEEN 0
+    air_quality INT NOT NULL DEFAULT 10 CHECK (
+        air_quality BETWEEN 0
         AND 10
     ),
-    soil_quality FLOAT NOT NULL DEFAULT 100 CHECK (
-        soil_quality BETWEEN 0
-        AND 100
+    sun_intensity INT NOT NULL DEFAULT 10 CHECK (
+        sun_intensity BETWEEN 0
+        AND 10
+    ),
+    capacity INT NOT NULL DEFAULT 5 CHECK (
+        capacity BETWEEN 1
+        AND 25
     ),
     pest_level FLOAT NOT NULL DEFAULT 0 CHECK (
         pest_level BETWEEN 0
-        AND 100
+        AND 10
     ),
-    water_level FLOAT NOT NULL DEFAULT 50 CHECK (
-        water_level BETWEEN 0
-        AND 100
-    ),
-    PRIMARY KEY (garden_id),
+    PRIMARY KEY (display_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
+
+CREATE TYPE animal_list AS ENUM ('Lady Bugs', 'Bees', 'Birds');
 
 CREATE TABLE animal (
     animal_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
-    name VARCHAR(100),
+    animal_type animal_list,
+    count INT NOT NULL DEFAULT 1,
     wellbeing FLOAT NOT NULL DEFAULT 50 CHECK (
         wellbeing BETWEEN 0
         AND 100
