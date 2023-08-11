@@ -5,7 +5,7 @@ function CountdownTimer({ plant, setPlant }) {
   // Will not update the API, done by the mega update function
 
   const countdownInterval = 10; //in seconds, 60 minutes * 60 seconds = 1 hour
-  const [countdown, setCountdown] = useState(countdownInterval); 
+  const [countdown, setCountdown] = useState(countdownInterval);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,7 +31,6 @@ function CountdownTimer({ plant, setPlant }) {
             soil_fertility: newNutrientSatisfaction,
           };
         });
-
         setPlant(updatedPlant);
         setCountdown(countdownInterval);
       }
@@ -40,7 +39,8 @@ function CountdownTimer({ plant, setPlant }) {
     return () => {
       clearInterval(interval); // Cleanup the interval when the component unmounts
     };
-  }, [countdown, plant, countdownInterval]);
+    
+  }, [countdown]);
 
   const formatTime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
