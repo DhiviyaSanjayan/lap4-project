@@ -62,12 +62,8 @@ CREATE TABLE display (
     display_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
     name VARCHAR(100) NOT NULL,
-    air_quality INT NOT NULL DEFAULT 10 CHECK (
-        air_quality BETWEEN 0
-        AND 10
-    ),
-    sun_intensity INT NOT NULL DEFAULT 10 CHECK (
-        sun_intensity BETWEEN 0
+    weather INT NOT NULL DEFAULT 10 CHECK (
+        weather BETWEEN 0
         AND 10
     ),
     capacity INT NOT NULL DEFAULT 5 CHECK (
@@ -76,7 +72,7 @@ CREATE TABLE display (
     ),
     pest_level FLOAT NOT NULL DEFAULT 0 CHECK (
         pest_level BETWEEN 0
-        AND 10
+        AND 100
     ),
     PRIMARY KEY (display_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
@@ -87,7 +83,7 @@ CREATE TYPE animal_list AS ENUM ('Lady Bugs', 'Bees', 'Birds');
 CREATE TABLE animal (
     animal_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
-    animal_type animal_list,
+    animal_type animal_list NOT NULL,
     count INT NOT NULL DEFAULT 1,
     wellbeing FLOAT NOT NULL DEFAULT 50 CHECK (
         wellbeing BETWEEN 0

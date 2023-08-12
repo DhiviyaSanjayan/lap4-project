@@ -17,7 +17,7 @@ class AnimalController {
       const result = await Animal.getOneOfMyAnimals(user_id, animal_id);
       res.status(200).send(result);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       res.status(404).json({ error: error.message });
     }
   }
@@ -34,7 +34,7 @@ class AnimalController {
       switch (String(error.code)) {
         case "23502":
           res.status(412).json({
-            error: "You must give your animal a type and influence",
+            error: "You must give your animal a type",
           });
           break;
         case "22P02":
@@ -57,7 +57,7 @@ class AnimalController {
       const result = await animal.updateThisAnimal(data);
       res.status(202).send(result);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       res.status(304).json({ error: error.message });
     }
   }
@@ -71,7 +71,7 @@ class AnimalController {
       await animal.deleteThisAnimal();
       res.status(204).end();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       res.status(500).json({ error: error.message });
     }
   }
