@@ -18,9 +18,9 @@ async function updateUsersInfo(user_id) {
   for (const plant of plants) {
     // const perenualData = await getPerenualData(plant["perenual_id"]);
     const perenualData = {
-      growth_rate: 'Moderate',
-      watering: "Average"
-    }
+      growth_rate: "Moderate",
+      watering: "Average",
+    };
 
     //plant growth rate to calc SM and SF reductions
     const growthRate = perenualData["growth_rate"];
@@ -132,7 +132,7 @@ async function updateUsersInfo(user_id) {
 }
 
 //changes the garden display and user experience and coins with a greater interval of time between runs
-async function updateAllInfo2() {
+async function updateTablesInfrequent() {
   //get all records related to this user
   const allUsers = await User.getAllUsers();
   const allUserIDs = allUsers.map((user) => user["user_id"]);
@@ -140,14 +140,16 @@ async function updateAllInfo2() {
   for (const user_id of allUserIDs) {
     //change the weather value of garden display randomly
     const gardenDisplay = await Display.getMyDisplay(user_id);
-    const udpatedWeather = gardenDisplay["weather"] + Math.round(Math.random() * 4 - 2);
-    gardenDisplay["weather"] = udpatedWeather > 100 ? 100 : udpatedWeather < 0 ? 0 : udpatedWeather;
+    const udpatedWeather =
+      gardenDisplay["weather"] + Math.round(Math.random() * 4 - 2);
+    gardenDisplay["weather"] =
+      udpatedWeather > 100 ? 100 : udpatedWeather < 0 ? 0 : udpatedWeather;
 
     const newGarden = await gardenDisplay.updateThisDisplay({
       ...gardenDisplay,
     });
 
-    console.log(newGarden)
+    console.log(newGarden);
     const animals = await Animal.getAllMyAnimals(user_id);
     const plants = await Plant.getAllMyPlants(user_id);
 
@@ -168,11 +170,11 @@ async function updateAllInfo2() {
   }
 }
 
-async function updateAllInfo() {
+async function updateTablesRegular() {
   const allUsers = await User.getAllUsers();
   const allUserIDs = allUsers.map((user) => user["user_id"]);
 
   allUserIDs.forEach((user_id) => updateUsersInfo(user_id));
 }
 
-module.exports = { updateAllInfo, updateAllInfo2 };
+module.exports = { updateTablesRegular, updateTablesInfrequent };
