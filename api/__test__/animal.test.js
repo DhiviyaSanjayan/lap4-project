@@ -67,14 +67,14 @@ describe("Animal MVC", () => {
     expect(response1.body.error).toMatch(/invalid/i);
 
     const newAnimalData2 = {
-      animal_type: "Bees",
+      influence: 4,
     };
     const response2 = await request(app)
       .post("/animals")
       .set({ authorization: token })
       .send(newAnimalData2)
       .expect(412);
-    expect(response2.body.error).toMatch(/influence/i);
+    expect(response2.body.error).toMatch(/type/i);
   });
 
   //GET - SUCCESS

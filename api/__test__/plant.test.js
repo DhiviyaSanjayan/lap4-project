@@ -45,7 +45,6 @@ describe("Plant MVC", () => {
       .send(newPlantData)
       .expect(201);
 
-    console.log(response.body);
     const { plant_id, pet_name, plant_name } = response.body;
 
     //save plant id for a later test

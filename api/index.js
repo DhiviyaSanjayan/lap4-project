@@ -2,10 +2,17 @@ require("dotenv").config();
 const app = require("./app");
 const port = process.env.PORT || 3000;
 
-const updateAllInfo = require("./utils/updateAllInfo");
+const {
+  updateTablesRegular,
+  updateTablesInfrequent,
+} = require("./utils/updateTables");
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 
-// updateAllInfo();
+//30 interval
+setInterval(updateTablesRegular, 30000);
+
+//2 minute interval
+setInterval(updateTablesInfrequent, 180000);

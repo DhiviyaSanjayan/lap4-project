@@ -1,13 +1,12 @@
 const db = require("../database/connect");
 
 class Display {
-  constructor({ display_id, user_id, name, capacity, sun_intensity, air_quality, pest_level }) {
+  constructor({ display_id, user_id, name, capacity, weather, pest_level }) {
     this.display_id = display_id;
     this.user_id = user_id;
     this.name = name;
     this.capacity = capacity;
-    this.sun_intensity = sun_intensity;
-    this.air_quality = air_quality;
+    this.weather = weather;
     this.pest_level = pest_level;
   }
 
@@ -37,13 +36,12 @@ class Display {
   async updateThisDisplay({
     name = this.name,
     capacity = this.capacity,
-    sun_intensity = this.sun_intensity,
-    air_quality = this.air_quality,
+    weather = this.weather,
     pest_level = this.pest_level,
   }) {
-    const values = [name, capacity, sun_intensity, air_quality, pest_level, this.display_id];
+    const values = [name, capacity, weather, pest_level, this.display_id];
     const response = await db.query(
-      "UPDATE display SET name = $1, capacity = $2, sun_intensity = $3, air_quality = $4, pest_level = $5 WHERE display_id = $6 RETURNING *;",
+      "UPDATE display SET name = $1, capacity = $2, weather = $3, pest_level = $4 WHERE display_id = $5 RETURNING *;",
       values
     );
 

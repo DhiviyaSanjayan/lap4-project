@@ -57,11 +57,10 @@ class Animal {
     animal_type = this.animal_type,
     count = this.count,
     wellbeing = this.wellbeing,
-    influence = this.influence,
   }) {
-    const values = [animal_type, count, wellbeing, influence, this.animal_id];
+    const values = [animal_type, count, wellbeing, this.animal_id];
     const response = await db.query(
-      "UPDATE animal SET animal_type = $1, count = $2, wellbeing = $3, influence = $4 WHERE animal_id = $5 RETURNING *;",
+      "UPDATE animal SET animal_type = $1, count = $2, wellbeing = $3 WHERE animal_id = $4 RETURNING *;",
       values
     );
     return new Animal(response.rows[0]);
