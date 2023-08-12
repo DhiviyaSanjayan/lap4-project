@@ -6,7 +6,6 @@ export const PlantFilterProvider = ({ children }) => {
   const [flowerColors, setFlowerColors] = useState(["yellow"]);
   const [foliageColors, setFoliageColors] = useState(["green"]);
   const [foliageTextures, setFoliageTextures] = useState(["fine"]);
-  const [isFlowerEasilyVisible, setIsFlowerEasilyVisible] = useState(true);
 
   const [filterResults, setFilterResults] = useState([]);
 
@@ -21,8 +20,6 @@ export const PlantFilterProvider = ({ children }) => {
         setFilterResults,
         foliageTextures,
         setFoliageTextures,
-        isFlowerEasilyVisible,
-        setIsFlowerEasilyVisible
       }}
     >
       {children}
