@@ -7,7 +7,7 @@ import styles from "./style.module.css";
 
 export default function Results() {
   const { filterResults } = usePlantFilters();
-
+console.log(filterResults)
   return (
     filterResults && (
       <div className={styles["container"]}>

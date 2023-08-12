@@ -4,7 +4,7 @@ import {
   FlowerColorFilter,
   FoliageColorFilter,
   FoliageTextureFilter,
-  FetchResults,
+  FetchButton,
   Results,
 } from "./components";
 import { PlantFilterProvider } from "./contexts";
@@ -21,7 +21,7 @@ export default function PlantIdentifier() {
           <FoliageColorFilter />
           <h3>Foliage Textures</h3>
           <FoliageTextureFilter />
-          <FetchResults />
+          <FetchButton />
         </div>
         <Results />
       </main>
