@@ -1,7 +1,7 @@
-const User = require("../models/User");
-const Plant = require("../models/Plant");
-const Animal = require("../models/Animal");
-const Display = require("../models/Display");
+const User = require("../../models/User");
+const Plant = require("../../models/Plant");
+const Animal = require("../../models/Animal");
+const Display = require("../../models/Display");
 const getPerenualData = require("./getPerenualData");
 const findIdealPlantConditions = require("./findIdealPlantConditions");
 
@@ -94,8 +94,8 @@ async function updateUsersInfo(user_id) {
     //increase plant exp based on the plants current wellbeing
     plant["plant_exp"] = parseInt(plant["plant_exp"] + plantWellbeing * 1.5);
 
-    const newPlant = await plant.updateThisPlant({ ...plant });
-    console.log(newPlant);
+    const updatedPlant = await plant.updateThisPlant({ ...plant });
+    console.log(updatedPlant);
   }
 
   for (const animal of animals) {
@@ -103,7 +103,6 @@ async function updateUsersInfo(user_id) {
     const pLTax = (gardenDisplay["pest_level"] / 100) * 2;
     const precipTax = ((10 - gardenDisplay["weather"]) / 10) * 2;
     const wBReduction = t * 0.3 + pLTax + precipTax;
-    console.log(wBReduction);
     const updatedWB = animal["wellbeing"] - wBReduction;
     animal["wellbeing"] = updatedWB < 0 ? 0 : updatedWB;
 
@@ -112,8 +111,8 @@ async function updateUsersInfo(user_id) {
     const updatedCount = animal["count"] - countReduction;
     animal["count"] = updatedCount < 0 ? 0 : updatedCount;
 
-    const newAnimal = await animal.updateThisAnimal({ ...animal });
-    console.log(newAnimal);
+    const updatedAnimal = await animal.updateThisAnimal({ ...animal });
+    console.log(updatedAnimal);
   }
 
   const ladyBugs = animals.filter(
@@ -127,8 +126,8 @@ async function updateUsersInfo(user_id) {
   gardenDisplay["pest_level"] =
     updatedPL > 100 ? 100 : updatedPL < 0 ? 0 : updatedPL;
 
-  const newGarden = await gardenDisplay.updateThisDisplay({ ...gardenDisplay });
-  console.log(newGarden);
+  const updatedGarden = await gardenDisplay.updateThisDisplay({ ...gardenDisplay });
+  console.log(updatedGarden);
 }
 
 //changes the garden display and user experience and coins with a greater interval of time between runs
@@ -145,11 +144,12 @@ async function updateTablesInfrequent() {
     gardenDisplay["weather"] =
       udpatedWeather > 100 ? 100 : udpatedWeather < 0 ? 0 : udpatedWeather;
 
-    const newGarden = await gardenDisplay.updateThisDisplay({
+    const updatedGarden = await gardenDisplay.updateThisDisplay({
       ...gardenDisplay,
     });
 
-    console.log(newGarden);
+    console.log(updatedGarden);
+    //update user account
     const animals = await Animal.getAllMyAnimals(user_id);
     const plants = await Plant.getAllMyPlants(user_id);
 
