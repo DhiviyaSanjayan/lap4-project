@@ -1,10 +1,13 @@
 const { Router } = require("express");
+
 const authenticator = require("../middleware/authenticator");
 const PlantController = require("../controllers/plant");
+const upload = require("../middleware/plant/upload.js")
 
 const plantRouter = Router();
 
 plantRouter.use(authenticator);
+plantRouter.use(upload.single("plant_pic"));
 
 //CREATE ONE
 plantRouter.post("/", PlantController.createAPlant);
