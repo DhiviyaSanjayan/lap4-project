@@ -1,0 +1,19 @@
+<svg id="fede389f-7a7c-4347-abf6-27e58b5b47d8" data-name="flower" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 769.47 963.8">
+  <g id="b24c9b36-b0d2-48df-8007-b78451dcfb72" data-name="stem">
+    <path d="M867.7,326.37c221.32,140.15,292,424.82,158,636.47" transform="translate(-533 -6)" style="fill: none;stroke: #006837;stroke-miterlimit: 10;stroke-width: 26px"/>
+  </g>
+  <path id="fca2b18c-acac-4f4b-ae0c-a8614da7ca48" data-name="leaf2" d="M1203,552.3c-69.84,30.81-153.51-5.51-153.51-5.51s29.58-86.28,99.43-117.09,153.51,5.51,153.51,5.51S1272.89,521.49,1203,552.3Z" transform="translate(-533 -6)" style="fill: #006837"/>
+  <path id="bb67efa4-eac7-4720-bdaf-f5702fa31837" data-name="leaf1" d="M974.42,705.62c-69.85,30.82-153.51-5.5-153.51-5.5s29.58-86.28,99.42-117.1,153.51,5.51,153.51,5.51S1044.26,674.81,974.42,705.62Z" transform="translate(-533 -6)" style="fill: #006837"/>
+  <g id="a201dacf-be98-4d3d-ae5c-aa1927582a08" data-name="petal">
+    <path id="f91f4593-db8d-4a38-b229-f5277e0210b3" data-name="petal3" d="M950.42,137.32c0,61-52.74,110.5-117.81,110.5S714.8,198.35,714.8,137.32,833,6,833,6,950.42,76.3,950.42,137.32Z" transform="translate(-533 -6)" style="fill: #ff7bac"/>
+    <path id="f655aa30-7b07-4c53-b851-a3bca4b77182" data-name="petal2" d="M668.31,180.6c61-2.3,112.4,48.55,114.85,113.57s-45,119.59-106,121.88S533,298,533,298,607.32,182.89,668.31,180.6Z" transform="translate(-533 -6)" style="fill: #ff7bac"/>
+    <path d="M996.94,181.6c-61-2.3-112.4,48.55-114.85,113.57s45,119.59,106,121.88,144.17-118,144.17-118S1057.93,183.89,996.94,181.6Z" transform="translate(-533 -6)" style="fill: #ff7bac"/>
+    <path d="M832,347.83C767,348.2,714.48,398,714.83,459S833.68,587,833.68,587s117.11-68.32,116.77-129.34S897.07,347.46,832,347.83Z" transform="translate(-533 -6)" style="fill: #ff7bac"/>
+  </g>
+  <g id="bedecdb8-608c-4eba-9d19-95ecf141f988" data-name="pistil">
+    <path d="M833,299l94,94.05a133,133,0,0,0,0-188.1Z" transform="translate(-533 -6)" style="fill: #8c517b"/>
+    <path d="M833,299l-94,94.05a133,133,0,0,0,188.1,0Z" transform="translate(-533 -6)" style="fill: #a7d8dd"/>
+    <path d="M833,299l94-94.05A133,133,0,0,0,739,205Z" transform="translate(-533 -6)" style="fill: #ee8a3c"/>
+    <path d="M833,299,739,205a133,133,0,0,0,0,188.1Z" transform="translate(-533 -6)" style="fill: #f2e4a1"/>
+  </g>
+</svg>
