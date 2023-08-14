@@ -43,13 +43,13 @@ describe("Display MVC", () => {
 
     expect(name).toBe("Enchanted Eden");
     expect(response.body).toHaveProperty("display_id");
-    expect(response.body).toHaveProperty("air_quality");
+    expect(response.body).toHaveProperty("weather");
   });
 
   //POST - ERROR
   it("Should return an error message if conditions for creating a new display haven't been met", async () => {
     const newDisplayData = {
-      air_quality: 4,
+      weather: 4,
     };
 
     await request(app)
@@ -73,7 +73,7 @@ describe("Display MVC", () => {
   //PATCH - SUCCESS
   it("Should update user's display information with valid details", async () => {
     const updatedDisplayInfo = {
-      air_quality: 4,
+      weather: 4,
       capacity: 10,
     };
 
@@ -83,18 +83,18 @@ describe("Display MVC", () => {
       .send(updatedDisplayInfo)
       .expect(202);
 
-    const { name, pest_level, air_quality, capacity } = response.body;
+    const { name, pest_level, weather, capacity } = response.body;
 
     expect(name).toBe("Enchanted Eden");
     expect(pest_level).toBe(0);
-    expect(air_quality).toBe(4);
+    expect(weather).toBe(4);
     expect(capacity).toBe(10);
   });
 
   //PATCH - ERROR
   it("Should respond with an error message if user updates display information with invalid details", async () => {
     const updatedDisplayInfo = {
-      air_quality: -6,
+      weather: -6,
     };
 
     await request(app)

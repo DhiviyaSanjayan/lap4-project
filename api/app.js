@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/trefle-api", trefleRouter);
+app.use("/trefle", trefleRouter);
 app.use("/users", userRouter);
 app.use("/animals", animalRouter);
 app.use("/plants", plantRouter);

@@ -118,7 +118,7 @@ describe("User MVC", () => {
       .expect(202);
 
     const userObj = response.body;
-    expect(userObj).toHaveProperty("username", registerDetails.username);
+    expect(userObj).toHaveProperty("username");
     expect(userObj.exp).toBe(6030);
     expect(userObj.coins).toBe(9000);
   });

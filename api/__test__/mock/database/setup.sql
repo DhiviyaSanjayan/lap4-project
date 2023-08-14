@@ -19,7 +19,6 @@ CREATE TABLE user_account (
     exp INT DEFAULT 0 NOT NULL,
     coins INT DEFAULT 0 NOT NULL,
     creation_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    last_refresh TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id)
 );
 
@@ -37,6 +36,15 @@ CREATE TABLE plant (
     pet_name VARCHAR(200) NOT NULL,
     plant_name VARCHAR(200) NOT NULL,
     perenual_id INT NOT NULL,
+    wellbeing FLOAT NOT NULL DEFAULT 100 CHECK (
+        wellbeing BETWEEN 0
+        AND 100
+    ),
+    plant_exp INT NOT NULL DEFAULT 0,
+    plant_beauty INT NOT NULL DEFAULT 1 CHECK (
+        plant_beauty BETWEEN 1
+        AND 10
+    ),
     soil_moisture FLOAT NOT NULL DEFAULT 100 CHECK (
         soil_moisture BETWEEN 0
         AND 100
@@ -44,14 +52,6 @@ CREATE TABLE plant (
     soil_fertility FLOAT NOT NULL DEFAULT 100 CHECK (
         soil_fertility BETWEEN 0
         AND 100
-    ),
-    sun_light FLOAT NOT NULL DEFAULT 100 CHECK (
-        sun_light BETWEEN 0
-        AND 100
-    ),
-    plant_size FLOAT NOT NULL DEFAULT 1 CHECK (
-        plant_size BETWEEN 1
-        AND 5
     ),
     creation_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (plant_id),
@@ -62,12 +62,8 @@ CREATE TABLE display (
     display_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
     name VARCHAR(100) NOT NULL,
-    air_quality INT NOT NULL DEFAULT 10 CHECK (
-        air_quality BETWEEN 0
-        AND 10
-    ),
-    sun_intensity INT NOT NULL DEFAULT 10 CHECK (
-        sun_intensity BETWEEN 0
+    weather INT NOT NULL DEFAULT 10 CHECK (
+        weather BETWEEN 0
         AND 10
     ),
     capacity INT NOT NULL DEFAULT 5 CHECK (
@@ -76,7 +72,7 @@ CREATE TABLE display (
     ),
     pest_level FLOAT NOT NULL DEFAULT 0 CHECK (
         pest_level BETWEEN 0
-        AND 10
+        AND 100
     ),
     PRIMARY KEY (display_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
@@ -87,7 +83,7 @@ CREATE TYPE animal_list AS ENUM ('Lady Bugs', 'Bees', 'Birds');
 CREATE TABLE animal (
     animal_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
-    animal_type animal_list,
+    animal_type animal_list NOT NULL,
     count INT NOT NULL DEFAULT 1,
     wellbeing FLOAT NOT NULL DEFAULT 50 CHECK (
         wellbeing BETWEEN 0

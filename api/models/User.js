@@ -8,9 +8,7 @@ class User {
     exp,
     coins,
     creation_date,
-    last_refresh,
     last_login_time,
-    last_logout_time,
   }) {
     this.user_id = user_id;
     this.username = username;
@@ -18,9 +16,7 @@ class User {
     this.exp = exp;
     this.coins = coins;
     this.creation_date = creation_date;
-    this.last_refresh = last_refresh;
     this.last_login_time = last_login_time;
-    this.last_logout_time = last_logout_time;
   }
 
   static async getOneById(user_id) {
@@ -29,6 +25,12 @@ class User {
       [user_id]
     );
     return new User(response.rows[0]);
+  }
+
+  //READ ALL
+  static async getAllUsers() {
+    const response = await db.query("SELECT * FROM user_account");
+    return response.rows.map((u) => new User(u));
   }
 
   static async getOneByUsername(username) {
@@ -57,29 +59,20 @@ class User {
   async updateUserDetails({
     exp = this.exp,
     coins = this.coins,
-    last_logout_time = this.last_logout_time,
-    last_login_time = this.last_login_time,
   }) {
     const values = [
       exp,
       coins,
-      last_logout_time,
-      last_login_time,
       this.user_id,
     ];
-    try {
-      let response = await db.query(
-        "UPDATE user_account SET exp = $1, coins = $2, last_logout_time = $3, last_login_time = $4, last_refresh = CURRENT_TIMESTAMP WHERE user_id = $5 RETURNING user_id;",
-        values
-      );
-      const userId = response.rows[0].user_id;
-      const updatedUser = await User.getOneById(userId);
-      delete updatedUser.password;
-      return updatedUser;
-    } catch (error) {
-      console.error("Error updating user details in model:", error);
-      throw error;
-    }
+    let response = await db.query(
+      "UPDATE user_account SET exp = $1, coins = $2 WHERE user_id = $3 RETURNING user_id;",
+      values
+    );
+    const userId = response.rows[0].user_id;
+    const updatedUser = await User.getOneById(userId);
+    delete updatedUser.password;
+    return updatedUser;
   }
 
   async deleteUser() {

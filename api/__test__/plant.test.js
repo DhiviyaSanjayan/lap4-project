@@ -130,15 +130,11 @@ describe("Plant MVC", () => {
       .send(updatedPlantInfo)
       .expect(202);
 
-    const {
-      pet_name,
-      soil_moisture,
-      sun_light,
-    } = response.body;
+    const { pet_name, soil_moisture, wellbeing } = response.body;
 
     expect(pet_name).toBe("Barbara");
     expect(soil_moisture).toBe(44);
-    expect(sun_light).toBe(100);
+    expect(wellbeing).toBe(100);
   });
 
   //PATCH - ERROR

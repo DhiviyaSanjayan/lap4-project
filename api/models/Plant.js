@@ -7,10 +7,11 @@ class Plant {
     pet_name,
     plant_name,
     perenual_id,
+    wellbeing,
     soil_moisture,
     soil_fertility,
-    sun_light,
-    plant_size,
+    plant_beauty,
+    plant_exp,
     creation_date,
   }) {
     this.plant_id = plant_id;
@@ -18,10 +19,11 @@ class Plant {
     this.pet_name = pet_name;
     this.plant_name = plant_name;
     this.perenual_id = perenual_id;
+    this.wellbeing = wellbeing;
+    this.plant_beauty = plant_beauty;
+    this.plant_exp = plant_exp;
     this.soil_moisture = soil_moisture;
     this.soil_fertility = soil_fertility;
-    this.sun_light = sun_light;
-    this.plant_size = plant_size;
     this.creation_date = creation_date;
   }
 
@@ -70,23 +72,23 @@ class Plant {
   //UPDATE ONE
   async updateThisPlant({
     pet_name = this.pet_name,
+    wellbeing = this.wellbeing,
     soil_moisture = this.soil_moisture,
     soil_fertility = this.soil_fertility,
-    sun_light = this.sun_light,
-    plant_size = this.plant_size,
+    plant_exp = this.plant_exp,
   }) {
 
     const values = [
       pet_name,
+      wellbeing,
       soil_moisture,
       soil_fertility,
-      sun_light,
-      plant_size,
+      plant_exp,
       this.plant_id,
     ];
 
     const response = await db.query(
-      "UPDATE plant SET pet_name = $1, soil_moisture = $2, soil_fertility = $3, sun_light = $4, plant_size = $5 WHERE plant_id = $6 RETURNING *;",
+      "UPDATE plant SET pet_name = $1, wellbeing = $2, soil_moisture = $3, soil_fertility = $4, plant_exp = $5 WHERE plant_id = $6 RETURNING *;",
       values
     );
     return new Plant(response.rows[0]);
