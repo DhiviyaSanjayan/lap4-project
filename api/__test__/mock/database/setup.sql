@@ -36,6 +36,7 @@ CREATE TABLE plant (
     pet_name VARCHAR(200) NOT NULL,
     plant_name VARCHAR(200) NOT NULL,
     perenual_id INT NOT NULL,
+    pic_filename VARCHAR NOT NULL,
     wellbeing FLOAT NOT NULL DEFAULT 100 CHECK (
         wellbeing BETWEEN 0
         AND 100
@@ -45,11 +46,11 @@ CREATE TABLE plant (
         plant_beauty BETWEEN 1
         AND 10
     ),
-    soil_moisture FLOAT NOT NULL DEFAULT 100 CHECK (
+    soil_moisture FLOAT NOT NULL DEFAULT 50 CHECK (
         soil_moisture BETWEEN 0
         AND 100
     ),
-    soil_fertility FLOAT NOT NULL DEFAULT 100 CHECK (
+    soil_fertility FLOAT NOT NULL DEFAULT 50 CHECK (
         soil_fertility BETWEEN 0
         AND 100
     ),
