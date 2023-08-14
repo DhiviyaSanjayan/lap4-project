@@ -1,0 +1,129 @@
+.container {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition: transform 1s linear;
+}
+
+.living-room {
+  position: fixed;
+  z-index: 2;
+  z-index: 1;
+  height: 100;
+  width: 100%;
+  transition-property: transform;
+  transition-duration: 1s;
+  transition-delay: 1s;
+  transition-timing-function: linear;
+}
+
+.login.living-room {
+  transform: scale(3.3) translateX(-24.65%) translateY(17.5%);
+}
+.access.living-room {
+  transform: scale(7) translateX(-24.65%) translateY(17.5%);
+}
+
+:global(#left-c-shadow),
+:global(#left-curtain),
+:global(#right-c-shadow),
+:global(#right-curtain) {
+  transition: transform 1s linear;
+}
+
+.login :global(#left-c-shadow),
+.login :global(#left-curtain) {
+  transform: translateX(29%) scaleX(0.5);
+}
+
+.login :global(#right-c-shadow),
+.login :global(#right-curtain) {
+  transform: translateX(45.7%) scaleX(0.5);
+}
+
+.pot,
+.gloves {
+  position: fixed;
+  width: unset;
+  height: unset;
+  z-index: 3;
+  transition-property: top;
+  transition-timing-function: ease-in-out;
+  transition-duration: 1.5s;
+}
+
+.gloves {
+  left: 50%;
+  top: 160%;
+  transform: translate(-50%, -50%);
+  height: 500px;
+}
+
+.gloves.access {
+  transition-delay: 0s;
+  top: 160%;
+}
+
+.pot {
+  width: 600px;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  top: -50%;
+}
+
+.on-login {
+  left: 50%;
+  top: 50%;
+  transition-delay: 1.5s;
+}
+
+.on-register {
+  left: 51%;
+  top: 47%;
+  transition-delay: 1.5s;
+}
+
+.garden {
+  z-index: -1;
+  transition-property: all;
+  transform: scale(1.2) translateY(0%);
+  transition-delay: 1s;
+  background: url("/src/assets/backgrounds/garden.svg");
+}
+
+.transition-g {
+  transform: scale(2) translateX(20%);
+}
+
+.garden.access {
+  transform: scale(1) translateX(0%);
+}
+
+:global(#left-door),
+:global(#right-door) {
+  transition-property: transform;
+  transition-duration: 2s;
+  transition-timing-function: linear;
+}
+.access :global(#left-door) {
+  transform: skewY(-8deg) translateY(16.3%) translateX(47.7%) scaleX(0.2)
+    scaleY(0.99);
+  transform-origin: bottom left;
+}
+
+.access :global(#right-door) {
+  transform: skewY(8deg) translateY(2%) translateX(-7.35%) scaleX(0.2)
+    scaleY(0.99);
+  transform-origin: bottom right;
+}

@@ -1,13 +1,34 @@
+.container {
+  display: grid;
+  place-self: stretch;
+  position: relative;
+}
+
+.container > svg {
+  place-self: center;
+  position: absolute;
+  fill: pink;
+  width: 20px;
+  height: unset;
+  left: 14px;
+}
+
 .input {
   padding: 0.5em;
-  border-radius: 100vmax;
-  font-size: 1.125rem;
-  background-color: #ffffff29;
-  border: 2px solid;
-  padding: 7px 20px;
-  border-radius: 100vmax;
+  font-size: 18px;
+  line-height: 1;
+  background: url(/src/assets/images/opaque_flower.svg) 0 100% repeat-x;
+  background-repeat: repeat-x;
+  width:177px;
+  border: none;
+  padding: 12px 14px;
+  padding-left: 40px;
+  outline: none;
+  color: pink;
+  border-radius: 5px;
 }
 
 .input::placeholder {
   position: relative;
+  color: lightblue;
 }

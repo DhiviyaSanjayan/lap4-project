@@ -1,8 +1,42 @@
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  66% {
+    top: -30px;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
 .container {
+  z-index: 1;
+  font-family: "Pacifico";
   place-self: center;
   display: grid;
-  width: 220px;
+  place-items: center;
   text-align: center;
+
+  animation-name: fade-in;
+  animation-duration: 3s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+}
+
+.container * {
+    font-family: "Itim";
+}
+
+.container h1 {
+  font-family: "Pacifico";
+  font-size: 3.2rem;
+  color: maroon;
+  line-height: 1;
+  margin: 0;
+  margin-bottom: 25px;
 }
 
 .container form {
@@ -11,19 +45,30 @@
 }
 
 .container button {
+  position: relative;
+  margin-top: 9px;
   place-self: stretch;
-  font-size: 1.125rem;
-  background-color: lightgrey;
-  border: 2px solid;
-  padding: 7px 20px;
+  font-size: 19px;
+  color: darkgoldenrod;
+  border: 2px transparent;
+  background: linear-gradient(#97c0d894, #97c0d894), url(/src/assets/images/garden_pattern_light.jpg);
+  background-position: left;
+  background-size: 240px;
+  font-family: "Varela Round";
+  padding: 14px 20px;
   border-radius: 100vmax;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.container button:hover {
+  color: darkgreen;
 }
 
 .container p {
+  width: max-content;
   padding: 7px 20px;
   border-radius: 100vmax;
-  background-color: lightgrey;
+  background-color: rgba(253, 253, 253, 0.658);
   font-weight: 500;
 }
 

@@ -1,0 +1,76 @@
+.prompt{
+  font-family: "Pacifico";
+  position: absolute;
+  top: 50%;
+  right: -140%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  color: pink;
+}
+
+.prompt p {
+  font-family: "Pacifico";
+}
+
+@keyframes nudge {
+  45% { left: 0px; }
+  47.5% { left: -10px; }
+  50% { left: 0px; }
+  52.5% { left: -10px; }
+  55% { left: 0px; }
+}
+
+.prompt > svg{
+  position: relative;
+  width: 3rem;
+  height: unset;
+  transform: scaleX(-1);
+  animation: nudge 5s ease-in-out infinite;
+}
+
+.prompt path{
+  fill: pink;
+}
+
+.prompt p{
+  font-size: 1.5rem;
+}
+
+
+.get-started {
+  z-index: 1;
+  position: fixed;
+  top: 28.5%;
+  left: 70.5%;
+  /* transform: translate(-35%, -36%); */
+  background-color: transparent;
+  border: none;
+
+
+  background-image: url("/src/assets/images/smiley_flower.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  transition-delay: 2s;
+  transition-duration: 1s;
+}
+
+
+.get-started.auth {
+  z-index: 1;
+  top: unset;
+  left: unset;
+  scale: 1.4;
+}
+
+.on-lr {
+  transition-delay: 0s;
+  opacity: 0;
+}

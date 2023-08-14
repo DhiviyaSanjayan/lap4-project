@@ -5,12 +5,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import matchers from "@testing-library/jest-dom/matchers";
 expect.extend(matchers);
 
-import {
-  getAuthenticated,
-  removeAccount,
-} from "../../test/helpers";
-import { AuthProvider } from "../../contexts";
-import { Popup } from "../../components";
+import { getAuthenticated, removeAccount } from "../../../../test/helpers";
+import { AuthProvider } from "../../../../contexts";
+import { Popup } from "../../../../components";
 
 import GetStarted from ".";
 
@@ -28,12 +25,12 @@ describe("GetStarted Page", () => {
   it("renders without crashing", async () => {
     render(
       <Router>
-          <AuthProvider>
-            <Routes>
-              <Route path="/" element={<GetStarted />} />
-            </Routes>
-            <Popup />
-          </AuthProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<GetStarted />} />
+          </Routes>
+          <Popup />
+        </AuthProvider>
       </Router>
     );
   });
