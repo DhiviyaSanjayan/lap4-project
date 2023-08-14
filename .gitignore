@@ -3,3 +3,5 @@ node_modules
 coverage
 package-lock.json
 api/google-account-vision-key.json
+.gitignore
+/api/uploads
