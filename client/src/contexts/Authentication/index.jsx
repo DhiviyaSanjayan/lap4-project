@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
           `${import.meta.env.VITE_SERVER}/users/details`,
           config
         );
-        
+
         if (status === 200) {
           setUser(data);
         } else {

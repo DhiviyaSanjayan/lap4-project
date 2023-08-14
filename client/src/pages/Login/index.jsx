@@ -10,7 +10,7 @@ import style from "./style.module.css";
 export default function Login() {
   const goTo = useNavigate();
   const { user, setUser } = useAuth();
-  //if user already logged go directly to dashboard
+
   useLayoutEffect(() => {
     if (user) goTo("/dashboard");
   }, []);
