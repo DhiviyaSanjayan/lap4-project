@@ -1,11 +1,13 @@
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router";
 import style from "./style.module.css";
+import { useAuth } from "../../../../contexts";
 import { ReactComponent as Arrow } from "../../../../assets/images/arrow.svg";
 import smileyStyles from "./smiley.module.css";
 
 export default function GetStarted() {
   const goTo = useNavigate();
+  let user = useAuth();
   const { pathname } = useLocation();
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const transition = pathname !== "/" ? style["on-lr"] : "";
@@ -19,7 +21,7 @@ export default function GetStarted() {
   return (
     <>
       <button
-        className={`${style["get-started"]} ${transition}`}
+        className={`${style["get-started"]} ${user ? style["auth"] : ""} ${transition}`}
         style={{ transform: `scale(${(screenWidth / 1920) * 0.9})` }}
       >
         <div className={style["prompt"]}>

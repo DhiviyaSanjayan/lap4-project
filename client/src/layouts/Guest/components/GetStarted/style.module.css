@@ -62,6 +62,14 @@
   transition-duration: 1s;
 }
 
+
+.get-started.auth {
+  z-index: 1;
+  top: unset;
+  left: unset;
+  scale: 1.4;
+}
+
 .on-lr {
   transition-delay: 0s;
   opacity: 0;
