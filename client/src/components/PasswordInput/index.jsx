@@ -1,6 +1,7 @@
 import { useRef } from "react";
 
 import { ReactComponent as ShowPassword } from "../../assets/show_password.svg";
+import { ReactComponent as PasswordIcon } from "../../assets/password_icon.svg";
 import style from "./style.module.css";
 
 export default function PasswordInput() {
@@ -8,6 +9,7 @@ export default function PasswordInput() {
 
   return (
     <div className={style["password-container"]}>
+      <PasswordIcon />
       <input
         type="password"
         name="password"
