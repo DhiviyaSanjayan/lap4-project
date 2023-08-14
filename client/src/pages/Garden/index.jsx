@@ -2,12 +2,24 @@ import React, { useState, useContext, useEffect } from "react";
 import style from "./style.module.css";
 import { useAuth, useGarden } from "../../contexts";
 import CountdownTimer from "../../components/Timer";
+import axios from "axios";
 
 export default function Garden() {
   const { user } = useAuth();
   const { display, setDisplay, plant, setPlant, animal, setAnimal } =
     useGarden();
   const token = localStorage.getItem("token");
+
+  const [userDetails, setUserDetails] = useState(null);
+  const [showAnimalDropdown, setShowAnimalDropdown] = useState(false);
+  const [myAnimals, setMyAnimals] = useState([]);
+  const [selectedAnimalType, setSelectedAnimalType] = useState(null);
+
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  };
 
   async function plantAction(plantObj, action) {
     
@@ -62,6 +74,89 @@ export default function Garden() {
     }
   }
 
+  async function fetchMyAnimals() {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER}/animals`,
+        { headers: { Authorization: token } }
+      );
+
+      setMyAnimals(response.data);
+      setShowAnimalDropdown(true);
+    } catch (error) {
+      console.error("An error occurred while fetching animals:", error);
+    }
+  }
+
+  useEffect(() => {
+    async function fetchUserDetails() {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_SERVER}/users/details`, config);
+        setUserDetails(response.data);
+      } catch (error) {
+        console.error("An error occurred while fetching user details:", error);
+      }
+    }
+
+    fetchUserDetails();
+  }, [token]);
+
+  async function buyFood() {
+    if (!userDetails || userDetails.coins < 200) {
+      alert("You do not have enough coins to buy food.");
+      return;
+    }
+
+    const confirmation = confirm("The food costs 200 coins. Do you want to continue?");
+    if (!confirmation) {
+      return;
+    }  
+  
+    // Find the selected animal based on the selected animal type
+    const selectedAnimal = myAnimals.find(
+      (animal) => animal.animal_type === selectedAnimalType
+    );
+  
+    if (!selectedAnimal) {
+      alert("Please select an animal from the dropdown.");
+      return;
+    }
+  
+    let newWellBeing = selectedAnimal.wellbeing + 20;
+    newWellBeing = Math.min(newWellBeing, 100);
+  
+    try {
+      await axios.patch(
+        `${import.meta.env.VITE_SERVER}/users/update`,
+        { coins: userDetails.coins - 200 },
+        config
+      );
+  
+      await axios.patch(
+        `${import.meta.env.VITE_SERVER}/animals/${selectedAnimal.animal_id}`,
+        { wellbeing: newWellBeing },
+        config
+      );
+  
+      // Update the state of the animals in the garden
+      const updatedAnimals = animal.map((a) =>
+        a.id === selectedAnimal.id ? { ...a, wellbeing: newWellBeing } : a
+      );
+      setAnimal(updatedAnimals);
+      setMyAnimals(updatedAnimals);
+
+      setUserDetails({
+        ...userDetails,
+        coins: userDetails.coins - 200,
+      });
+  
+      alert("Food purchased successfully!");
+    } catch (error) {
+      alert("An error occurred while buying food.");
+      console.log(error);
+    }
+  }
+  
   return (
     <div className={style["outer-container"]}>
       <main className={style["inner-container"]}>
@@ -108,10 +203,26 @@ export default function Garden() {
                   <p key={key}>
                     {key}: {value}
                   </p>
-                ))}
+                ))}                
               </div>
             ))}
         </div>
+        <button onClick={fetchMyAnimals}>Feed My Animals</button>
+        {showAnimalDropdown && (
+        <div>
+          <select onChange={(e) => setSelectedAnimalType(e.target.value)}>
+            <option value="" disabled selected>
+              Select an Animal
+            </option>
+            {myAnimals.map((animalObj, index) => (
+              <option key={index} value={animalObj.animal_type}>
+                {animalObj.animal_type}
+              </option>
+            ))}
+          </select>
+          <button onClick={buyFood}>Buy Food</button>
+        </div>
+      )}
       </main>
     </div>
   );
