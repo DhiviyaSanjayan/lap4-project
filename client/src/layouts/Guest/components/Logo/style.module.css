@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Leckerli+One&family=Lily+Script+One&display=swap');
+
+.logo {
+  position: absolute;
+  left: 40%;
+  z-index: 1;
+}
+
+.logo svg {
+  width: 300px;
+  height: 100%;
+  translate: 0 0%;
+  position: relative;
+  font-weight: 600;
+  overflow: visible;
+}
+
+.logo text {
+  display: inline-block;
+  fill: rgb(12, 7, 54);
+  stroke: #4deeea;
+  font-size: 50px;
+  font-family: "Lily Script One" !important;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  /* animation: 7s pulsate infinite; */
+}
+
+@keyframes pulsate {
+  20% {
+    stroke: #74ee15;
+  }
+}

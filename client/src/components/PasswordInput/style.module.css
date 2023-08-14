@@ -4,15 +4,34 @@
   position: relative;
 }
 
+.password-container > svg {
+  place-self: center;
+  position: absolute;
+  fill: pink;
+  width: 19px;
+  height: unset;
+  left: 14px;
+  top: 25%;
+}
+
 .password-container > input {
-  padding: 7px 20px;
-  border-radius: 100vmax;
-  font-size: 1.125rem;
-  border: 2px solid;
+  padding: 0.5em;
+  font-size: 18px;
+  background: url(/src/assets/images/opaque_flower.svg);
+  background-repeat: repeat-x;
+  line-height: 1;
+  width:177px;
+  border: none;
+  padding: 12px 14px;
+  padding-left: 40px;
+  outline: none;
+  color: pink;
+  border-radius: 5px;
 }
 
 .password-container > input::placeholder {
   position: relative;
+  color: lightblue;
 }
 
 .password-toggler {
@@ -20,8 +39,16 @@
   bottom: 50%;
   right: 0;
   font-size: 0;
-  transform: translate(-100%, 50%);
+  transform: translate(-97%, 50%);
   cursor: pointer;
+}
+
+.password-toggler path {
+  fill: lightblue;
+  
+}
+.password-toggler:hover path {
+  fill: pink;
 }
 
 .password-toggler:hover {

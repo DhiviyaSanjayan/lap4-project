@@ -11,8 +11,8 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 
-//30 interval
-setInterval(updateTablesRegular, 30000);
+// //30 interval
+// setInterval(updateTablesRegular, 30000);
 
-//2 minute interval
-setInterval(updateTablesInfrequent, 180000);
+// //2 minute interval
+// setInterval(updateTablesInfrequent, 180000);

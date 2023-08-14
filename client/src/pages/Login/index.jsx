@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts";
 import axios from "axios";
@@ -10,9 +10,8 @@ import style from "./style.module.css";
 export default function Login() {
   const goTo = useNavigate();
   const { user, setUser } = useAuth();
-
   //if user already logged go directly to dashboard
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (user) goTo("/dashboard");
   }, []);
 
@@ -34,7 +33,7 @@ export default function Login() {
       if (status === 201) {
         localStorage.setItem("token", data.token);
         setUser(data.user);
-        goTo("/dashboard");
+        setTimeout(() => goTo("/dashboard"), 2000);
       }
     } catch (error) {
       writePopup(error.response.data.error);

@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Itim&family=Kalam:wght@300;400;700&family=Pacifico&family=Varela+Round&display=swap');
+
+@font-face {
+  font-family: 'SpringTime';
+  src: local('SpringtimeFlowers'), url(/src/assets/fonts/SpringtimeFlowers.ttf) format('truetype');
+};
+
+
 html { font-size: clamp(12px, calc(100vw * 0.0105),16px); }
 
 :root {
@@ -14,8 +23,8 @@ html { font-size: clamp(12px, calc(100vw * 0.0105),16px); }
 body {
   font-size: inherit;
   margin: 0;
-  min-width: 320px;
   display: grid;
+  overflow: auto;
 }
 
 * {

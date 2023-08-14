@@ -1,0 +1,247 @@
+/* Pulsating glow */
+.smiley:before,
+.smiley:after,
+.smiley span {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  top: 0%;
+  left: 0%;
+  border-radius: 50%;
+  box-shadow: 0 0 30px gold;
+  animation: glow-grow 2s ease-out infinite;
+}
+.smiley:after {
+  animation-delay: 0.66s;
+}
+.smiley span {
+  animation-delay: 1.33s;
+}
+@keyframes glow-grow {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Smiley */
+
+.smiley {
+  background: gold;
+  border-radius: 100%;
+  padding: 25px;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  transform: scale(0.5);
+}
+
+.mouth {
+  width: 60%;
+  height: 30%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  margin-left: -30%;
+  background: #b57700;
+  transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.eyes {
+  width: 100%;
+  margin-top: 15%;
+  box-sizing: border-box;
+  padding: 0 5px;
+  transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.eyes .eye {
+  width: 20px;
+  height: 20px;
+  background: #b57700;
+  float: left;
+  border-radius: 100%;
+  position: relative;
+}
+
+.eyes .eye:nth-of-type(2) {
+  float: right;
+}
+
+.eyes .eye::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0%;
+  height: 0%;
+  background: #fed800;
+  transform: rotate(0deg);
+  top: -15px;
+  left: 5px;
+  transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.eyes:not(:hover) .eye:first-of-type::after {
+  transform: rotate(0deg);
+  left: auto;
+  right: 5px;
+}
+
+/* Normal animation */
+.smiley:not(:hover) .mouth {
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  height: 10%;
+  width: 40%;
+  bottom: 25%;
+  margin-left: -20%;
+}
+
+.smiley:not(:hover) .eyes {
+  margin-top: 30%;
+}
+
+.smiley:hover .mouth {
+  animation: move-mouth-down 6s;
+  animation-delay: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes move-mouth-down {
+  0% {
+    bottom: 18%;
+  }
+
+  4.55% {
+    bottom: 16%;
+  }
+
+  8.45% {
+    bottom: 16%;
+  }
+
+  13% {
+    bottom: 18%;
+  }
+  100% {
+    bottom: 18%;
+  }
+}
+
+.smiley:hover .eyes {
+  animation: move-eyes-down 6s;
+  animation-delay: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes move-eyes-down {
+  0% {
+    margin-top: 15%;
+  }
+
+  4.55% {
+    margin-top: 19%;
+  }
+
+  8.45% {
+    margin-top: 19%;
+  }
+
+  13% {
+    margin-top: 15%;
+  }
+
+  100% {
+    margin-top: 15%;
+  }
+}
+
+.smiley:hover .eye:nth-of-type(2) {
+  height: 20px;
+  margin-top: 0;
+  animation: wink 6s;
+  animation-delay: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes wink {
+  0% {
+    height: 20px;
+    margin-top: 0;
+  }
+
+  3.9% {
+    height: 3px;
+    margin-top: 8px;
+  }
+
+  9.1% {
+    height: 3px;
+    margin-top: 8px;
+  }
+
+  13% {
+    height: 20px;
+    margin-top: 0;
+  }
+
+  100% {
+    height: 20px;
+    margin-top: 0;
+  }
+}
+
+.smiley:not(:hover) .eye {
+  height: 20px;
+  margin-top: 0;
+  animation: blink 6s;
+  animation-delay: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  0% {
+    height: 20px;
+    margin-top: 0;
+  }
+
+  3.25% {
+    height: 2px;
+    margin-top: 8px;
+  }
+
+  6.5% {
+    height: 20px;
+    margin-top: 0;
+  }
+
+  9.75% {
+    height: 2px;
+    margin-top: 8px;
+  }
+
+  13% {
+    height: 20px;
+    margin-top: 0;
+  }
+  100% {
+    height: 20px;
+    margin-top: 0;
+  }
+}
