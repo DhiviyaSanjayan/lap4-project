@@ -2,11 +2,193 @@
   position: relative;
   display: grid;
   place-items: center;
+  overflow: hidden;
+  background: url(/src/assets/backgrounds/backyard.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.outer-container * {
+  font-family: "Itim";
+}
+
+.outer-container > svg {
+  position: absolute;
+  width: 40vw;
+  height: unset;
 }
 
 .container {
   display: grid;
   place-items: center;
   margin: 2.5rem;
-  max-width: 1300px;
+}
+
+.tags{
+  position: absolute;
+  width: 14vw;
+  height: 14vw;
+  transform: translate(-31%, -70%);
+}
+
+.tags > span{
+  position: absolute;
+  text-transform: uppercase;
+  text-align: center;
+  color: black;
+}
+.tags > span:first-child{
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 1.8vw;
+}
+.tags > span:nth-child(2){
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+  transform: translateY(50%);
+  margin-left: 1.8vw;
+}
+.tags > span:nth-child(3){
+  position: absolute;
+  right: 0;
+  bottom: 50%;
+  transform: translateY(50%);
+  margin-right: 0.9vw;
+}
+
+@keyframes levitate {
+  50% {
+    translate: 0% 4%;
+  }
+}
+@keyframes spin {
+  45% {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+  50% {
+    transform: rotate3d(0, 1, 0, 180deg);
+  }
+  55% {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+}
+
+.coins,
+.user-exp,
+.flower-count {
+  animation-name: levitate;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+div:has(> .coins),
+div:has(> .user-exp),
+div:has(> .flower-count) {
+  animation-name: spin;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+
+div:has(> .coins) {
+  width: 4.7vw;
+  height: 4.7vw;
+  transform-origin: -258%;
+  animation-delay: 5s;
+}
+
+.coins {
+  position: absolute;
+  transform: translate(-305%, -210%);
+  color: white;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  z-index: 4;
+  background: url(/src/assets/images/flower_coin.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: inherit;
+  height: inherit;
+}
+.coins > div{
+  position: relative;
+  left: 6vw;
+
+}
+
+.account-info {
+  position: absolute;
+  transform: translate(-40%, -650%);
+  color: white;
+  display: grid;
+  place-items: center;
+  z-index: 4;
+  background-repeat: no-repeat;
+  overflow: visible;
+  background-size: contain;
+  background-position: center;
+  width: 11vw;
+  height: 3vw;
+}
+.account-info p {
+  font-size: 1.05vw;
+  margin: 0;
+}
+
+div:has(> .user-exp) {
+  width: 5.8vw;
+  height: 5.6vw;
+  transform-origin: 155%;
+  animation-delay: 10s;
+}
+
+.user-exp {
+  position: absolute;
+  transform: translate(105%, -270%);
+  color: white;
+  display: grid;
+  place-items: center;
+  z-index: 4;
+  margin: 0;
+  background: url(/src/assets/images/wheel_barrow.svg);
+  background-repeat: no-repeat;
+  overflow: visible;
+  background-size: contain;
+  background-position: center;
+  width: inherit;
+  height: inherit;
+}
+.user-exp > span {
+  position: absolute;
+  transform: translate(80%, 0%);
+}
+
+div:has(> .flower-count) {
+  width: 4.7vw;
+  height: 4.7vw;
+  transform-origin: -45%;
+}
+
+.flower-count {
+  position: absolute;
+  transform: translate(-92%, 90%);
+  color: white;
+  display: grid;
+  place-items: center;
+  z-index: 4;
+  background: url(/src/assets/images/sunflower.png);
+  background-repeat: no-repeat;
+  overflow: visible;
+  background-size: contain;
+  background-position: center;
+  width: inherit;
+  height: inherit;
 }

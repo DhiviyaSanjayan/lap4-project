@@ -1,11 +1,21 @@
 .button {
-    padding: 0.5em;
-    border-radius: 5px;
-  
-    font-size: 1.125rem;
-    background-color: #b4131354;
-    color: #F72119;
-    border: 2px solid #ff0000;
-    padding: 7px 20px;
+    position: absolute;
+    z-index: 4;
+    padding: 0.3vw 1vw;
+    height: 3.3vw;
+    border-radius: 50%;
+    font-size: 1.3vw;
+    color: white;
+    background-color: #015e33;
+    border: none;
     cursor: pointer;
+    transform: rotate(-25deg) translate(115%, 176%);
+}
+
+.button:hover {
+    background-color: rgb(112, 26, 26);
+}
+
+.button:active {
+    background-color: red;
 }

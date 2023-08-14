@@ -32,5 +32,7 @@ export default async function fetchAllUserInfo() {
     display: dataArr[3],
   };
 
+  console.log(gameInfo);
+
   return gameInfo;
 }
