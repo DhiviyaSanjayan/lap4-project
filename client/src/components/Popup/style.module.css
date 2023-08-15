@@ -1,19 +1,22 @@
-
 .container {
   position: absolute;
   left: 50%;
   top: 30px;
   transform: translateX(-50%);
-
+  color: rgb(255, 255, 255);
   text-align: center;
   opacity: 0;
   z-index: 1000000000000;
   font-size: 1.125rem;
   border-radius: 20px;
-  background-color: lightgray;
-  border: 2px solid;
+  border: 5px solid pink;
+  border-style: outset;
   padding: 1.5rem;
   transition: opacity ease-in-out 1s;
+  background: linear-gradient(rgba(0, 0, 0, 0.548), rgba(0, 0, 0, 0.568)), url(/src/assets/backgrounds/flores_seda.svg);
+  background-repeat: repeat-x;
+  background-size: contain;
+  background-position: center;
 }
 
 :global(.popup-fade-in) {

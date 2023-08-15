@@ -28,6 +28,7 @@ export default function Profile() {
               </span>
               <span>coins</span>
               <span>experience</span>
+              <span>user</span>
             </div>
             <div id="account-info" className={style["account-info"]}>
               <p>{userInfo.user.username}'s Account</p>

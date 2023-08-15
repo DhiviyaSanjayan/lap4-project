@@ -13,16 +13,46 @@
   font-family: "Itim";
 }
 
+@keyframes grow {
+  0% {
+    transform: rotate(15deg) translateY(40%);
+  }
+  100% {
+    transform: rotate(0) translateY(0);
+  }
+}
+
 .outer-container > svg {
+
   position: absolute;
   width: 40vw;
   height: unset;
+
+  animation-name: grow;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  transform-origin: bottom right;
 }
 
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .container {
   display: grid;
   place-items: center;
   margin: 2.5rem;
+  opacity: 0;
+  animation-name: appear;
+  animation-duration: 0.5s;
+  animation-delay: 2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  transform-origin: bottom right;
 }
 
 .tags{
@@ -37,27 +67,31 @@
   text-transform: uppercase;
   text-align: center;
   color: black;
+  font-size: 0.8vw;
 }
 .tags > span:first-child{
-  position: absolute;
   bottom: 0%;
   left: 50%;
   transform: translateX(-50%);
   margin-bottom: 1.8vw;
 }
 .tags > span:nth-child(2){
-  position: absolute;
   bottom: 50%;
   left: 0;
   transform: translateY(50%);
   margin-left: 1.8vw;
 }
 .tags > span:nth-child(3){
-  position: absolute;
   right: 0;
   bottom: 50%;
   transform: translateY(50%);
   margin-right: 0.9vw;
+}
+.tags > span:nth-child(4){
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 2.4vw;
 }
 
 @keyframes levitate {
@@ -105,7 +139,7 @@ div:has(> .coins) {
 
 .coins {
   position: absolute;
-  transform: translate(-305%, -210%);
+  transform: translate(-305%, -200%);
   color: white;
   display: grid;
   place-items: center;
@@ -127,7 +161,7 @@ div:has(> .coins) {
 .account-info {
   position: absolute;
   transform: translate(-40%, -650%);
-  color: white;
+  color: purple;
   display: grid;
   place-items: center;
   z-index: 4;
@@ -152,7 +186,7 @@ div:has(> .user-exp) {
 
 .user-exp {
   position: absolute;
-  transform: translate(105%, -270%);
+  transform: translate(105%, -260%);
   color: white;
   display: grid;
   place-items: center;

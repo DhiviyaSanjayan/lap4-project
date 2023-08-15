@@ -17,7 +17,7 @@
   padding: 0.5em;
   font-size: 18px;
   line-height: 1;
-  background: url(/src/assets/images/opaque_flower.svg) 0 100% repeat-x;
+  background: linear-gradient(rgba(54, 4, 66, 0.041), rgba(54, 4, 66, 0.041)), url(/src/assets/images/opaque_flower.svg) 0 100% repeat-x;
   background-repeat: repeat-x;
   width:177px;
   border: none;
@@ -25,7 +25,7 @@
   padding-left: 40px;
   outline: none;
   color: pink;
-  border-radius: 5px;
+  border-radius: 100vmax;
 }
 
 .input::placeholder {
