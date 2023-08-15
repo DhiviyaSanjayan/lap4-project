@@ -6,28 +6,52 @@ export default function AddPlant() {
   const [speciesText, setSpeciesText] = useState("");
   const [imgFile, setImgFile] = useState("");
   const [message, setMessage] = useState("This is a message.");
+  const token = localStorage.getItem("token");
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(imgFile);
 
+    //Check if user selected an image file
     if (!imgFile) {
       setMessage("Please select a file");
       return;
     }
 
-    const formData = new FormData();
+    let formData = new FormData();
     formData.append("image", imgFile);
 
     try {
+      //send the image file to backend for identification
       const response = await fetch(`${import.meta.env.VITE_SERVER}/visionai`, {
         method: "POST",
         body: formData,
       });
 
       const data = await response.json();
-      console.log(data)
-      setMessage(data.message);
+      const { labels, colors, dominentColorInHex, nearestColor } = data;
+
+      //Logic on how to create plant image
+
+      formData = new FormData();
+      formData.append("plant_pic", imgFile); //The image of the plant
+
+      //Send create plant request to backend
+      //Info needed: pet_name, plant_name, perenual_id
+
+      formData.append("pet_name", inputText);
+      formData.append("plant_name", "Rose"); //plant species
+      formData.append("perenual_id", 167); //perenual id
+
+      const createPlantResponse = await fetch(
+        `${import.meta.env.VITE_SERVER}/plants`,
+        {
+          method: "POST",
+          headers: { Authorization: token },
+          body: formData,
+        }
+      );
+      const createData = await createPlantResponse.json();
+      console.log(createData);
     } catch (error) {
       console.error("Error uploading file:", error);
       setMessage("Error uploading file");
@@ -81,9 +105,7 @@ export default function AddPlant() {
               accept="image/*"
             />
           </div>
-          <button type="submit">
-            Upload
-          </button>
+          <button type="submit">Upload</button>
         </form>
       </main>
     </div>
