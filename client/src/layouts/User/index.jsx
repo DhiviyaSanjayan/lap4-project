@@ -17,7 +17,6 @@ export default function User() {
             <NavLink to="/plants">Plants</NavLink>
             <NavLink to="/addplant">Add Plant</NavLink>
             <NavLink to="/garden">Garden</NavLink>
-            <NavLink to="/addplant">Add a Plant</NavLink>
             <NavLink to="/profile">Profile</NavLink>
           </nav>
         </header>
