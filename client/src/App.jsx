@@ -44,6 +44,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/plants" element={<PlantPage />} />
             <Route path="/garden/*" element={<GardenRoute />} />
+            <Route path="/addplant" element={<AddPlant />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="*" element={<Navigate to="/login" />} />
