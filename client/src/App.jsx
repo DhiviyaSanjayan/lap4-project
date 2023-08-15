@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, Outlet} from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
 import {
   Login,
@@ -40,6 +40,7 @@ function App() {
             <Route path="/register" element={<Register />} />
           </Route>
           <Route element={<User />}>
+            <Route path="/addplant" element={<AddPlant />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/plant-identifier" element={<PlantIdentifier />} />
             <Route path="/profile" element={<Profile />} />
