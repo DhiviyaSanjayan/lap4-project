@@ -1,15 +1,26 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import Backgrounds from "./index";
+import { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts";
+import { Logo, Backgrounds, GetStarted } from "./components";
+import style from "./style.module.css";
 
-test("renders Gloves background with 'on-login' style on /login page", () => {
-  const { getByTestId } = render(
-    <MemoryRouter initialEntries={["/login"]}>
-      <Backgrounds />
-    </MemoryRouter>
+export default function Guest() {
+  const goTo = useNavigate();
+  const { user } = useAuth();
+
+  //if user already logged go directly to dashboard
+  useEffect(() => {
+    if (user) goTo("/dashboard");
+  }, []);
+
+  return (
+    <>
+      <main className={style["container"]}>
+        <Backgrounds />
+        {/* <Logo /> */}
+        <GetStarted />
+        <Outlet />
+      </main>
+    </>
   );
-  const gloves = getByTestId("gloves");
-
-  expect(gloves).toHaveClass("on-login");
-});
+}
