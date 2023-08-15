@@ -9,14 +9,7 @@ export default function GetStarted() {
   const goTo = useNavigate();
   const { user } = useAuth();
   const { pathname } = useLocation();
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const transition = pathname !== "/" ? style["on-lr"] : "";
-
-  useLayoutEffect(() => {
-    window.addEventListener("resize", () => {
-      setScreenWidth(window.innerWidth);
-    });
-  }, []);
   
   return (
     <>
