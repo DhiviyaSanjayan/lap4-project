@@ -1,44 +1,21 @@
 import React, { useState, useContext } from "react";
+import axios from "axios";
 import style from "./style.module.css";
 
 export default function AddPlant() {
-  const [inputText, setInputText] = useState("");
-  const [speciesText, setSpeciesText] = useState("");
-  const [imgFile, setImgFile] = useState("");
-
-  async function handleSubmit() {
-    if (!file) {
-      setMessage('Please select a file');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', file);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER}/upload`, {
-        method: 'POST',
-        body: formData,
+      await axios.post(`${import.meta.env.VITE_SERVER}/visionai`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-
-      const data = await response.json();
-      setMessage(data.message);
     } catch (error) {
-      console.error('Error uploading file:', error);
-      setMessage('Error uploading file');
+      console.error("Error uploading file:", error);
     }
-  }
-
-  async function handleInput(e) {
-    setInputText(e.target.value);
-  }
-
-  async function handleSpeciesInput(e) {
-    setSpeciesText(e.target.value);
-  }
-
-  async function handleImageUpload(e) {
-    setImgFile(e.target.files[0]);
   }
 
   return (
@@ -48,31 +25,8 @@ export default function AddPlant() {
 
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              id="name"
-              value={inputText}
-              onChange={handleInput}
-            />
-          </div>
-          <div>
-            <label htmlFor="species">Species:</label>
-            <input
-              type="text"
-              id="species"
-              value={speciesText}
-              onChange={handleSpeciesInput}
-            />
-          </div>
-          <div>
             <label htmlFor="imageUpload">Upload Image:</label>
-            <input
-              type="file"
-              id="imageUpload"
-              onChange={handleImageUpload}
-              accept="image/*"
-            />
+            <input type="file" name="plant_pic" id="imageUpload" accept="image/*" />
           </div>
           <button type="submit">Comment</button>
         </form>
@@ -80,10 +34,6 @@ export default function AddPlant() {
     </div>
   );
 }
-
-
-
-
 
 // import React, { useState } from 'react';
 

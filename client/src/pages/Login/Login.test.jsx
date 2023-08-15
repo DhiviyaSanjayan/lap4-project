@@ -72,6 +72,6 @@ describe("Login component", () => {
     userEvent.click(loginButton);
 
     await new Promise((resolve) => setTimeout(resolve, 100));
-    expect(window.location.pathname).toBe("/dashboard");
+    expect(window.location.pathname).toBe("/garden");
   });
 });

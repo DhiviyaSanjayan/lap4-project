@@ -3,7 +3,6 @@ import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import {
   Login,
   Register,
-  Dashboard,
   Profile,
   NotFound,
   PlantPage,
@@ -41,7 +40,6 @@ function App() {
           </Route>
           <Route element={<User />}>
             <Route path="/addplant" element={<AddPlant />} />
-            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/plant-identifier" element={<PlantIdentifier />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/plants" element={<PlantPage />} />

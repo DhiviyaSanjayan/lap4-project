@@ -1,6 +1,10 @@
 .outer-container {
   display: grid;
   place-items: center;
+  background: url(/src/assets/backgrounds/garden_box.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .inner-container {
