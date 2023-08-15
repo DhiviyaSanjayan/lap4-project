@@ -1,7 +1,13 @@
 import style from "./style.module.css";
 
 export default function Popup() {
-  return <div id="pop-up" className={style["container"]} style={{display: "none"}}/>;
+  return (
+    <div
+      id="pop-up"
+      className={style["container"]}
+      style={{ display: "none" }}
+    />
+  );
 }
 
 export const writePopup = async (message) => {

@@ -10,7 +10,7 @@ import style from "./style.module.css";
 export default function Login() {
   const goTo = useNavigate();
   const { user, setUser } = useAuth();
-  //if user already logged go directly to dashboard
+
   useLayoutEffect(() => {
     if (user) goTo("/dashboard");
   }, []);
@@ -18,18 +18,18 @@ export default function Login() {
   const loginUser = async (e) => {
     e.preventDefault();
     const userDetails = new FormData(e.target);
-    
+
     try {
       const config = {
         username: userDetails.get("username"),
         password: userDetails.get("password"),
       };
-      
+
       const { status, data } = await axios.post(
         `${import.meta.env.VITE_SERVER}/users/login`,
         config
       );
-      
+
       if (status === 201) {
         localStorage.setItem("token", data.token);
         setUser(data.user);
@@ -43,9 +43,7 @@ export default function Login() {
 
   return (
     <>
-      <div
-        className={style["container"]}
-      >
+      <div className={style["container"]}>
         <h1>Login</h1>
         <form id="login-form" onSubmit={loginUser}>
           <UsernameInput />
