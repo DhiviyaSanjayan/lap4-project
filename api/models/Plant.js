@@ -7,6 +7,7 @@ class Plant {
     pet_name,
     plant_name,
     perenual_id,
+    pic_filename,
     wellbeing,
     soil_moisture,
     soil_fertility,
@@ -19,6 +20,7 @@ class Plant {
     this.pet_name = pet_name;
     this.plant_name = plant_name;
     this.perenual_id = perenual_id;
+    this.pic_filename = pic_filename;
     this.wellbeing = wellbeing;
     this.plant_beauty = plant_beauty;
     this.plant_exp = plant_exp;
@@ -60,10 +62,10 @@ class Plant {
   }
 
   //CREATE ONE
-  static async createAPlant(user_id, { pet_name, plant_name, perenual_id }) {
-    const values = [user_id, pet_name, plant_name, perenual_id];
+  static async createAPlant(user_id, { pet_name, plant_name, perenual_id, pic_filename }) {
+    const values = [user_id, pet_name, plant_name, perenual_id, pic_filename];
     const response = await db.query(
-      "INSERT INTO plant (user_id, pet_name, plant_name, perenual_id) VALUES ($1, $2, $3, $4) RETURNING *;",
+      "INSERT INTO plant (user_id, pet_name, plant_name, perenual_id, pic_filename) VALUES ($1, $2, $3, $4, $5) RETURNING *;",
       values
     );
     return new Plant(response.rows[0]);
@@ -76,6 +78,7 @@ class Plant {
     soil_moisture = this.soil_moisture,
     soil_fertility = this.soil_fertility,
     plant_exp = this.plant_exp,
+    pic_filename = this.pic_filename,
   }) {
 
     const values = [
@@ -84,11 +87,12 @@ class Plant {
       soil_moisture,
       soil_fertility,
       plant_exp,
+      pic_filename,
       this.plant_id,
     ];
 
     const response = await db.query(
-      "UPDATE plant SET pet_name = $1, wellbeing = $2, soil_moisture = $3, soil_fertility = $4, plant_exp = $5 WHERE plant_id = $6 RETURNING *;",
+      "UPDATE plant SET pet_name = $1, wellbeing = $2, soil_moisture = $3, soil_fertility = $4, plant_exp = $5, pic_filename = $6 WHERE plant_id = $7 RETURNING *;",
       values
     );
     return new Plant(response.rows[0]);

@@ -1,5 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
+const path = require("path");
 const db = require("../database/connect");
 const getValidToken = require("./utils/getValidToken");
 const setupMockDB = require("./mock/database/setup");
@@ -21,7 +22,7 @@ describe("Plant MVC", () => {
     await db.end();
   });
 
-  //GET
+  //GET - ERROR
   it("Should respond with an error when trying to retrieve a plant which doesn't exist in the db", async () => {
     const response = await request(app)
       .get("/plants/1")
@@ -33,16 +34,13 @@ describe("Plant MVC", () => {
 
   //POST - SUCCESS
   it("Should create a new plant record entry", async () => {
-    const newPlantData = {
-      pet_name: "Jason",
-      plant_name: "Rubus arcticus",
-      perenual_id: 2660,
-    };
-
     const response = await request(app)
       .post("/plants")
       .set({ authorization: token })
-      .send(newPlantData)
+      .field("pet_name", "Jason")
+      .field("plant_name", "Rubus arcticus")
+      .field("perenual_id", 2660)
+      .attach("plant_pic",  path.join(__dirname, "../uploads/plants/cartoon--rose.png"))
       .expect(201);
 
     const { plant_id, pet_name, plant_name } = response.body;
@@ -96,16 +94,14 @@ describe("Plant MVC", () => {
   //GET - ERROR
   it("Should get an error if you try to access another user's plant", async () => {
     //another user is creates a new plant and it's id is obtained
-    const newPlantData2 = {
-      pet_name: "Felix",
-      plant_name: "Rubus arcticus",
-      perenual_id: 26663,
-    };
     const newPlantId = (
       await request(app)
         .post("/plants")
         .set({ authorization: tokenOther })
-        .send(newPlantData2)
+        .field("pet_name", "Felix")
+        .field("plant_name", "Rubus arcticus")
+        .field("perenual_id", 26663)
+        .attach("plant_pic",  path.join(__dirname, "../uploads/plants/cartoon--rose.png"))
         .expect(201)
     ).body.plant_id;
 

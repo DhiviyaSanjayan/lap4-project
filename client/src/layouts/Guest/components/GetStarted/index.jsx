@@ -7,7 +7,7 @@ import smileyStyles from "./smiley.module.css";
 
 export default function GetStarted() {
   const goTo = useNavigate();
-  let user = useAuth();
+  const { user } = useAuth();
   const { pathname } = useLocation();
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const transition = pathname !== "/" ? style["on-lr"] : "";
@@ -22,7 +22,7 @@ export default function GetStarted() {
     <>
       <button
         className={`${style["get-started"]} ${user ? style["auth"] : ""} ${transition}`}
-        style={{ transform: `scale(${(screenWidth / 1920) * 0.9})` }}
+        
       >
         <div className={style["prompt"]}>
           <Arrow />

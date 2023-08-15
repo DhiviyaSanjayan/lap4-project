@@ -26,7 +26,17 @@ class PlantController {
     const user_id = req.tokenObj.user_id;
     const plantInfo = req.body;
     try {
-      const data = await Plant.createAPlant(user_id, plantInfo);
+      const pic_filename = req.file?.filename;
+      if (!pic_filename) {
+        res.status(412).json({
+          error: "You're missing an image of your plant",
+        });
+        return;
+      }
+      const data = await Plant.createAPlant(user_id, {
+        pic_filename,
+        ...plantInfo,
+      });
       res.status(201).json(data);
     } catch (error) {
       // console.log(error);
@@ -48,7 +58,9 @@ class PlantController {
   static async updateThisPlant(req, res) {
     const plant_id = req.params.id;
     const user_id = req.tokenObj.user_id;
-    const plantInfo = req.body;
+    let plantInfo = req.body;
+    const pic_filename = req.file?.filename;
+    plantInfo = { ...plantInfo, pic_filename };
     try {
       const plant = await Plant.getOneOfMyPlants(user_id, plant_id);
       const data = await plant.updateThisPlant(plantInfo);
