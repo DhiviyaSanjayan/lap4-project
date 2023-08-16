@@ -60,7 +60,6 @@ export default function AddPlant() {
   }
 
   async function handleUpload(e) {
-
     async function idPlant(base64Image) {
       const data = {
         images: [`data:image/jpg;base64,${base64Image}`],
@@ -82,17 +81,14 @@ export default function AddPlant() {
       setSpecies(result.result.classification.suggestions[0].name);
     }
 
-    async function idPlantColor (imgFile) {
+    async function idPlantColor(imgFile) {
       let formData = new FormData();
       formData.append("image", imgFile);
 
-      const response = await fetch(
-        `${import.meta.env.VITE_SERVER}/visionai`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${import.meta.env.VITE_SERVER}/visionai`, {
+        method: "POST",
+        body: formData,
+      });
 
       const data = await response.json();
       //set plant colour state variable
@@ -116,14 +112,13 @@ export default function AddPlant() {
       const base64Image = reader.result.split(",")[1];
 
       try {
-        //id the colour of the plant using VisionAI, set plant colour 
-        idPlantColor(imgFile)
+        //id the colour of the plant using VisionAI, set plant colour
+        idPlantColor(imgFile);
 
         //id the plant using Plant.id, set species
         idPlant(base64Image);
 
         //useEffect will generate image with OpenAI
-
       } catch (error) {
         console.error("Error uploading file:", error);
         setMessage("Error uploading file");
@@ -134,14 +129,11 @@ export default function AddPlant() {
   async function handleSubmit(e) {
     try {
       e.preventDefault();
-
       let formData = new FormData();
 
+      // Download the OpenAI image selected by user append to formData
       const url = cartoonURL;
       const fileName = `${species.split(" ")[0]}.jpg`;
-
-      console.log("Downlaod URL", url);
-      console.log("Filename", fileName);
 
       const response = await fetch(url);
       const contentType = response.headers.get("content-type");
@@ -154,7 +146,7 @@ export default function AddPlant() {
 
       formData.append("pet_name", inputText);
       formData.append("plant_name", species); //plant species
-      formData.append("perenual_id", await getPerenualID(species)); //perenual id
+      formData.append("perenual_id", await getPerenualID(species) || 7777); //perenual id, the API might not always work so added a or here for easy testing.
 
       const createPlantResponse = await fetch(
         `${import.meta.env.VITE_SERVER}/plants`,
@@ -165,7 +157,12 @@ export default function AddPlant() {
         }
       );
       const createData = await createPlantResponse.json();
+
+      // Log the newly created data and clear OpenAI image output
       console.log(createData);
+      setimgOutput([])
+      setMessage("Plant added successfully.")
+
     } catch (error) {
       console.error("Error uploading file:", error);
       setMessage("Error uploading file");
@@ -185,7 +182,6 @@ export default function AddPlant() {
     setCartoonURL(e.target.value);
   }
 
-
   return (
     <div className={style["outer-container"]}>
       <main className={style["inner-container"]}>
@@ -195,7 +191,6 @@ export default function AddPlant() {
 
         <form onSubmit={handleSubmit}>
           <div>
-
             <label htmlFor="name">Name:</label>
             <input
               type="text"
