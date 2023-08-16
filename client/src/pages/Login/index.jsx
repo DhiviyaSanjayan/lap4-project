@@ -10,9 +10,9 @@ import style from "./style.module.css";
 export default function Login() {
   const goTo = useNavigate();
   const { user, setUser } = useAuth();
-
+  //if user already logged go directly to garden
   useLayoutEffect(() => {
-    if (user) goTo("/dashboard");
+    if (user) goTo("/garden");
   }, []);
 
   const loginUser = async (e) => {
@@ -33,7 +33,7 @@ export default function Login() {
       if (status === 201) {
         localStorage.setItem("token", data.token);
         setUser(data.user);
-        setTimeout(() => goTo("/dashboard"), 2000);
+        setTimeout(() => goTo("/garden"), 2000);
       }
     } catch (error) {
       writePopup(error.response.data.error);

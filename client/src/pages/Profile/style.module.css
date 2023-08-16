@@ -1,12 +1,19 @@
 .outer-container {
   position: relative;
   display: grid;
-  place-items: center;
   overflow: hidden;
   background: url(/src/assets/backgrounds/backyard.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  
+}
+.inner-container {
+  position: relative;
+  display: grid;
+  top: 8vh;
+  overflow: hidden;
+  place-items: center;
 }
 
 .outer-container * {
@@ -22,7 +29,7 @@
   }
 }
 
-.outer-container > svg {
+.inner-container > svg {
 
   position: absolute;
   width: 40vw;
