@@ -1,0 +1,19 @@
+.container {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.356);
+    color: white;
+    width: 45vw;
+    height: 50vh;
+
+    transition-property: bottom;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+}
+
+.container img{
+    width: 5vw;
+}
+
+.transition {
+    bottom: 100vh;
+}

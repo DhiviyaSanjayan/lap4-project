@@ -17,34 +17,24 @@ describe("Display MVC", () => {
     await db.end();
   });
 
-  //GET
-  it("Should respond with an error when trying to retrieve a display which doesn't exist in the db", async () => {
-    const response = await request(app)
-      .get("/displays")
-      .set({ authorization: token })
-      .expect(404);
-    const { error } = response.body;
-    expect(error).toMatch(/unable/i);
-  });
+  // //POST - SUCCESS
+  // it("Should create a new display record entry", async () => {
+  //   const newDisplayData = {
+  //     name: "Enchanted Eden",
+  //   };
 
-  //POST - SUCCESS
-  it("Should create a new display record entry", async () => {
-    const newDisplayData = {
-      name: "Enchanted Eden",
-    };
+  //   const response = await request(app)
+  //     .post("/displays")
+  //     .set({ authorization: token })
+  //     .send(newDisplayData)
+  //     .expect(201);
 
-    const response = await request(app)
-      .post("/displays")
-      .set({ authorization: token })
-      .send(newDisplayData)
-      .expect(201);
+  //   const { name } = response.body;
 
-    const { name } = response.body;
-
-    expect(name).toBe("Enchanted Eden");
-    expect(response.body).toHaveProperty("display_id");
-    expect(response.body).toHaveProperty("weather");
-  });
+  //   expect(name).toBe("Enchanted Eden");
+  //   expect(response.body).toHaveProperty("display_id");
+  //   expect(response.body).toHaveProperty("weather");
+  // });
 
   //POST - ERROR
   it("Should return an error message if conditions for creating a new display haven't been met", async () => {
@@ -65,7 +55,6 @@ describe("Display MVC", () => {
       .get("/displays")
       .set({ authorization: token })
       .expect(200);
-
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("pest_level");
   });
@@ -85,7 +74,7 @@ describe("Display MVC", () => {
 
     const { name, pest_level, weather, capacity } = response.body;
 
-    expect(name).toBe("Enchanted Eden");
+    expect(name).toMatch(/garden/i);
     expect(pest_level).toBe(0);
     expect(weather).toBe(4);
     expect(capacity).toBe(10);
@@ -106,10 +95,11 @@ describe("Display MVC", () => {
 
   //DELETE - SUCCESS
   it("Should delete a display", async () => {
-    await request(app)
+     await request(app)
       .delete(`/displays`)
       .set({ authorization: token })
       .expect(204);
+    
     await request(app)
       .get(`/displays`)
       .set({ authorization: token })

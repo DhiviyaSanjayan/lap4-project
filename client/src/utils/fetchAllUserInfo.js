@@ -17,7 +17,7 @@ export default async function fetchAllUserInfo() {
       },
     };
     const datas = await Promise.all(urls.map((url) => axios.get(url, config)));
-
+    console.log(datas)
     datas.forEach(({ data }) => {
       dataArr.push(data);
     });
@@ -31,8 +31,6 @@ export default async function fetchAllUserInfo() {
     animals: dataArr[2],
     display: dataArr[3],
   };
-
-  console.log(gameInfo);
-
+  
   return gameInfo;
 }
