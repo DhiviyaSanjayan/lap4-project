@@ -1,34 +1,47 @@
 .container {
   height: 100vh;
   width: 100vw;
-  grid-template-rows: min-content auto;
   display: grid;
 }
 
 .nav-bar {
   z-index: 3000;
-  background-color: lightgrey;
-  position: sticky;
+  position: fixed;
   top: 0;
-  height: 40px;
-
+  left: 50%;
+  transform: translateX(-50%);
+  height: 2.5rem;
+  
   padding: 10px 40px;
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
+
+  background: url(/src/assets/grass_nav.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
 }
 
 .nav {
+  position: relative;
+  bottom: 0.6rem;
   display: flex;
   flex-direction: row;
-  column-gap: 1.5rem;
+  column-gap: 3rem;
+  color: white;
 }
 
 .nav a {
   text-decoration: none;
+  color: white;
+}
+
+.nav a:hover {
+  color: pink
 }
 
 .nav :global(.active) {
-  /* color: blue; */
+  color: rgb(80, 231, 60);
 }

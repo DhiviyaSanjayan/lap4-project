@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import axios from "axios";
 import style from "./style.module.css";
 
 export default function AddPlant() {
@@ -153,6 +154,7 @@ export default function AddPlant() {
     setCartoonURL(e.target.value);
   }
 
+
   return (
     <div className={style["outer-container"]}>
       <main className={style["inner-container"]}>
@@ -162,6 +164,7 @@ export default function AddPlant() {
 
         <form onSubmit={handleSubmit}>
           <div>
+
             <label htmlFor="name">Name:</label>
             <input
               type="text"
@@ -172,12 +175,7 @@ export default function AddPlant() {
           </div>
           <div>
             <label htmlFor="imageUpload">Upload Image:</label>
-            <input
-              type="file"
-              id="imageUpload"
-              onChange={handleImageUpload}
-              accept="image/*"
-            />
+            <input type="file" name="plant_pic" id="imageUpload" accept="image/*" />
           </div>
           <button type="upload" onClick={handleUpload}>
             Upload
