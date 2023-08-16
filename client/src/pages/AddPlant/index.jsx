@@ -1,5 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import style from "./style.module.css";
+const API_URL = "https://plant.id/api/v3/identification";
 
 export default function AddPlant() {
   const [inputText, setInputText] = useState("");
@@ -11,51 +13,23 @@ export default function AddPlant() {
   const [cartoonURL, setCartoonURL] = useState("");
   const [message, setMessage] = useState("This is a message.");
   const token = localStorage.getItem("token");
-  const API_URL = "https://plant.id/api/v3/identification";
-  const API_KEY = "maxIYtXoGDBuKMUy9oUfZJbic5Ri5mi6vcg70BqhQ6I180AbNG";
 
-  function sendPlantIDRequest(imgFile) {
-    // Send request to backend for Plant.id identification
-    const reader = new FileReader();
-    reader.readAsDataURL(imgFile);
-    reader.onload = function () {
-      setbase64Image(reader.result.split(",")[1]);
-      //sendRequest(base64Image);
-    };
-    reader.onerror = function (error) {
-      console.error("Error reading the file:", error);
-    };
+  console.log(`API_KEY ${import.meta.env.PLANTID_KEY}`)
+  console.log(`VITE SERVER ${import.meta.env.VITE_SERVER}`)
+  console.log(`Test ${import.meta.env.TEST}`)
 
-    const data = {
-      images: [`data:image/jpg;base64,${base64Image}`],
-    };
+  useEffect(() => {
+    if (species && plantColor) {
+      const promptText = `Draw a cartoon version of the plant/flower ${species}, using ${plantColor} as a dominant colour, with a happy smiling face in the style of Japanese anime and in a transparent background. The image needs to show the complete flower.`;
+      console.log(promptText);
 
-    fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Api-Key": API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        // Displaying the result on the page
-        setSpecies(result.result.classification.suggestions[0].name);
-        const promptText = `Draw a cartoon version of the plant/flower ${species}, using ${plantColor} as a dominent colour, with a happy smiling face in the style of japanese anime and in transparent background. The image needs to show the complete flower.`;
-        console.log(promptText);
+      setMessage(
+        `You have a ${species} plant in ${plantColor} colour. Pick your favourite cartoon version.`
+      );
 
-        setMessage(
-          `You have a ${species} plant in ${plantColor} colour. Pick your favourite cartoon version.`
-        );
-
-        generateImage(promptText);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        alert("There was an error identifying the plant. Please try again.");
-      });
-  }
+      generateImage(promptText);
+    }
+  }, [species, plantColor]);
 
   async function generateImage(prompt) {
     const requestBody = {
@@ -82,6 +56,20 @@ export default function AddPlant() {
   }
 
   async function handleUpload(e) {
+
+    async function readFileAsync(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function () {
+          resolve(reader.result.split(",")[1]);
+        };
+        reader.onerror = function (error) {
+          reject(error);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
     e.preventDefault();
 
     //Check if user selected an image file
@@ -90,11 +78,20 @@ export default function AddPlant() {
       return;
     }
 
-    let formData = new FormData();
-    formData.append("image", imgFile);
-
     try {
+      // Read the base64 image data asynchronously
+      const base64ImageData = await readFileAsync(imgFile);
+
+      // Update the state after the data is read
+      setbase64Image(base64ImageData);
+      console.log("Base64Image Done", base64ImageData);
+
       //send the image file to backend for Vision AI colour
+      let formData = new FormData();
+      formData.append("image", imgFile);
+
+      
+
       const response = await fetch(`${import.meta.env.VITE_SERVER}/visionai`, {
         method: "POST",
         body: formData,
@@ -104,7 +101,25 @@ export default function AddPlant() {
       setPlantColor(data.dominentColorInHex);
 
       //send the image file to backend for cartoon generation
-      sendPlantIDRequest(imgFile);
+      console.log("PlantID");
+
+      const data1 = {
+        images: [`data:image/jpg;base64,${base64Image}`],
+      };
+
+      const response1 = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Api-Key": "GaOC2whUK0EHAE7ewJ20ZGESgMB2Fik9fsRcZgXGuqAfUIuvRa",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data1),
+      });
+
+      const result = await response1.json();
+
+      // Displaying the result on the page
+      setSpecies(result.result.classification.suggestions[0].name);
     } catch (error) {
       console.error("Error uploading file:", error);
       setMessage("Error uploading file");
@@ -117,7 +132,7 @@ export default function AddPlant() {
       e.preventDefault();
       let formData = new FormData();
       formData.append("plant_pic", cartoonURL); //The URL of the selected cartoon
-      
+
       //Send create plant request to backend
       //Info needed: pet_name, plant_name, perenual_id
 
@@ -147,6 +162,7 @@ export default function AddPlant() {
 
   async function handleImageUpload(e) {
     setImgFile(e.target.files[0]);
+    setMessage("File selected.");
   }
 
   async function handleRadioButton(e) {
@@ -174,9 +190,10 @@ export default function AddPlant() {
             <label htmlFor="imageUpload">Upload Image:</label>
             <input
               type="file"
+              name="plant_pic"
               id="imageUpload"
-              onChange={handleImageUpload}
               accept="image/*"
+              onChange={handleImageUpload}
             />
           </div>
           <button type="upload" onClick={handleUpload}>
@@ -186,7 +203,7 @@ export default function AddPlant() {
             {imgOutput.length > 0 &&
               imgOutput.map((img, index) => (
                 <div key={index}>
-                  <p>Image {index+1}</p>
+                  <p>Image {index + 1}</p>
                   <img src={img.url} alt={`Image ${index}`} />
                   <input
                     type="radio"
