@@ -174,6 +174,7 @@ export default function AddPlant() {
     setCartoonURL(e.target.value);
   }
 
+
   return (
     <div className={style["outer-container"]}>
       <main className={style["inner-container"]}>
@@ -183,6 +184,7 @@ export default function AddPlant() {
 
         <form onSubmit={handleSubmit}>
           <div>
+
             <label htmlFor="name">Name:</label>
             <input
               type="text"
