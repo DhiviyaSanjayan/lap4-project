@@ -1,4 +1,4 @@
-.outer-container {
+.container {
   display: grid;
   place-items: center;
   background: url(/src/assets/backgrounds/garden_box.jpg);
@@ -6,7 +6,7 @@
   background-size: cover;
   background-position: center;
 }
-
+/* 
 .inner-container {
   display: grid;
   margin: 2.5rem;
@@ -14,4 +14,4 @@
   padding: 2.5rem;
   border-radius: 15px;
   border: 2px solid;
-}
+} */

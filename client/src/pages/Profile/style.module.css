@@ -207,10 +207,6 @@ div:has(> .user-exp) {
   width: inherit;
   height: inherit;
 }
-.user-exp > span {
-  position: absolute;
-  transform: translate(80%, 0%);
-}
 
 div:has(> .flower-count) {
   width: 4.7vw;

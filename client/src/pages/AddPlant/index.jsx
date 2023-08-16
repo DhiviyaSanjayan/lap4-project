@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import style from "./style.module.css";
 const API_URL = "https://plant.id/api/v3/identification";

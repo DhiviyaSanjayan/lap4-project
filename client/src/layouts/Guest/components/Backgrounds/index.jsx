@@ -10,7 +10,6 @@ export default function Backgrounds() {
   const { user } = useAuth();
   const { pathname } = useLocation();
 
-  console.log(user);
   const wdstyle = user ? styles["access"] : "";
   const lvstyle = pathname !== "/" ? styles["login"] : "";
   const ggstyle = pathname == "/login" ? styles["on-login"] : "";

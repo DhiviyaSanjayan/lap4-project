@@ -94,25 +94,28 @@ CREATE TABLE animal (
         influence BETWEEN 0
         AND 100
     ),
+    info VARCHAR,
     PRIMARY KEY (animal_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
 -- the password is 1
 INSERT INTO
-    user_account (username, password)
+    user_account (username, password, exp, coins)
 VALUES
     (
         'cors',
-        '$2b$10$.pj1LTt4HxpVVg6fZDhdFOMBfiywBTikuDqx3KjDy85aJNyZ4IoJC'
+        '$2b$10$.pj1LTt4HxpVVg6fZDhdFOMBfiywBTikuDqx3KjDy85aJNyZ4IoJC',
+        1000000,
+        90000
     );
 
 INSERT INTO
-    animal (user_id, animal_type, wellbeing, count, influence)
+    animal (user_id, animal_type, wellbeing, count, influence, info)
 VALUES
-    (1, 'Birds', 100, 5, 60),
-    (1, 'Bees', 85, 60, 10),
-    (1, 'Lady Bugs', 85, 100, 50);
+    (1, 'Birds', 100, 5, 60, 'They improve the wellbeing of your plants by singing to them'),
+    (1, 'Bees', 85, 60, 10, 'The pollinate your plant allowing them to grow better'),
+    (1, 'Lady Bugs', 85, 100, 50, 'They feed on the bugs which damage your plants');
 
 INSERT INTO
     plant (user_id, pet_name, plant_name, perenual_id, pic_filename)
