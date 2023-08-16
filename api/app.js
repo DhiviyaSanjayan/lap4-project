@@ -9,6 +9,7 @@ const plantRouter = require("./routers/plant");
 const displayRouter = require("./routers/display");
 const imageRouter = require("./routers/image");
 const visionaiRouter = require("./routers/visionai");
+const openaiRouter = require("./routers/openai");
 
 const app = express();
 
@@ -30,5 +31,6 @@ app.use("/plants", plantRouter);
 app.use("/images", imageRouter);
 app.use("/displays", displayRouter);
 app.use("/visionai", visionaiRouter);
+app.use("/openai", openaiRouter);
 
 module.exports = app;
