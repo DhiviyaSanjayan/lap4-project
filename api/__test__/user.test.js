@@ -84,7 +84,6 @@ describe("User MVC", () => {
       .set({ authorization: "asdf" })
       .expect(403);
 
-    console.log(response1.body);
     let { error } = response1.body;
     expect(error).toBeDefined();
 

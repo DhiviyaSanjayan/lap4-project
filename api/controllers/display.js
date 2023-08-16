@@ -24,8 +24,7 @@ class DisplayController {
       switch (+error.code) {
         case 23502:
           res.status(412).json({
-            error:
-              "You're display requires a name to be successfully created",
+            error: "You're display requires a name to be successfully created",
           });
           break;
         default:

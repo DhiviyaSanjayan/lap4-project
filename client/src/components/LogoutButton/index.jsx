@@ -22,7 +22,7 @@ export default function LogoutButton() {
       setUser(null);
       await writePopup("You've Logged Out");
       //we don't care whether the token has been deleted on the db or not
-      axios.delete(`${import.meta.env.VITE_SERVER}/users/logout`, config);
+      await axios.delete(`${import.meta.env.VITE_SERVER}/users/logout`, config);
       goTo("/");
     } catch (error) {
       writePopup(error);
