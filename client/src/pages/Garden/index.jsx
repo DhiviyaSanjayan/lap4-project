@@ -15,7 +15,6 @@ export default function Garden() {
   );
 }
 
-
 // <div className={style["outer-container"]}>
 // <Plant {...{pData}} />
 // </div>
