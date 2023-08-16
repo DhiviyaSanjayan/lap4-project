@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import style from "./style.module.css";
 const API_URL = "https://plant.id/api/v3/identification";
+const API_KEY = import.meta.env.VITE_PLANTID_KEY
 
 export default function AddPlant() {
   const [inputText, setInputText] = useState("");
@@ -13,10 +14,6 @@ export default function AddPlant() {
   const [cartoonURL, setCartoonURL] = useState("");
   const [message, setMessage] = useState("This is a message.");
   const token = localStorage.getItem("token");
-
-  console.log(`API_KEY ${import.meta.env.PLANTID_KEY}`)
-  console.log(`VITE SERVER ${import.meta.env.VITE_SERVER}`)
-  console.log(`Test ${import.meta.env.TEST}`)
 
   useEffect(() => {
     if (species && plantColor) {
@@ -55,6 +52,8 @@ export default function AddPlant() {
     }
   }
 
+
+
   async function handleUpload(e) {
 
     async function readFileAsync(file) {
@@ -68,6 +67,30 @@ export default function AddPlant() {
         };
         reader.readAsDataURL(file);
       });
+    }
+
+    async function idPlant (base64Image) {
+
+      const data1 = {
+        images: [`data:image/jpg;base64,${base64Image}`],
+      };
+  
+      console.log("Base64Image", data1);
+
+      console.log("PlantID", data1);
+      const response1 = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Api-Key": API_KEY,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data1),
+      });
+  
+      const result = await response1.json();
+  
+      // Displaying the result on the page
+      setSpecies(result.result.classification.suggestions[0].name);
     }
 
     e.preventDefault();
@@ -84,13 +107,10 @@ export default function AddPlant() {
 
       // Update the state after the data is read
       setbase64Image(base64ImageData);
-      console.log("Base64Image Done", base64ImageData);
 
       //send the image file to backend for Vision AI colour
       let formData = new FormData();
       formData.append("image", imgFile);
-
-      
 
       const response = await fetch(`${import.meta.env.VITE_SERVER}/visionai`, {
         method: "POST",
@@ -100,26 +120,11 @@ export default function AddPlant() {
       const data = await response.json();
       setPlantColor(data.dominentColorInHex);
 
-      //send the image file to backend for cartoon generation
-      console.log("PlantID");
+      //id the plant, set species
+      idPlant(base64Image)
 
-      const data1 = {
-        images: [`data:image/jpg;base64,${base64Image}`],
-      };
+      //useEffect will generate image
 
-      const response1 = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Api-Key": "GaOC2whUK0EHAE7ewJ20ZGESgMB2Fik9fsRcZgXGuqAfUIuvRa",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data1),
-      });
-
-      const result = await response1.json();
-
-      // Displaying the result on the page
-      setSpecies(result.result.classification.suggestions[0].name);
     } catch (error) {
       console.error("Error uploading file:", error);
       setMessage("Error uploading file");
