@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import axios from "axios";
 import style from "./style.module.css";
 
 export default function AddPlant() {
@@ -34,18 +35,6 @@ export default function AddPlant() {
     }
   }
 
-  async function handleInput(e) {
-    setInputText(e.target.value);
-  }
-
-  async function handleSpeciesInput(e) {
-    setSpeciesText(e.target.value);
-  }
-
-  async function handleImageUpload(e) {
-    setImgFile(e.target.files[0]);
-  }
-
   return (
     <div className={style["outer-container"]}>
       <main className={style["inner-container"]}>
@@ -55,31 +44,8 @@ export default function AddPlant() {
 
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              id="name"
-              value={inputText}
-              onChange={handleInput}
-            />
-          </div>
-          <div>
-            <label htmlFor="species">Species:</label>
-            <input
-              type="text"
-              id="species"
-              value={speciesText}
-              onChange={handleSpeciesInput}
-            />
-          </div>
-          <div>
             <label htmlFor="imageUpload">Upload Image:</label>
-            <input
-              type="file"
-              id="imageUpload"
-              onChange={handleImageUpload}
-              accept="image/*"
-            />
+            <input type="file" name="plant_pic" id="imageUpload" accept="image/*" />
           </div>
           <button type="submit">
             Upload

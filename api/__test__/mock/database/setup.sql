@@ -94,6 +94,7 @@ CREATE TABLE animal (
         influence BETWEEN 0
         AND 100
     ),
+    info VARCHAR,
     PRIMARY KEY (animal_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );

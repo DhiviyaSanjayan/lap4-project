@@ -39,9 +39,7 @@ class Token {
   }
 
   async deleteToken(user_id) {
-    console.log("Deleting Token for User ID:", user_id);
     await db.query("DELETE FROM token WHERE user_id = $1", [user_id]);
-    console.log("Token Deleted");
     return "Token Deleted";
   }
 }

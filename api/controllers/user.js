@@ -15,7 +15,7 @@ class UserController {
 
       const result = await User.createUser(data);
       //create display for new user
-      await Display.createMyDisplay(result.user_id, {name:`${result.username}'s Garden Display`})
+      await Display.createMyDisplay(result.user_id, {name:`${result.username}'s Garden Box`})
       res.status(201).send(result);
     } catch (error) {
       // console.log(error);
