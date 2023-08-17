@@ -1,7 +1,7 @@
 import React from "react";
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { render, screen } from "@testing-library/react";
-import AddPlant from "./index";
+import { describe, it, expect, afterEach, beforeEach } from "vitest";
+import { render, cleanup } from "@testing-library/react";
+import AddPlant from "./index"; // Assuming AddPlant is in the same folder, if not adjust the path
 
 describe("AddPlant component", () => {
   beforeEach(() => {
@@ -9,23 +9,23 @@ describe("AddPlant component", () => {
   });
 
   afterEach(() => {
-    // Cleanup if needed
+    cleanup();
   });
 
-  it("should render 'Name:' label", () => {
-    const nameLabel = screen.queryByText(/Name:/i);
-    expect(nameLabel).not.toBeNull();
+  it("should render the 'Add your plant' header", () => {
+    const header = document.querySelector("h1");
+    expect(header).toBeTruthy();
+    expect(header.textContent).toBe("Add your plant");
   });
 
-  it("should render 'Species:' label", () => {
-    const speciesLabels = screen.queryAllByText(/Species:/i);
-    const nonNullSpeciesLabel = speciesLabels.find((label) => label !== null);
-    expect(nonNullSpeciesLabel).not.toBeNull();
+  it("should render the upload input field", () => {
+    const uploadInput = document.querySelector('input[type="file"]');
+    expect(uploadInput).toBeTruthy();
   });
 
-  it("should render 'Upload Image:' label", () => {
-    const uploadLabels = screen.queryAllByText(/Upload Image:/i);
-    const nonNullUploadLabel = uploadLabels.find((label) => label !== null);
-    expect(nonNullUploadLabel).not.toBeNull();
+  it("should render the upload button", () => {
+    const uploadButton = document.querySelector('button[type="submit"]');
+    expect(uploadButton).toBeTruthy();
+    expect(uploadButton.textContent).toBe("Upload");
   });
 });

@@ -1,37 +1,28 @@
 import React from "react";
-import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
-import { screen, render, cleanup, within } from "@testing-library/react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import matchers from "@testing-library/jest-dom/matchers";
-expect.extend(matchers);
+import { describe, it, expect, afterEach, beforeEach } from "vitest";
+import { render, cleanup } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
+import GetStarted from "./index"; // Make sure the path is correct
+import { AuthProvider } from "../../../../contexts/Authentication"; // Adjust the path if needed
 
-import { getAuthenticated, removeAccount } from "../../../../test/helpers";
-import { AuthProvider } from "../../../../contexts";
-import { Popup } from "../../../../components";
-
-import GetStarted from ".";
-
-describe("GetStarted Page", () => {
-  beforeAll(() => {
-    getAuthenticated();
-  });
-
-  afterAll(() => {
-    cleanup();
-    removeAccount();
-    vi.restoreAllMocks(); // Restore all mocked functions after each test
-  });
-
-  it("renders without crashing", async () => {
+describe("GetStarted component", () => {
+  beforeEach(() => {
     render(
-      <Router>
+      <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            <Route path="/" element={<GetStarted />} />
-          </Routes>
-          <Popup />
+          <GetStarted />
         </AuthProvider>
-      </Router>
+      </BrowserRouter>
     );
+  });
+
+  afterEach(() => {
+    cleanup();
+  });
+
+  it("should render the 'Click to Start Gardening' text", () => {
+    const getStartedText = document.querySelector("p");
+    expect(getStartedText).toBeTruthy();
+    expect(getStartedText.textContent).toContain("Click to Start Gardening");
   });
 });

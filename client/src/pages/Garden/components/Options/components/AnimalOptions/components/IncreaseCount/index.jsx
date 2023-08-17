@@ -81,3 +81,32 @@ export default function IncreaseCount({ animal_id, animal_type, count }) {
     </div>
   );
 }
+
+// Anastasia for testing
+// import React from "react";
+// import { describe, it, expect, afterEach, beforeEach } from "vitest";
+// import { render, cleanup } from "@testing-library/react";
+// import IncreaseCount from "./index";
+// import { GardenProvider } from "../../../../contexts";
+
+// describe("IncreaseCount component", () => {
+//   beforeEach(() => {
+//     // Mocking the GardenProvider might be necessary depending on the implementation
+//     // You can also mock other parts like axios if you don't want to test them here
+//     render(
+//       <GardenProvider>
+//         <IncreaseCount animal_id="test-id" count={5} />
+//       </GardenProvider>
+//     );
+//   });
+
+//   afterEach(() => {
+//     cleanup();
+//   });
+
+//   it("should render an 'Increase Count' button", () => {
+//     const increaseButton = document.querySelector("button");
+//     expect(increaseButton).toBeTruthy();
+//     expect(increaseButton.textContent).toBe("Increase Count");
+//   });
+// });

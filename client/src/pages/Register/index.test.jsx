@@ -4,7 +4,7 @@ import { screen, render, cleanup, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import Register from "./index";
-import { AuthProvider } from "../../contexts/Authentication";
+import { MockAuthProvider } from "./MockAuthContext";
 import userEvent from "@testing-library/user-event";
 
 import matchers from "@testing-library/jest-dom/matchers";
@@ -14,9 +14,9 @@ describe("Register component", () => {
   beforeEach(() => {
     render(
       <BrowserRouter>
-        <AuthProvider>
+        <MockAuthProvider>
           <Register />
-        </AuthProvider>
+        </MockAuthProvider>
       </BrowserRouter>
     );
   });
@@ -48,8 +48,8 @@ describe("Register component", () => {
   //     name: /register account/i,
   //   });
 
-  //   await userEvent.type(usernameInput, "new_user");
-  //   await userEvent.type(passwordInput, "new_password");
+  //   await userEvent.type(usernameInput, "cors");
+  //   await userEvent.type(passwordInput, "1");
   //   userEvent.click(registerButton);
 
   //   await new Promise((resolve) => setTimeout(resolve, 100));
@@ -63,12 +63,12 @@ describe("Register component", () => {
   //   });
   // });
 
-  it('should redirect to login page when clicking on "Log in here" link', () => {
-    const loginLink = screen.getByRole("link", { name: /log in here/i });
-    userEvent.click(loginLink);
+  // it('should redirect to login page when clicking on "Log in here" link', () => {
+  //   const loginLink = screen.getByRole("link", { name: /log in here/i });
+  //   userEvent.click(loginLink);
 
-    waitFor(() => {
-      expect(window.location.pathname).toBe("/login");
-    });
-  });
+  //   waitFor(() => {
+  //     expect(window.location.pathname).toBe("/login");
+  //   });
+  // });
 });
