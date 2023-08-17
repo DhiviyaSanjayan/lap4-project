@@ -1,0 +1,26 @@
+.container {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.356);
+  color: white;
+  width: 45vw;
+  height: 50vh;
+
+  background: linear-gradient(rgba(0, 0, 0, 0.493), rgba(0, 0, 0, 0.493)),
+    url(/src/assets/backgrounds/wood-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  border-style: ridge;
+  border-color: rgb(49, 34, 34);
+  border-width: 8px;
+  border-radius: 2rem;
+  padding: 1.5rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+}
+
+.container img {
+  width: 5vw;
+}
