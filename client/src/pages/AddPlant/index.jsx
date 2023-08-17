@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import style from "./style.module.css";
+import { Popup, writePopup } from "../../components";
 import getPerenualID from "../Garden/utils/getPerenualID";
 
 const API_URL = "https://plant.id/api/v3/identification";
@@ -28,9 +29,7 @@ export default function AddPlant() {
 
       console.log(promptText);
 
-      setMessage(
-        `You have a ${species} plant in ${plantColor} colour. Pick your favourite cartoon version.`
-      );
+      writePopup(`Generating images for your ${species} plant...`);
 
       generateImage(promptText);
     }
@@ -53,6 +52,7 @@ export default function AddPlant() {
       });
 
       const data = await response.json();
+      writePopup(`Pick your favourite image below:`);
       console.log("OpenAI gereration done.");
       setimgOutput(data.data);
     } catch (error) {
@@ -100,13 +100,18 @@ export default function AddPlant() {
     //Start of the main function
     /////////////////////////////
     e.preventDefault();
+    setSpecies("")
+    setPlantColor("")
+    setimgOutput([])
 
     //Check if user selected an image file
     if (!imgFile) {
-      setMessage("Please select a file");
+      //setMessage("Please select a file");
+      writePopup("Please select a file");
       return;
     }
 
+    writePopup(`Analysing your image. Please wait.`);
     const reader = new FileReader();
     reader.readAsDataURL(imgFile);
     reader.onloadend = async function () {
@@ -130,7 +135,6 @@ export default function AddPlant() {
   async function handleSubmit(e) {
     try {
       e.preventDefault();
-      console.log("handleSubmit is run");
       let formData = new FormData();
 
       // Download the OpenAI image selected by user append to formData
@@ -163,10 +167,10 @@ export default function AddPlant() {
       // Log the newly created data and clear OpenAI image output
       console.log(createData);
       setimgOutput([]);
-      setMessage("Plant added successfully.");
+      writePopup(`Plant added successfully.`);
     } catch (error) {
       console.error("Error uploading file:", error);
-      setMessage("Error uploading file");
+      writePopup(`Error in creating your plant. Please try again.`);
     }
   }
 
@@ -176,7 +180,7 @@ export default function AddPlant() {
 
   async function handleImageUpload(e) {
     setImgFile(e.target.files[0]);
-    setMessage(`File selected: ${e.target.files[0].name}`);
+    writePopup(`File selected: ${e.target.files[0].name}`);
   }
 
   async function handleRadioButton(e) {
@@ -192,21 +196,24 @@ export default function AddPlant() {
       <main className={style["inner-container"]}>
         <h1>Add your plant</h1>
 
-        <h3>Status {message}</h3>
-
         <form onSubmit={handleSubmit}>
-          <div>
+          <div className={style["container"]}>
             <label htmlFor="name">Name:</label>
             <input
+              className={style["plantname"]}
               type="text"
               id="name"
+              placeholder="Username"
+              autoComplete="off"
+              required
               value={inputText}
               onChange={handleInput}
             />
           </div>
-          <div>
+          <div className={style["container"]}>
             <label htmlFor="imageUpload">Upload Image:</label>
             <input
+              className={style["imageUpload"]}
               type="file"
               name="plant_pic"
               id="imageUpload"
@@ -214,20 +221,28 @@ export default function AddPlant() {
               onChange={handleImageUpload}
             />
           </div>
-          <div>
-            <button type="upload" onClick={handleUpload}>
+          <div className={style["buttonContainer"]}>
+            <button
+              className={style["uploadButton"]}
+              type="upload"
+              onClick={handleUpload}
+            >
               Upload
             </button>
             {imgOutput.length > 0 && (
-              <button type="button" onClick={toggleRegenerate}>
+              <button
+                className={style["regenerateButton"]}
+                type="button"
+                onClick={toggleRegenerate}
+              >
                 Regenerate
               </button>
             )}
           </div>
-          <div>
+          <div className={style["image-container"]}>
             {imgOutput.length > 0 &&
               imgOutput.map((img, index) => (
-                <div key={index}>
+                <div key={index} className={style["image-inner-cointainer"]}>
                   <p>Image {index + 1}</p>
                   <img src={img.url} alt={`Image ${index}`} />
                   <input
@@ -239,7 +254,9 @@ export default function AddPlant() {
                 </div>
               ))}
           </div>
-          <button type="submit">Submit</button>
+          <button className={style["submitButton"]} type="submit">
+            Submit
+          </button>
         </form>
       </main>
     </div>
