@@ -37,12 +37,12 @@ CREATE TABLE plant (
     plant_name VARCHAR(200) NOT NULL,
     perenual_id INT NOT NULL,
     pic_filename VARCHAR NOT NULL,
-    wellbeing FLOAT NOT NULL DEFAULT 100 CHECK (
+    wellbeing FLOAT NOT NULL DEFAULT 50 CHECK (
         wellbeing BETWEEN 0
         AND 100
     ),
     plant_exp INT NOT NULL DEFAULT 0,
-    plant_beauty INT NOT NULL DEFAULT 1 CHECK (
+    plant_beauty INT NOT NULL DEFAULT 5 CHECK (
         plant_beauty BETWEEN 1
         AND 10
     ),
@@ -121,9 +121,9 @@ INSERT INTO
     plant (user_id, pet_name, plant_name, perenual_id, pic_filename)
 VALUES
     (1, 'Tom', 'Lilium', 4829, '1692200798157--Lilium.png'),
-    (1, 'Monia', 'Tulipa alberti', 7996, '1692201221357--Tulipa.png');
-    -- (1, 'Sarah', 'Rosa rubiginosa', 6900, 'rosa.png'),
-    -- (1, 'Simon', 'Dahlia', 2301, 'rosa.png');
+    (1, 'Monia', 'Tulipa alberti', 7996, '1692201221357--Tulipa.png'),
+    (1, 'Sarah', 'Wild Pansy', 8282, 'wild_pansy.png'),
+    (1, 'Simon', 'Erigeron glaucus ''Sea Breeze''', 8559, 'Erigeron-glaucus-1.png');
 
 INSERT INTO
     display (

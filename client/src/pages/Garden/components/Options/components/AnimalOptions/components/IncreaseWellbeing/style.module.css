@@ -1,13 +1,16 @@
 .container {
   border-radius: 15px;
-  background-color: rgba(211, 211, 211, 0.411);
+  background-color: rgba(211, 211, 211, 0.212);
   position: relative;
   display: grid;
   padding: 1rem;
   grid-template-rows: min-content 1fr;
   gap: 1rem;
 }
-
+.container > div {
+  text-align: center;
+  text-decoration: underline;
+}
 .inner-container {
   gap: 1rem;
   display: grid;

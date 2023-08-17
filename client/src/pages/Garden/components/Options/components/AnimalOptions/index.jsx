@@ -86,12 +86,12 @@ export default function AnimalOptions({ setAnimalOptions, animals }) {
         <span>Count: {selectedAnimalObj.count}</span>
         <IncreaseCount {...selectedAnimalObj} />
       </div>
-      <div />
+      
       <div className={styles["info"]}>
         <h4>Information</h4>
         <div>{selectedAnimalObj.info}</div>
       </div>
-      <div />
+     
     </div>
   );
 }

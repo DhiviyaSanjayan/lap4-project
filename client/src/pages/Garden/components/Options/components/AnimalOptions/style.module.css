@@ -27,9 +27,9 @@
 
 .image-container {
   place-self: stretch;
-  height: 30vh;
-  width: 30vh;
-  background-color: rgba(255, 255, 255, 0.219);
+  max-height: 40vw;
+  max-width: 30vh;
+  background-color: rgba(255, 255, 255, 0.123);
   border-radius: 1.5rem;
   padding: 0.2rem;
   display: grid;
@@ -70,7 +70,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: url(/src/assets/arrow-down-circle.svg), rgba(255, 255, 255, 0.281);
+  background: url(/src/assets/arrow-down-circle.svg), rgba(255, 255, 255, 0.123);
   background-repeat: no-repeat;
   background-size: 1.4rem;
   background-position: right 0.4rem top 50%;
@@ -82,10 +82,12 @@
 
 .info {
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.219);
+  background-color: rgba(255, 255, 255, 0.123);
   border-radius: 1.5rem;
   padding: 1rem;
+  grid-column: span 3;
 }
+
 .info > h4 {
   text-decoration: underline;
   text-align: center;
@@ -94,7 +96,7 @@
 }
 
 .wellbeing {
-  background-color: rgba(255, 255, 255, 0.219);
+  background-color: rgba(255, 255, 255, 0.123);
   border-radius: 1.5rem;
   padding: 0.2rem;
   padding: 1rem;
@@ -118,6 +120,9 @@
   left: 0;
   height: 100%;
   z-index: 0;
+  transition-property: width;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
 }
 
 .load-bar > span {
@@ -129,7 +134,7 @@
 
 .count {
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.219);
+  background-color: rgba(255, 255, 255, 0.123);
   border-radius: 1.5rem;
   padding: 1rem;
   display: grid;
