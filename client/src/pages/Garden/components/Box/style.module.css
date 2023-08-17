@@ -1,0 +1,102 @@
+.outer-container {
+  height: 80%;
+  width: 80%;
+  display: grid;
+  place-items: center;
+  z-index: 0;
+}
+
+.container {
+  position: fixed;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+  width: 43vw;
+  top: 10vh;
+  z-index: 0;
+}
+
+/* .column:nth-child(1) {
+    transform: rotate(3deg);
+    transform-origin: top;
+}
+.column:nth-child(2) {
+    transform: rotate(1.5deg);
+    transform-origin: top;
+}
+.column:nth-child(3) {
+    transform: rotate(-1.5deg);
+    transform-origin: top;
+}
+.column:nth-child(4) {
+    transform: rotate(-3deg);
+    transform-origin: top;
+} */
+
+.animations {
+  position: fixed;
+}
+
+img.bird1 {
+  position: fixed;
+  transform: translate(197%, -20%);
+  width: 15vw;
+  height: 15vw;
+}
+
+img.bird2 {
+  position: absolute;
+  transform: translate(-278%, -140%) scaleX(-1);
+  width: 14vw;
+}
+.bee {
+  position: fixed;
+  top: 5vw;
+  left: 30vw;
+  height: 2.6vw;
+  width: 2.6vw;
+z-index: 500;
+  transition-property: top, left;
+  transition-timing-function: ease-in-out;
+  transition-duration: 5s;
+}
+:global(#bee2) {
+  left: 70vw;
+  top: 40vh;
+  transition-delay: 7.5s;
+  transform: scaleX(-1) translateX(-130%);
+}
+
+:global(#crawl-area) {
+  position: fixed;
+  z-index: -1;
+  height: 60vh;
+  width: 45vw;
+}
+
+.lb {
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  height: 1.5vw;
+
+  transition-duration: 15s, 15s, 2s;
+  transition-property: left, top, transform;
+  transition-timing-function: ease-in-out;
+}
+
+img.notes1 {
+  position: absolute;
+  transform: translate(-840%, -590%) scaleX(-1);
+  width: 3vw;
+}
+img.notes2 {
+  position: absolute;
+  transform: translate(920%, -50%) scaleX(-1);
+  width: 3vw;
+}
+
+.watering {
+    position: absolute;
+    width: 30vw;
+}

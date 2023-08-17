@@ -1,3 +1,5 @@
+/* This CSS file is copied from Login Page */
+
 .outer-container {
   display: grid;
   place-items: center;
@@ -10,4 +12,130 @@
   padding: 2.5rem;
   border-radius: 15px;
   border: 2px solid;
+}
+
+.plantname {
+  display: grid;
+}
+
+.imageUpload {
+  display: grid;
+}
+
+.uploadButton {
+  display: grid;
+}
+
+.regenerateButton {
+  display: grid;
+}
+
+.submitButton {
+  display: grid;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* Adjust margin and width values as needed */
+  margin: 10px;
+}
+
+.image-inner-container {
+  width: calc(35% - 10px); /* Adjust width to fit three images in a row */
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.container * {
+  font-family: "Itim";
+}
+
+.container {
+  z-index: 1;
+  font-family: "Pacifico";
+  place-self: center;
+  display: grid;
+  place-items: center;
+  text-align: center;
+
+  animation-name: fade-in;
+  animation-duration: 3s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+}
+
+.container h1 {
+  font-family: "Pacifico";
+  font-size: 3.2rem;
+  color: lightblue;
+  -webkit-text-stroke: 1px solid blue;
+  line-height: 1;
+  margin: 0;
+  margin-bottom: 25px;
+}
+
+.container form {
+  display: grid;
+  row-gap: 0.8rem;
+}
+
+.container button {
+  position: relative;
+  margin-top: 9px;
+  place-self: stretch;
+  font-size: 19px;
+  color: lightseagreen;
+  border: 2px transparent;
+  background: linear-gradient(#f2caf394, #f2caf394),
+    url(/src/assets/backgrounds/floral-wp.jpg);
+  background-position: center;
+  background-size: 400px;
+  font-family: "Varela Round";
+  padding: 14px 20px;
+  border-radius: 100vmax;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.container button:hover {
+  color: purple;
+}
+
+.container p {
+  width: max-content;
+  padding: 7px 20px;
+  border-radius: 100vmax;
+  background-color: rgba(253, 253, 253, 0.658);
+  font-weight: 500;
+}
+
+.container a {
+  font-weight: 500;
+}
+
+.input {
+  padding: 0.5em;
+  font-size: 18px;
+  line-height: 1;
+  background: linear-gradient(rgba(54, 4, 66, 0.041), rgba(54, 4, 66, 0.041)),
+    url(/src/assets/images/opaque_flower.svg) 0 100% repeat-x;
+  background-repeat: repeat-x;
+  width: 177px;
+  border: none;
+  padding: 12px 14px;
+  padding-left: 40px;
+  outline: none;
+  color: pink;
+  border-radius: 100vmax;
+}
+
+.input::placeholder {
+  position: relative;
+  color: lightblue;
 }

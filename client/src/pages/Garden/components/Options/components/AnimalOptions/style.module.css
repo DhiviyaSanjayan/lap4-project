@@ -1,0 +1,150 @@
+.container {
+  position: fixed;
+  color: white;
+  /* width: 70vw;
+  height: 70vh; */
+
+  background: linear-gradient(rgba(0, 0, 0, 0.493), rgba(0, 0, 0, 0.493)),
+    url(/src/assets/backgrounds/wood-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  border-style: ridge;
+  border-color: rgb(49, 34, 34);
+  border-width: 8px;
+  border-radius: 2rem;
+  padding: 1.5rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 0.7fr 0.5fr 0.7fr;
+  grid-template-rows: min-content 1fr;
+}
+
+.container > * {
+  padding: 1rem;
+}
+
+.image-container {
+  place-self: stretch;
+  max-height: 40vw;
+  max-width: 30vh;
+  background-color: rgba(255, 255, 255, 0.123);
+  border-radius: 1.5rem;
+  padding: 0.2rem;
+  display: grid;
+  place-items: center;
+}
+
+.image-container > img {
+  place-self: center;
+  width: 60%;
+}
+
+.close {
+  all: unset;
+  justify-self: end;
+  cursor: pointer;
+  padding: 0.1rem;
+}
+
+.close > svg {
+  height: 100%;
+}
+.close path {
+  fill: red;
+}
+.close:hover path {
+  fill: maroon;
+}
+
+.drop-down {
+  border: none;
+  font-size: 1.2rem;
+  border-radius: 100vmax;
+  padding: 0 1rem;
+  border: none;
+  color: white;
+  background-color: white;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url(/src/assets/arrow-down-circle.svg), rgba(255, 255, 255, 0.123);
+  background-repeat: no-repeat;
+  background-size: 1.4rem;
+  background-position: right 0.4rem top 50%;
+}
+
+.drop-down option {
+  color: black;
+}
+
+.info {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.123);
+  border-radius: 1.5rem;
+  padding: 1rem;
+  grid-column: span 3;
+}
+
+.info > h4 {
+  text-decoration: underline;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 0.2rem;
+}
+
+.wellbeing {
+  background-color: rgba(255, 255, 255, 0.123);
+  border-radius: 1.5rem;
+  padding: 0.2rem;
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: min-content;
+  gap: 1rem;
+}
+
+.load-bar {
+  border-radius: 15px;
+  background-color: lightgrey;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.progress-bar {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  z-index: 0;
+  transition-property: width;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+}
+
+.load-bar > span {
+  color: black;
+  z-index: 1;
+  text-align: center;
+  position: relative;
+}
+
+.count {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.123);
+  border-radius: 1.5rem;
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-rows: min-content;
+}
+
+.count > span {
+  color: black;
+  border-radius: 15px;
+  background-color: white;
+  text-align: center;
+}

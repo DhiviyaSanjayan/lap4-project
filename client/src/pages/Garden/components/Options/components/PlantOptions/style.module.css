@@ -1,0 +1,148 @@
+.container {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.356);
+  color: white;
+
+  background: linear-gradient(rgba(0, 0, 0, 0.493), rgba(0, 0, 0, 0.493)),
+    url(/src/assets/backgrounds/wood-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  border-style: ridge;
+  border-color: rgb(49, 34, 34);
+  border-width: 8px;
+  border-radius: 2rem;
+  padding: 1.5rem;
+
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 0.6fr 1.1fr;
+  grid-template-rows: 0.4fr 0.6fr;
+}
+
+.top-left {
+  place-self: stretch;
+  background-color: rgba(255, 255, 255, 0.123);
+  border-radius: 1.5rem;
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: auto min-content;
+  gap: 1rem;
+}
+
+.dp {
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+}
+.dp > h4 {
+  font-size: 1.3rem;
+  text-decoration: underline;
+  line-height: 1;
+  margin: 0;
+}
+.dp > img {
+  width: 90%;
+}
+
+.bottom-left {
+  display: grid;
+  place-items: center;
+}
+
+.top-right {
+  place-self: stretch;
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 1rem;
+  display: grid;
+  place-items: center;
+  grid-template-rows: min-content auto;
+  gap: 1rem;
+}
+
+.top-right > h4 {
+  font-size: 1.3rem;
+  text-decoration: underline;
+  line-height: 1;
+  margin: 0;
+  text-align: center;
+}
+
+.description-container {
+  display: grid;
+  place-items: center;
+}
+
+.description {
+  max-width: 23vw;
+  max-height: 23vh;
+  overflow-y: auto;
+}
+
+.close {
+  all: unset;
+  position: absolute;
+  width: 1.5vw;
+  height: 1.5vw;
+  top: 0;
+  right: 0;
+  justify-self: end;
+  cursor: pointer;
+  padding: 0.1rem;
+}
+
+.close > svg {
+  height: 100%;
+}
+.close path {
+  fill: red;
+}
+.close:hover path {
+  fill: maroon;
+}
+
+.bottom-right {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.bottom-right > div:last-child {
+  grid-column: span 2;
+}
+
+.load-bar {
+  border-radius: 15px;
+  background-color: lightgrey;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.progress-bar {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  z-index: 0;
+  transition-property: width;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+}
+
+:global(#soil-moisture) .progress-bar {
+  background-color: aqua;
+}
+:global(#soil-fertility) .progress-bar {
+  background-color: chartreuse;
+}
+
+.load-bar > span {
+  color: black;
+  z-index: 1;
+  text-align: center;
+  position: relative;
+}

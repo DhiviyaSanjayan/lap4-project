@@ -37,12 +37,12 @@ CREATE TABLE plant (
     plant_name VARCHAR(200) NOT NULL,
     perenual_id INT NOT NULL,
     pic_filename VARCHAR NOT NULL,
-    wellbeing FLOAT NOT NULL DEFAULT 100 CHECK (
+    wellbeing FLOAT NOT NULL DEFAULT 50 CHECK (
         wellbeing BETWEEN 0
         AND 100
     ),
     plant_exp INT NOT NULL DEFAULT 0,
-    plant_beauty INT NOT NULL DEFAULT 1 CHECK (
+    plant_beauty INT NOT NULL DEFAULT 5 CHECK (
         plant_beauty BETWEEN 1
         AND 10
     ),
@@ -114,16 +114,16 @@ INSERT INTO
     animal (user_id, animal_type, wellbeing, count, influence, info)
 VALUES
     (1, 'Birds', 100, 5, 60, 'They improve the wellbeing of your plants by singing to them'),
-    (1, 'Bees', 85, 60, 10, 'The pollinate your plant allowing them to grow better'),
+    (1, 'Bees', 85, 60, 10, 'They pollinate your plant allowing them to grow better'),
     (1, 'Lady Bugs', 85, 100, 50, 'They feed on the bugs which damage your plants');
 
 INSERT INTO
     plant (user_id, pet_name, plant_name, perenual_id, pic_filename)
 VALUES
-    (1, 'Steven', 'European Silver Fir', 1, 'cartoon--rose.png'),
-    (1, 'Jason', 'windflower', 808, 'cartoon--rose.png'),
-    (1, 'Barbara', 'African daisy', 924, 'cartoon--rose.png'),
-    (1, 'Rebecca', 'Dahlia', 2301, 'cartoon--rose.png');
+    (1, 'Tom', 'Lilium', 4829, '1692200798157--Lilium.png'),
+    (1, 'Monia', 'Tulipa alberti', 7996, '1692201221357--Tulipa.png'),
+    (1, 'Sarah', 'Wild Pansy', 8282, 'wild_pansy.png'),
+    (1, 'Simon', 'Erigeron glaucus ''Sea Breeze''', 8559, 'Erigeron-glaucus-1.png');
 
 INSERT INTO
     display (

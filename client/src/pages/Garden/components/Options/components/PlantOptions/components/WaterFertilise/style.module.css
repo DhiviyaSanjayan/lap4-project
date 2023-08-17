@@ -1,0 +1,54 @@
+.container {
+  border-radius: 15px;
+  background-color: rgba(211, 211, 211, 0.212);
+  position: relative;
+  display: grid;
+  padding: 1rem;
+  grid-template-rows: min-content 1fr;
+  gap: 1rem;
+}
+.container > div {
+  text-align: center;
+  text-decoration: underline;
+}
+.inner-container {
+  column-gap: 1rem;
+  row-gap: 0.3rem;
+  display: grid;
+  grid-template-columns: min-content auto;
+}
+.inner-container > * {
+  border-radius: 7px;
+  border: none;
+}
+.fertilise-input,
+.water-input {
+  width: 40%;
+}
+.cost {
+  text-align: center;
+  display: grid;
+  place-items: center;
+}
+.cost > h4 {
+  margin: 0;
+}
+.coin {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  background: url(/src/assets/images/flower_coin.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+.inner-container input {
+  grid-column: span 2;
+  padding: 0.2rem 0.4rem;
+}
+.submit {
+  cursor: pointer;
+  grid-row: span 2;
+  font-size: 1vw;
+}

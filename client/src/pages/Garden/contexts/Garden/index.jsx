@@ -14,8 +14,8 @@ export const GardenProvider = ({ children }) => {
     (async () => {
       const gameInfo = await fetchAllUserInfo();
       setDisplay(gameInfo.display);
-      setPlants(gameInfo.plants);
-      setAnimals(gameInfo.animals);
+      setPlants(gameInfo.plants.sort((a, b) => a.plant_id < b.plant_id));
+      setAnimals(gameInfo.animals.sort((a, b) => a.animal_id < b.animal_id));
       setUser(gameInfo.user);
     })();
   }, []);

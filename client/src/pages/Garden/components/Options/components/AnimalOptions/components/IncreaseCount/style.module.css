@@ -1,0 +1,48 @@
+.container {
+  border-radius: 15px;
+  background-color: rgba(211, 211, 211, 0.212);
+  position: relative;
+  display: grid;
+  padding: 1rem;
+  grid-template-rows: min-content 1fr;
+  gap: 1rem;
+}
+.inner-container {
+  gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.3fr 1fr;
+}
+.container > div {
+  text-align: center;
+  text-decoration: underline;
+}
+.inner-container > * {
+  border-radius: 7px;
+  border: none;
+}
+.cost {
+  text-align: center;
+  display: grid;
+  place-items: center;
+}
+.cost > h4 {
+  margin: 0;
+}
+.coin {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  background: url(/src/assets/images/flower_coin.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+.inner-container input {
+  grid-column: span 2;
+  padding: 0.2rem 0.4rem;
+}
+.submit {
+  cursor: pointer;
+}

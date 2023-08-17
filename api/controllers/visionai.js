@@ -92,7 +92,7 @@ class visionaiController {
 
       const labelReturn = labels.map((label) => label.description);
 
-      res.status(200).json({ 'label': labelReturn, 'colors': colors, 'dominentColorInHex': hexColor, 'nearestColor': nearestColor });
+      res.status(200).json({ 'labels': labelReturn, 'colors': colors, 'dominentColorInHex': hexColor, 'nearestColor': nearestColor });
     } catch (error) {
       res.status(500).json({ error: err.message });
     }

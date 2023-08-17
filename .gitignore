@@ -4,4 +4,4 @@ coverage
 package-lock.json
 api/google-account-vision-key.json
 .gitignore
-/api/uploads
+/api/uploads/plants_test

@@ -1,8 +1,5 @@
-
 import { useGarden } from "../../contexts";
-import PlantOptions from "../PlantOptions";
-import AnimalOptions from "../AnimalOptions";
-
+import { PlantOptions, AnimalOptions } from "./components";
 import styles from "./style.module.css";
 
 export default function Options() {
@@ -14,15 +11,16 @@ export default function Options() {
     setAnimalOptions,
     animals,
   } = useGarden();
-  console.log(animals)
   return (
-    <>
-      {animals.length && animalOptions && (
-        <AnimalOptions {...{ animalOptions, setAnimalOptions, animals }} />
-      )}
-      {plants.length && plantOptions && (
-        <PlantOptions {...{ plantOptions, setPlantOptions, plants }} />
-      )}
-    </>
+    (animalOptions || plantOptions) && (
+      <div className={styles["outer-container"]}>
+        {animals.length && animalOptions && (
+          <AnimalOptions {...{ animalOptions, setAnimalOptions, animals }} />
+        )}
+        {plants.length && plantOptions && (
+          <PlantOptions />
+        )}
+      </div>
+    )
   );
 }
