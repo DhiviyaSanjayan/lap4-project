@@ -55,7 +55,6 @@ export default function AddPlant() {
         const data = await response.json();
         writePopup(`Pick your favourite image below:`);
         console.log("OpenAI gereration done.");
-        console.log(data.data);
         setimgOutput(data.data);
       } else {
         const data = [
@@ -104,7 +103,7 @@ export default function AddPlant() {
 
         const result = await response.json();
         //set specices state variable
-        setSpecies(result.result.classification.suggestions[0].name);
+        setSpecies(result.result.classification.suggestions[0].name || "Rosa");
       } else {
         setSpecies("Rosa"); // Rose
       }
@@ -125,7 +124,7 @@ export default function AddPlant() {
 
         const data = await response.json();
         //set plant colour state variable
-        setPlantColor(data.dominentColorInHex);
+        setPlantColor(data.dominentColorInHex || "#FF0000");
       } else {
         setPlantColor("#FF0000"); // Red
       }
@@ -187,7 +186,8 @@ export default function AddPlant() {
 
       formData.append("pet_name", inputText);
       formData.append("plant_name", species); //plant species
-      formData.append("perenual_id", (await getPerenualID(species)) || 7777); //perenual id, the API might not always work so added a or here for easy testing.
+      formData.append("perenual_id", (await getPerenualID(species)) || 7777); 
+      //perenual id, the API might be rate limited so added mock data here for easy testing.
 
       const createPlantResponse = await fetch(
         `${import.meta.env.VITE_SERVER}/plants`,
