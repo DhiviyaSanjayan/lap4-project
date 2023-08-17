@@ -18,7 +18,7 @@ export default function Options() {
           <AnimalOptions {...{ animalOptions, setAnimalOptions, animals }} />
         )}
         {plants.length && plantOptions && (
-          <PlantOptions {...{ plantOptions, setPlantOptions, plants }} />
+          <PlantOptions />
         )}
       </div>
     )

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const getPerenualID = async (species) => {
-    const key = import.meta.env.VITE_PERENUAL_KEY ?? "sk-jeE564d6cf901cf241798";
+    const key = import.meta.env.VITE_PERENUAL_KEY ?? "sk-g9wC64ddeb847a7301906";
 
     const firstPartOfSpecies = species.split(" ")[0];
 
