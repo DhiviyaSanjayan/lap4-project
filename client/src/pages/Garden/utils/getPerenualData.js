@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const getPerenualData = async (id) => {
-  const key = import.meta.env.VITE_PERENUAL_KEY ?? "sk-jeE564d6cf901cf241798";
+  const key = import.meta.env.VITE_PERENUAL_KEY ?? "sk-q9eK64d756aa381e91851";
   try {
     const { data } = await axios.get(
       `https://perenual.com/api/species/details/${id}?key=${key}`

@@ -114,16 +114,16 @@ INSERT INTO
     animal (user_id, animal_type, wellbeing, count, influence, info)
 VALUES
     (1, 'Birds', 100, 5, 60, 'They improve the wellbeing of your plants by singing to them'),
-    (1, 'Bees', 85, 60, 10, 'The pollinate your plant allowing them to grow better'),
+    (1, 'Bees', 85, 60, 10, 'They pollinate your plant allowing them to grow better'),
     (1, 'Lady Bugs', 85, 100, 50, 'They feed on the bugs which damage your plants');
 
 INSERT INTO
     plant (user_id, pet_name, plant_name, perenual_id, pic_filename)
 VALUES
-    (1, 'Steven', 'European Silver Fir', 1, 'cartoon--rose.png'),
-    (1, 'Jason', 'windflower', 808, 'cartoon--rose.png'),
-    (1, 'Barbara', 'African daisy', 924, 'cartoon--rose.png'),
-    (1, 'Rebecca', 'Dahlia', 2301, 'cartoon--rose.png');
+    (1, 'Tom', 'Lilium', 4829, '1692200798157--Lilium.png'),
+    (1, 'Monia', 'Tulipa alberti', 7996, '1692201221357--Tulipa.png');
+    -- (1, 'Sarah', 'Rosa rubiginosa', 6900, 'rosa.png'),
+    -- (1, 'Simon', 'Dahlia', 2301, 'rosa.png');
 
 INSERT INTO
     display (

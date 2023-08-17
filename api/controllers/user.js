@@ -1,6 +1,7 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
+const Animal = require("../models/Animal");
 const Display = require("../models/Display");
 const Token = require("../models/token");
 
@@ -15,10 +16,20 @@ class UserController {
 
       const result = await User.createUser(data);
       //create display for new user
-      await Display.createMyDisplay(result.user_id, {name:`${result.username}'s Garden Box`})
+      await Display.createMyDisplay(result.user_id, { name: `${result.username}'s Garden Box` })
+
+      const animalObjs = [
+        ['Birds', 60, 'They improve the wellbeing of your plants by singing to them'],
+        ['Bees', 10, 'They pollinate your plant allowing them to grow better'],
+        [ 'Lady Bugs', 50, 'They feed on the bugs which damage your plants']
+      ];
+      for (let animal of animalObjs) {
+        await Animal.createAnAnimal(result.user_id, { animal_type: animal[0], influence: animal[1], info: animal[2] } )
+      }
+     
       res.status(201).send(result);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       switch (+error.code) {
         case 23505:
           res
