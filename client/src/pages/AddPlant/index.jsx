@@ -8,6 +8,8 @@ const API_URL = "https://plant.id/api/v3/identification";
 const API_KEY = import.meta.env.VITE_PLANTID_KEY;
 
 export default function AddPlant() {
+  const mock = true; //toggle this to true to skip all external API calls. Useful when rate limit is reached.
+
   const [inputText, setInputText] = useState("");
   const [species, setSpecies] = useState(""); //plant species detected by Plant.id
   const [imgFile, setImgFile] = useState(""); // Image uploaded by user
@@ -28,9 +30,7 @@ export default function AddPlant() {
       //Draw the flower ${species} without stem, using ${plantColor} as a dominant colour in a realistic style using a white background.
 
       console.log(promptText);
-
       writePopup(`Generating images for your ${species} plant...`);
-
       generateImage(promptText);
     }
   }, [species, plantColor, regenerate]);
@@ -43,18 +43,42 @@ export default function AddPlant() {
     };
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER}/openai`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+      if (!mock) {
+        const response = await fetch(`${import.meta.env.VITE_SERVER}/openai`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        });
 
-      const data = await response.json();
-      writePopup(`Pick your favourite image below:`);
-      console.log("OpenAI gereration done.");
-      setimgOutput(data.data);
+        const data = await response.json();
+        writePopup(`Pick your favourite image below:`);
+        console.log("OpenAI gereration done.");
+        console.log(data.data);
+        setimgOutput(data.data);
+      } else {
+        const data = [
+          {
+            url: "http://localhost:5173/src/assets/mock/sample1.jpg",
+          },
+          {
+            url: `http://localhost:5173/src/assets/mock/sample2.jpg`,
+          },
+          {
+            url: `http://localhost:5173/src/assets/mock/sample3.jpg`,
+          },
+          {
+            url: `http://localhost:5173/src/assets/mock/sample4.jpg`,
+          },
+          {
+            url: `http://localhost:5173/src/assets/mock/sample5.jpg`,
+          },
+        ];
+        setimgOutput(data);
+        console.log("Using Mock data.");
+        writePopup(`[Mocking] Pick your favourite image below:`);
+      }
     } catch (error) {
       console.error("Error generating image:", error);
     }
@@ -68,41 +92,52 @@ export default function AddPlant() {
 
       console.log("PlantID", data["images"]);
 
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Api-Key": API_KEY,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      if (!mock) {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Api-Key": API_KEY,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
 
-      const result = await response.json();
-      //set specices state variable
-      setSpecies(result.result.classification.suggestions[0].name);
+        const result = await response.json();
+        //set specices state variable
+        setSpecies(result.result.classification.suggestions[0].name);
+      } else {
+        setSpecies("Rosa"); // Rose
+      }
     }
 
     async function idPlantColor(imgFile) {
-      let formData = new FormData();
-      formData.append("image", imgFile);
+      if (!mock) {
+        let formData = new FormData();
+        formData.append("image", imgFile);
 
-      const response = await fetch(`${import.meta.env.VITE_SERVER}/visionai`, {
-        method: "POST",
-        body: formData,
-      });
+        const response = await fetch(
+          `${import.meta.env.VITE_SERVER}/visionai`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
-      const data = await response.json();
-      //set plant colour state variable
-      setPlantColor(data.dominentColorInHex);
+        const data = await response.json();
+        //set plant colour state variable
+        setPlantColor(data.dominentColorInHex);
+      } else {
+        setPlantColor("#FF0000"); // Red
+      }
     }
 
     /////////////////////////////
     //Start of the main function
     /////////////////////////////
     e.preventDefault();
-    setSpecies("")
-    setPlantColor("")
-    setimgOutput([])
+    setSpecies("");
+    setPlantColor("");
+    setimgOutput([]);
 
     //Check if user selected an image file
     if (!imgFile) {
