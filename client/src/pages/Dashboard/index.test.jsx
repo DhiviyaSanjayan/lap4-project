@@ -15,7 +15,7 @@ describe("Dashboard Page", () => {
 
   afterAll(() => {
     cleanup();
-    vi.restoreAllMocks(); // Restore all mocked functions after each test
+    vi.restoreAllMocks();
   });
 
   it("renders without crashing", async () => {
