@@ -14,5 +14,5 @@ app.listen(port, () => {
 //5sec interval
 setInterval(updateTablesRegular, 5000);
 
-//30 sec interval
+//40 sec interval
 setInterval(updateTablesInfrequent, 30000);

@@ -62,32 +62,66 @@ export default function PlantOptions() {
         </button>
         <h4>Description</h4>
         <div className={styles["desc-container"]}>
-          {description ? (
+          {selectedPlantId == 1 ? (
             <div className={styles["description"]}>
-              {description.replace(/(?:\r\n|\r|\n)/g, "<br>")}
+              Lilium is a genus of about 100 species of bulbous, herbaceous
+              perennials native to Europe, North America and Asia south to the
+              Philippines. Lilies typically feature 6-tepaled flowers in a
+              variety of shapes (trumpet, funnel, cup, bell, bowl or flat),
+              sometimes nodding, sometimes with reflexed petals, atop stiff,
+              unbranched stems (1-8' tall) clothed with linear to elliptic
+              leaves. Flowers are often fragrant and come in a broad range of
+              colors except blue.
+            </div>
+          ) : selectedPlantId == 2 ? (
+            <div className={styles["description"]}>
+              Tulipa alberti (albertii is preferred by some experts), commonly
+              known as Albert’s tulip, is a species tulip (Division 15) that
+              grows to compact 6-8” tall. Each bulb produces 3-4 linear,
+              glaucous, undulate, broad-lanceolate, blue-green leaves (to 6”
+              long). An erect flowering stem rises up from each bulb to 8” tall
+              in April bearing a solitary, cup-shaped, orange-scarlet
+              (occasionally yellow) tulip with a yellow-margined, dark purple to
+              black basal blotch. This tulip is native to central Asia
+              (Turkestan, Kazakhstan, Kyrgyzstan and Uzbekistan).
+            </div>
+          ) : selectedPlantId == 3 ? (
+            <div className={styles["description"]}>
+              The Viola tricolor called the wild pansy, this tiny herbaceous
+              annual, biennial, or short-lived perennial wildflower was
+              introduced to North America from Europe. It is found in
+              lichen-dominated or meadow-like rocky outcrops, dry and sloping
+              meadows, banks, fields, gardens, wastelands, sand fields, as well
+              as seaside beaches. It does not have a basal rosette unlike some
+              other violets but has an alternate leave arrangement instead. Its
+              three-colored (hence the name) flowers can produce up to 50 seeds
+              in each capsule making it spread easily though it is not
+              particularly aggressive. Water this plant regularly but do not
+              overwater.
+            </div>
+          ) : selectedPlantId == 4 ? (
+            <div className={styles["description"]}>
+              Erigeron glaucus 'Sea Breeze' is also known as the Seaside
+              Daisy. Erigeron glaucus 'Sea Breeze' is a low-growing, spreading
+              semi hardy coastal plant with blue-grey leaves and lavender pink,
+              semi-double, daisy like flowers with yellow discs at its centre.
+              Flowers from late spring onwards. Height 30cm / 12" Spread 45cm /
+              18". This variety loves to grow in the coastal areas. It is
+              classed as borderline hardy and it may need some protection from
+              frost in colder inland areas.
             </div>
           ) : (
             <div className={styles["description"]}>
-              "Watering European silver fir trees is essential for them to stay
-              healthy. It is important to provide them with regular watering,
-              especially during their first growing season, as they need to
-              establish a good root system. A weekly deep watering is all they
-              need, but they should be more frequently watered during periods of
-              drought and heat. The soil should always be kept moist but never
-              soggy.\n\nIf they are planted in a container, they should be
-              watered more frequently as they can dry out quickly in containers.
-              The soil should be kept moist but never overly wet. Overwatering
-              can lead to root rot, so be sure not to overwater. When watering a
-              container grown European Silver Fir, wait for the top 1-2 inches
-              of soil to dry out before watering again.\n\nMulching around a
-              European silver fir is a great way to help with water retention
-              and help the soil stay moist. An organic mulch, such as wood chips
-              or shredded bark, can help to keep the soil from drying out and
-              also help reduce the amount of time spent watering. It also helps
-              suppress weeds and keeps the roots protected from extreme
-              temperatures.\n\nOverall, regular and consistent watering is
-              important for young European silver fir trees to help them grow
-              and thrive.
+              The common sunflower has a green erect stem covered in coarse
+              hairs, growing on average around 2m tall. The leaves are broad,
+              with serrated edges, and are alternately arranged on the stem. The
+              ‘flower’ of the common sunflower is actually a pseudanthium, or
+              flowerhead, made up of many small flowers. The outer yellow
+              ‘petals’ on the flowerhead are known as ray flowers and are made
+              up of multiple petals fused together. Ray petals are usually
+              yellow but can sometimes be red or orange. The black-brown flowers
+              in the centre of the head, called disk flowers, grow in a spiral
+              formation, and mature into sunflower seeds over time.
             </div>
           )}
         </div>

@@ -33,7 +33,7 @@ export default function Login() {
       if (status === 201) {
         localStorage.setItem("token", data.token);
         setUser(data.user);
-        setTimeout(() => goTo("/garden"), 2000);
+        setTimeout(() => goTo("/addplant"), 2000);
       }
     } catch (error) {
       writePopup(error.response.data.error);
