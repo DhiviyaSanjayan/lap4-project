@@ -8,6 +8,6 @@ export default function perc2Color(perc) {
 		g = 255;
 		r = Math.round(510 - 5.10 * perc);
 	}
-	var h = r * 0x10000 + g * 0x100 + b * 0x1;
+	let h = r * 0x10000 + g * 0x100 + b * 0x1;
 	return '#' + ('000000' + h.toString(16)).slice(-6);
 }
