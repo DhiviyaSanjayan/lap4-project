@@ -1,8 +1,6 @@
 import { GardenProvider } from "./contexts";
 import styles from "./style.module.css";
-import { Box, Options, Nav } from "./components";
-
-import { useLayoutEffect } from "react";
+import { Box, Options, Status } from "./components";
 
 export default function Garden() {
 
@@ -10,7 +8,7 @@ export default function Garden() {
     <GardenProvider>
       <main className={styles["container"]}>
         <Box />
-        <Nav />
+        <Status />
         <Options />
       </main>
     </GardenProvider>

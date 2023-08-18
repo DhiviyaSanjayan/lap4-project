@@ -47,7 +47,7 @@ export default function WaterFertilise({
 
   return (
     <div className={styles["container"]}>
-      <div className={styles["prompt"]}>Water or fertilise your plants</div>
+      <div className={styles["prompt"]}>Water or fertilise your plant</div>
       <form className={styles["inner-container"]} onSubmit={handleSubmit}>
         <div className={styles["water-input"]}>
           <div>Water</div>
@@ -61,6 +61,18 @@ export default function WaterFertilise({
             onChange={(e) => setWaterInput(e.target.value)}
           />
         </div>
+        <div className={styles["fertilise-input"]}>
+          <div>Fertiliser</div>
+          <input
+            type="number"
+            name="fertilise"
+            min={0}
+            size="1"
+            value={fertiliseInput}
+            data-testid="fertilise-input"
+            onChange={(e) => setFertiliseInput(e.target.value)}
+          />
+        </div>
         <button
           className={styles["submit"]}
           disabled={
@@ -71,18 +83,6 @@ export default function WaterFertilise({
         >
           Add To Plant
         </button>
-        <div className={styles["fertilise-input"]}>
-          <div>Fertiliser</div>
-          <input
-            type="number"
-            name="fertilise"
-            min={0}
-            size={1}
-            value={fertiliseInput}
-            data-testid="fertilise-input"
-            onChange={(e) => setFertiliseInput(e.target.value)}
-          />
-        </div>
       </form>
     </div>
   );

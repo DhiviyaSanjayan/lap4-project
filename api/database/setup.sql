@@ -67,9 +67,9 @@ CREATE TABLE display (
         weather BETWEEN 0
         AND 10
     ),
-    capacity INT NOT NULL DEFAULT 5 CHECK (
+    capacity INT NOT NULL DEFAULT 16 CHECK (
         capacity BETWEEN 1
-        AND 25
+        AND 16
     ),
     pest_level FLOAT NOT NULL DEFAULT 0 CHECK (
         pest_level BETWEEN 0
@@ -106,24 +106,24 @@ VALUES
     (
         'cors',
         '$2b$10$.pj1LTt4HxpVVg6fZDhdFOMBfiywBTikuDqx3KjDy85aJNyZ4IoJC',
-        1000000,
+        100000,
         90000
     );
 
 INSERT INTO
     animal (user_id, animal_type, wellbeing, count, influence, info)
 VALUES
-    (1, 'Birds', 100, 5, 60, 'They improve the wellbeing of your plants by singing to them'),
-    (1, 'Bees', 85, 60, 10, 'They pollinate your plant allowing them to grow better'),
-    (1, 'Lady Bugs', 85, 100, 50, 'They feed on the bugs which damage your plants');
+    (1, 'Birds', 22, 2, 60, 'They improve the wellbeing of your plants by singing to them'),
+    (1, 'Bees', 54, 5, 10, 'They pollinate your plant allowing them to grow better'),
+    (1, 'Lady Bugs', 75, 17, 50, 'They feed on the bugs which damage your plants');
 
 INSERT INTO
-    plant (user_id, pet_name, plant_name, perenual_id, pic_filename)
+    plant (user_id, pet_name, plant_name, perenual_id, pic_filename, plant_beauty, soil_moisture, soil_fertility)
 VALUES
-    (1, 'Tom', 'Lilium', 4829, '1692200798157--Lilium.png'),
-    (1, 'Monia', 'Tulipa alberti', 7996, '1692201221357--Tulipa.png'),
-    (1, 'Sarah', 'Wild Pansy', 8282, 'wild_pansy.png'),
-    (1, 'Simon', 'Erigeron glaucus ''Sea Breeze''', 8559, 'Erigeron-glaucus-1.png');
+    (1, 'Tom', 'Lilium', 4829, '1692200798157--Lilium.png', 7, 13, 65),
+    (1, 'Monia', 'Tulipa alberti', 7996, '1692201221357--Tulipa.png', 9, 34, 54),
+    (1, 'Sarah', 'Wild Pansy', 8282, 'wild_pansy.png', 5, 76, 14),
+    (1, 'Simon', 'Erigeron glaucus ''Sea Breeze''', 8559, 'Erigeron-glaucus-1.png', 6, 76, 78);
 
 INSERT INTO
     display (

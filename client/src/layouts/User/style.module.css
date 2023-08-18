@@ -10,7 +10,6 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  height: 2.5rem;
   
   padding: 10px 40px;
   display: flex;
@@ -18,24 +17,32 @@
   justify-content: center;
   align-items: center;
 
-  background: url(/src/assets/grass_nav.svg);
+
+  background: url(/src/assets/backgrounds/wood-background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: bottom;
+  background-position: center;
+  border-style: ridge;
+  border-width: 8px;
+  border-top: 0;
+  border-radius: 0px 0px 15px 15px;
+  border-color: rgb(54, 43, 43);
 }
 
 .nav {
   position: relative;
-  bottom: 0.6rem;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
   column-gap: 3rem;
   color: white;
+  width: 27vw;
 }
 
 .nav a {
   text-decoration: none;
   color: white;
+  font-size: 1.2rem;
 }
 
 .nav a:hover {

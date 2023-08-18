@@ -3,6 +3,7 @@ import axios from "axios";
 import style from "./style.module.css";
 import { Popup, writePopup } from "../../components";
 import getPerenualID from "../Garden/utils/getPerenualID";
+import { Navigate } from "react-router-dom";
 
 const API_URL = "https://plant.id/api/v3/identification";
 const API_KEY = import.meta.env.VITE_PLANTID_KEY;
@@ -19,6 +20,8 @@ export default function AddPlant() {
   const [cartoonURL, setCartoonURL] = useState(""); // The URL of the OpenAI image selected by user with radio button
   const [message, setMessage] = useState("This is a message."); // Message to be displayed on page
   const token = localStorage.getItem("token");
+
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     if (species && plantColor) {
@@ -186,7 +189,7 @@ export default function AddPlant() {
 
       formData.append("pet_name", inputText);
       formData.append("plant_name", species); //plant species
-      formData.append("perenual_id", (await getPerenualID(species)) || 7777); 
+      formData.append("perenual_id", (await getPerenualID(species)) || 7777);
       //perenual id, the API might be rate limited so added mock data here for easy testing.
 
       const createPlantResponse = await fetch(
@@ -226,72 +229,111 @@ export default function AddPlant() {
     setRegenerate((regenerate) => !regenerate);
   }
 
+  const StepButton = ({ next, str, page }) => {
+    return (
+      <button
+        className={`${style["step"]} ${next ? style["next"] : style["last"]}`}
+        onClick={() => {
+          setPage(page);
+        }}
+        type="button"
+      >
+        {str}
+      </button>
+    );
+  };
   return (
     <div className={style["outer-container"]}>
       <main className={style["inner-container"]}>
-        <h1>Add your plant</h1>
-
+        <h1>Add A plant To Your Garden</h1>
         <form onSubmit={handleSubmit}>
-          <div className={style["container"]}>
-            <label htmlFor="name">Name:</label>
-            <input
-              className={style["plantname"]}
-              type="text"
-              id="name"
-              placeholder="Username"
-              autoComplete="off"
-              required
-              value={inputText}
-              onChange={handleInput}
-            />
-          </div>
-          <div className={style["container"]}>
-            <label htmlFor="imageUpload">Upload Image:</label>
-            <input
-              className={style["imageUpload"]}
-              type="file"
-              name="plant_pic"
-              id="imageUpload"
-              accept="image/*"
-              onChange={handleImageUpload}
-            />
-          </div>
-          <div className={style["buttonContainer"]}>
-            <button
-              className={style["uploadButton"]}
-              type="upload"
-              onClick={handleUpload}
-            >
-              Upload
-            </button>
-            {imgOutput.length > 0 && (
+          {page == 0 ? (
+            <div id="page1" className={style["page"]}>
+              <p>Give your plant a personal/pet name</p>
+              <div className={style["container"]}>
+                <label htmlFor="name">Name:</label>
+                <input
+                  className={style["plantname"]}
+                  type="text"
+                  id="name"
+                  placeholder="Pet Name"
+                  required
+                  value={inputText}
+                  onChange={handleInput}
+                />
+              </div>
+              <StepButton next={true} str="Next Step" page={1} />
+            </div>
+          ) : page == 1 ? (
+            <div id="page2" className={style["page"]}>
+              <p>
+                Upload an image of the type of plant you want to add to your
+                garden
+              </p>
+              <div className={style["container"]}>
+                <label htmlFor="imageUpload">Upload Image:</label>
+                <input
+                  className={style["imageUpload"]}
+                  type="file"
+                  name="plant_pic"
+                  id="imageUpload"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
+              </div>
               <button
-                className={style["regenerateButton"]}
-                type="button"
-                onClick={toggleRegenerate}
+                className={style["uploadButton"]}
+                type="upload"
+                onClick={(e) => {
+                  handleUpload(e);
+                  setPage(2);
+                }}
               >
-                Regenerate
+                Upload
               </button>
-            )}
-          </div>
-          <div className={style["image-container"]}>
-            {imgOutput.length > 0 &&
-              imgOutput.map((img, index) => (
-                <div key={index} className={style["image-inner-cointainer"]}>
-                  <p>Image {index + 1}</p>
-                  <img src={img.url} alt={`Image ${index}`} />
-                  <input
-                    type="radio"
-                    name="Cartoon"
-                    value={img.url}
-                    onChange={handleRadioButton}
-                  />
-                </div>
-              ))}
-          </div>
-          <button className={style["submitButton"]} type="submit">
-            Submit
-          </button>
+              {imgFile && <StepButton next={true} str="Next Step" page={2} />}
+              <StepButton next={false} str="Last Step" page={0} />
+            </div>
+          ) : page == 2 ? (
+            <div id="page3" className={style["page"]}>
+              {imgOutput.length > 0 && (
+                <button
+                  className={style["regenerateButton"]}
+                  type="button"
+                  onClick={toggleRegenerate}
+                >
+                  Regenerate
+                </button>
+              )}
+              <p>
+                Select an image of the photo of the plant you want to add to
+                your garden
+              </p>
+              <div className={style["image-container"]}>
+                {imgOutput.length > 0 &&
+                  imgOutput.map((img, index) => (
+                    <div key={index} className={style["image-inner-container"]}>
+                      <p>Image {index + 1}</p>
+                      <img src={img.url} alt={`Image ${index}`} />
+                      <input
+                        type="radio"
+                        name="Cartoon"
+                        value={img.url}
+                        onChange={handleRadioButton}
+                      />
+                    </div>
+                  ))}
+              </div>
+              <StepButton next={false} str="Last Step" page={1} />
+              <button
+                disabled={!cartoonURL}
+                className={style["submitButton"]}
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
+          ) : null}
         </form>
       </main>
     </div>

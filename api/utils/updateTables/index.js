@@ -47,14 +47,14 @@ async function updateUsersInfo(user_id) {
       t * (gardenDisplay["weather"] / 10) * sunIntensity * growthMultiplier;
 
     const updatedSM = plant["soil_moisture"] - sMReduction;
-    plant["soil_moisture"] = updatedSM < 0 ? 0 : updatedSM;
+    plant["soil_moisture"] = updatedSM < 0 ? 0 : Math.round(updatedSM);
 
     //find the percentage decrease in soil fertility
     const pBTax = (plant["plant_beauty"] / 10) * 3;
     const pETax = (Math.min(plant["plant_exp"], 10000) / 10000) * 3;
     const sFReduction = (t * 0.5 + pBTax + pETax) * growthMultiplier;
     const updatedSF = plant["soil_fertility"] - sFReduction;
-    plant["soil_fertility"] = updatedSF < 0 ? 0 : updatedSF;
+    plant["soil_fertility"] = updatedSF < 0 ? 0 :  Math.round(updatedSF);
 
     //calculate the new wellbeing of the plant
     const { idealSoilFertility, idealSoilMoisture } =
@@ -90,7 +90,7 @@ async function updateUsersInfo(user_id) {
       100 -
       (soilFertilityIAV + soilMoistureIAV + pestLevel + weather) / 4 +
       animalBenefit;
-    plant["wellbeing"] = plantWellbeing > 100 ? 100 : plantWellbeing;
+    plant["wellbeing"] = plantWellbeing > 100 ? 100 : Math.round(plantWellbeing);
     //increase plant exp based on the plants current wellbeing
     plant["plant_exp"] = parseInt(plant["plant_exp"] + plantWellbeing * 1.5);
 
@@ -104,12 +104,12 @@ async function updateUsersInfo(user_id) {
     const precipTax = ((10 - gardenDisplay["weather"]) / 10) * 2;
     const wBReduction = t * 0.3 + pLTax + precipTax;
     const updatedWB = animal["wellbeing"] - wBReduction;
-    animal["wellbeing"] = updatedWB < 0 ? 0 : updatedWB;
+    animal["wellbeing"] = updatedWB < 0 ? 0 : Math.round(updatedWB);
 
     //find the decrease in animal count if any
     const countReduction = wBReduction > 3 ? 1 : 0;
     const updatedCount = animal["count"] - countReduction;
-    animal["count"] = updatedCount < 0 ? 0 : updatedCount;
+    animal["count"] = updatedCount < 0 ? 0 : Math.round(updatedCount);
 
     const updatedAnimal = await animal.updateThisAnimal({ ...animal });
     console.log(updatedAnimal);
@@ -124,7 +124,7 @@ async function updateUsersInfo(user_id) {
     (ladyBugs["wellbeing"] / 100) * (ladyBugs["count"] - 15) * 0.12;
   const updatedPL = gardenDisplay["pest_level"] + pestChange;
   gardenDisplay["pest_level"] =
-    updatedPL > 100 ? 100 : updatedPL < 0 ? 0 : updatedPL;
+    updatedPL > 100 ? 100 : updatedPL < 0 ? 0 : Math.round(updatedPL);
 
   const updatedGarden = await gardenDisplay.updateThisDisplay({ ...gardenDisplay });
   console.log(updatedGarden);
@@ -142,7 +142,7 @@ async function updateTablesInfrequent() {
     const udpatedWeather =
       gardenDisplay["weather"] + Math.round(Math.random() * 4 - 2);
     gardenDisplay["weather"] =
-      udpatedWeather > 100 ? 100 : udpatedWeather < 0 ? 0 : udpatedWeather;
+      udpatedWeather > 100 ? 100 : udpatedWeather < 0 ? 0 : Math.round(udpatedWeather);
 
     const updatedGarden = await gardenDisplay.updateThisDisplay({
       ...gardenDisplay,

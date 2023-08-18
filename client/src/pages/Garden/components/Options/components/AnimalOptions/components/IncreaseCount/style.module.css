@@ -1,11 +1,13 @@
 .container {
   border-radius: 15px;
-  background-color: rgba(211, 211, 211, 0.212);
   position: relative;
   display: grid;
   padding: 1rem;
   grid-template-rows: min-content 1fr;
   gap: 1rem;
+  border-style: inset;
+  border-color: rgb(54, 43, 43);
+  border-width: 4px;
 }
 .inner-container {
   gap: 1rem;
@@ -42,7 +44,25 @@
 .inner-container input {
   grid-column: span 2;
   padding: 0.2rem 0.4rem;
+  font-size: 1.1rem;
+  border-style: inset;
 }
 .submit {
   cursor: pointer;
+  color: white;
+  background-color: transparent;
+  border-style: ridge;
+  border-color: rgb(54, 43, 43);
+  border-width: 6px;
+}
+.submit:hover {
+  background-color: rgba(0, 128, 0, 0.397);
+  border-color: green;
+}
+.submit:active {
+  background-color: rgba(5, 204, 5, 0.74);
+}
+.submit:disabled {
+  background-color: rgb(65, 65, 65);
+  cursor: unset;
 }

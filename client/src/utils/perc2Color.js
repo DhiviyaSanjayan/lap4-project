@@ -1,5 +1,5 @@
 export default function perc2Color(perc) {
-	var r, g, b = 0;
+	let r, g, b = 0;
 	if(perc < 50) {
 		r = 255;
 		g = Math.round(5.1 * perc);

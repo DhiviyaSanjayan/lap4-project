@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts";
-import { Logo, Backgrounds, GetStarted } from "./components";
+import {  Backgrounds, GetStarted } from "./components";
 import style from "./style.module.css";
 
 export default function Guest() {
@@ -17,7 +17,6 @@ export default function Guest() {
     <>
       <main className={style["container"]}>
         <Backgrounds />
-        {/* <Logo /> */}
         <GetStarted />
         <Outlet />
       </main>

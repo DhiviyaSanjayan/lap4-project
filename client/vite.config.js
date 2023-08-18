@@ -24,7 +24,7 @@ export default defineConfig({
   coverage: {
     reporter: ["text", "json", "html", "lcov"],
   },
-  assetsInclude: ["**/*.html", "**/*.css", "**/*.js", "**/*.json"],
+  // assetsInclude: ["**/*.html", "**/*.css", "**/*.js", "**/*.json"],
 });
 // import { defineConfig } from "vite";
 

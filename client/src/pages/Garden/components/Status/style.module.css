@@ -1,0 +1,119 @@
+.status {
+  position: fixed;
+  transform: translateY(570%);
+  font-size: 1.1vw;
+  width: 70vw;
+
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+}
+
+.exp {
+  color: white;
+  display: grid;
+  place-items: center;
+  background: url(/src/assets/images/wheel_barrow.svg);
+  background-repeat: no-repeat;
+  overflow: visible;
+  background-size: contain;
+  background-position: center;
+}
+
+.coins {
+  color: white;
+  display: grid;
+  place-items: center;
+  background: url(/src/assets/images/flower_coin.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.weather {
+  color: white;
+  display: grid;
+  place-items: center;
+  background: url(/src/assets/images/weather.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.pests {
+  color: white;
+  display: grid;
+  place-items: center;
+  background: url(/src/assets/images/pest.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.g-name {
+  font-size: 2.6vw;
+  color: white;
+}
+
+.options {
+  position: fixed;
+  z-index: 4;
+
+  top: 2.5vw;
+  left: 2.5vw;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  border-style: outset;
+  border-width: 5px;
+  text-align: center;
+  color: white;
+  height: 5vw;
+  width: 5vw;
+  cursor: pointer;
+  background: linear-gradient(rgba(0, 0, 0, 0.493), rgba(0, 0, 0, 0.493)),
+    url(/src/assets/images/animals/ladybug.gif),
+    url(/src/assets/backgrounds/wood-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover, 4vw, cover;
+  background-position: center;
+  font-size: 1vw;
+}
+
+.options:hover {
+  color: gold;
+}
+
+@keyframes levitate {
+  50% {
+    translate: 0% -4%;
+  }
+}
+
+.coins,
+.exp,
+.pests,
+.weather {
+  position: relative;
+  animation-name: levitate;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  width: 4vw;
+  height: 3vw;
+  color: black;
+}
+
+.coins > span,
+.exp > span,
+.pests > span,
+.weather > span {
+  position: absolute;
+  left: 50%;
+  color: white;
+  font-size: 0.8vw;
+  width: max-content;
+  white-space: nowrap;
+  text-transform: capitalize;
+  transform: translate(-50%, -200%);
+}
