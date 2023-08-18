@@ -16,7 +16,7 @@ class UserController {
 
       const result = await User.createUser(data);
       //create display for new user
-      await Display.createMyDisplay(result.user_id, { name: `${result.username}'s Garden Box` })
+      await Display.createMyDisplay(result.user_id, { name: `${result.username}'s Garden Bed` })
 
       const animalObjs = [
         ['Birds', 60, 'They improve the wellbeing of your plants by singing to them'],

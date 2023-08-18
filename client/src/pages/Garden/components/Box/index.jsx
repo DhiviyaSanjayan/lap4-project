@@ -6,6 +6,7 @@ import moveLadyBug from "./utils/moveLadyBug";
 import bird from "../../../../assets/images/animals/bird.gif";
 import bee from "../../../../assets/images/animals/bee.gif";
 import ladybug from "../../../../assets/images/animals/ladybug.gif";
+import butterfly from "../../../../assets/images/animals/butterfly.gif";
 import notes from "../../../../assets/images/animals/musical_notes.gif";
 
 import styles from "./style.module.css";
@@ -68,6 +69,7 @@ export default function Box() {
           <img className={styles["bird2"]} src={bird} alt="bird gif" />
           <img id="bee1" className={styles["bee"]} src={bee} alt="bee gif" />
           <img id="bee2" className={styles["bee"]} src={bee} alt="bee gif" />
+          <img id="butterfly" className={styles["butterfly"]} src={butterfly} alt="butterfly gif" />
           <img
             className={styles["notes1"]}
             src={notes}

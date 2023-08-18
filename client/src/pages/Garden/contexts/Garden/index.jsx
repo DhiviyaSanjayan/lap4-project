@@ -18,6 +18,18 @@ export const GardenProvider = ({ children }) => {
       setAnimals(gameInfo.animals.sort((a, b) => a.animal_id < b.animal_id));
       setUser(gameInfo.user);
     })();
+
+    const timeout = setInterval(() => {
+      (async () => {
+        const gameInfo = await fetchAllUserInfo();
+        setDisplay(gameInfo.display);
+        setPlants(gameInfo.plants.sort((a, b) => a.plant_id < b.plant_id));
+        setAnimals(gameInfo.animals.sort((a, b) => a.animal_id < b.animal_id));
+        setUser(gameInfo.user);
+      })();
+    }, 5000);
+
+    return () => clearInterval(timeout);
   }, []);
 
   return (

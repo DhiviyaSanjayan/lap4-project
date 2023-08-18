@@ -1,35 +1,46 @@
 .plant {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    height: 11.6vw;
-    width: 7vw;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  height: 11.6vw;
+  width: 7vw;
 }
 
 .plant:nth-child(2) {
-    bottom: 4vw;
+  bottom: 4vw;
 }
 .plant:nth-child(3) {
-    bottom: 8vw;
+  bottom: 8vw;
 }
 .plant:nth-child(4) {
-    bottom: 12vw;
+  bottom: 12vw;
 }
 
-.flower-head{
-    position: relative;
-    width: 90%;
-    top:-16%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
+.flower-head {
+  position: relative;
+  width: 90%;
+  top: -16%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
 }
-.stem{
-    position: absolute;
-    height: 70%;
-    left: 50%;
-    top: 40%;
-    transform: translateX(-50%);
-    z-index: 0;
+.stem {
+  position: absolute;
+  height: 70%;
+  left: 50%;
+  top: 40%;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.wellbeing {
+  position: absolute;
+  width: 1vw;
+  height: 1vw;
+  top: 12.2vw;
+  left: 53.7%;
+  opacity: 0.2;
+  transform: translateX(-50%);
+  border-radius: 50%;
 }

@@ -9,21 +9,23 @@
   background-size: cover;
   background-position: center;
 
-  border-style: ridge;
-  border-color: rgb(49, 34, 34);
-  border-width: 8px;
-  border-radius: 2rem;
+  border-style: outset;
+  border-color: rgb(54, 43, 43);
+  border-width: 5px;
+  border-radius: 40px;
   padding: 1.5rem;
 
   display: grid;
   gap: 1rem;
-  grid-template-columns: 0.6fr 1.1fr;
-  grid-template-rows: 0.4fr 0.6fr;
+  grid-template-columns: 0.5fr 1.1fr;
 }
 
 .top-left {
   place-self: stretch;
-  background-color: rgba(255, 255, 255, 0.123);
+  background-color: transparent;
+  border-style: outset;
+  border-color: rgb(54, 43, 43);
+  border-width: 5px;
   border-radius: 1.5rem;
   padding: 1rem;
   display: grid;
@@ -49,17 +51,17 @@
 .bottom-left {
   display: grid;
   place-items: center;
+  text-align: center;
 }
 
 .top-right {
   place-self: stretch;
   position: relative;
   border-radius: 1.5rem;
-  padding: 1rem;
   display: grid;
   place-items: center;
-  grid-template-rows: min-content auto;
   gap: 1rem;
+  grid-template-rows: min-content auto;;
 }
 
 .top-right > h4 {
@@ -72,12 +74,16 @@
 
 .description-container {
   display: grid;
+  position: relative;
   place-items: center;
+  padding: 1rem;
 }
 
 .description {
-  max-width: 23vw;
-  max-height: 23vh;
+  max-width: 30rem;
+  max-height: 14rem;
+  padding:1rem;
+  padding-top:0;
   overflow-y: auto;
 }
 
@@ -106,6 +112,7 @@
 .bottom-right {
   display: grid;
   gap: 1rem;
+  
   grid-template-columns: 1fr 1fr;
 }
 
@@ -114,12 +121,16 @@
 }
 
 .load-bar {
-  border-radius: 15px;
-  background-color: lightgrey;
+  border-radius: 100vmax;
+  background-color: rgb(211, 211, 211);
   position: relative;
   display: grid;
   place-items: center;
   overflow: hidden;
+  /* background-color: transparent; */
+  border-style: ridge;
+  border-color: rgb(54, 43, 43);
+  border-width: 6px;
 }
 
 .progress-bar {
